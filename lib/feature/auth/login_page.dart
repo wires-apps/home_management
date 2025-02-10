@@ -7,6 +7,7 @@ import 'package:home_management/core/validators/validator_utils.dart';
 import 'package:home_management/core/widgets/text_form_field.dart';
 import 'package:home_management/feature/auth/bloc/auth_bloc.dart';
 import 'package:home_management/generated/l10n.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 @RoutePage()
 class LoginPage extends StatelessWidget {
@@ -30,10 +31,26 @@ class _LoginBody extends StatelessWidget {
     return Center(
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: 30,
-          vertical: MediaQuery.of(context).size.height * 0.06,
+          horizontal: getValueForScreenType<double>(
+            context: context,
+            mobile: 30,
+            tablet: MediaQuery.of(context).size.height * 0.02,
+            desktop: MediaQuery.of(context).size.height * 0.03,
+          ),
+          vertical: getValueForScreenType<double>(
+            context: context,
+            mobile: MediaQuery.of(context).size.height * 0.02,
+            tablet: MediaQuery.of(context).size.height * 0.02,
+            desktop: 30,
+          ),
         ),
-        margin: EdgeInsets.symmetric(horizontal: 30),
+        margin: EdgeInsets.symmetric(
+            horizontal: getValueForScreenType<double>(
+          context: context,
+          mobile: 30,
+          tablet: MediaQuery.of(context).size.width * 0.26,
+          desktop: MediaQuery.of(context).size.width * 0.36,
+        )),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -43,6 +60,7 @@ class _LoginBody extends StatelessWidget {
           children: [
             Text(
               S.current.login_screen_login_in_acc,
+              maxLines: 2,
               style: const TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.w500,
@@ -124,7 +142,12 @@ class LogInButton extends StatelessWidget {
         backgroundColor: AppColors.c047839,
         padding: EdgeInsets.symmetric(
           vertical: MediaQuery.of(context).size.height * 0.016,
-          horizontal: MediaQuery.of(context).size.width * 0.3,
+          horizontal: getValueForScreenType<double>(
+            context: context,
+            mobile: MediaQuery.of(context).size.width * 0.3,
+            tablet: MediaQuery.of(context).size.height * 0.03,
+            desktop: 30,
+          ),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
@@ -147,7 +170,15 @@ class ForgetPasswordButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.42),
+      padding: EdgeInsets.only(
+        left: getValueForScreenType<double>(
+          context: context,
+          mobile: MediaQuery.of(context).size.width * 0.3,
+          tablet: 0,
+          desktop: 0,
+        ),
+      ),
+      //MediaQuery.of(context).size.width * 0.42
       child: TextButton(
         onPressed: () {
           context.read<AuthBloc>().add(LoginValidateField());
@@ -164,6 +195,7 @@ class ForgetPasswordButton extends StatelessWidget {
             color: Colors.green,
             fontSize: 14,
           ),
+          maxLines: 1,
         ),
       ),
     );
