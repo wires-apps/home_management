@@ -1,0 +1,11 @@
+{
+  "@@locale": "ru",
+  "login_screen_login_in_acc": "Войдите в свой аккаунт",
+  "login_screen_login_in_title": "Войти",
+  "login_screen_forget_password": "Забыли пароль?",
+  "login_screen_password": "Пароль",
+  "login_screen_email": "Email",
+  "error_password_too_short": "Пароль слишком короткий",
+  "error_required_field": "Обязательное поле*",
+  "error_input_email": "Неверный e-mail"
+}
