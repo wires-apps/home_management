@@ -129,6 +129,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Оплата комунальных услуг`
+  String get home_screen_payment_communal_service {
+    return Intl.message(
+      'Оплата комунальных услуг',
+      name: 'home_screen_payment_communal_service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Жалобы/Предложения`
+  String get home_screen_complaints_suggestions {
+    return Intl.message(
+      'Жалобы/Предложения',
+      name: 'home_screen_complaints_suggestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вызвать мастера`
+  String get home_screen_call_master {
+    return Intl.message(
+      'Вызвать мастера',
+      name: 'home_screen_call_master',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `База знаний`
+  String get home_screen_knowledge_base {
+    return Intl.message(
+      'База знаний',
+      name: 'home_screen_knowledge_base',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Меню`
+  String get home_screen_menu {
+    return Intl.message(
+      'Меню',
+      name: 'home_screen_menu',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
