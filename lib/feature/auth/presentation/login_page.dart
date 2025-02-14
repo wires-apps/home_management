@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/validators/validator_utils.dart';
 import 'package:home_management/core/widgets/text_form_field.dart';
 import 'package:home_management/feature/auth/bloc/auth_bloc.dart';
@@ -33,13 +35,13 @@ class _LoginBody extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: getValueForScreenType<double>(
             context: context,
-            mobile: 30,
-            tablet: MediaQuery.of(context).size.height * 0.02,
+            mobile: MediaQuery.of(context).size.width * 0.06,
+            tablet: MediaQuery.of(context).size.width * 0.02,
             desktop: MediaQuery.of(context).size.height * 0.03,
           ),
           vertical: getValueForScreenType<double>(
             context: context,
-            mobile: MediaQuery.of(context).size.height * 0.02,
+            mobile: MediaQuery.of(context).size.height * 0.03,
             tablet: MediaQuery.of(context).size.height * 0.02,
             desktop: 30,
           ),
@@ -47,7 +49,7 @@ class _LoginBody extends StatelessWidget {
         margin: EdgeInsets.symmetric(
             horizontal: getValueForScreenType<double>(
           context: context,
-          mobile: 30,
+          mobile: MediaQuery.of(context).size.width * 0.036,
           tablet: MediaQuery.of(context).size.width * 0.26,
           desktop: MediaQuery.of(context).size.width * 0.36,
         )),
@@ -58,9 +60,9 @@ class _LoginBody extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
+            AutoSizeText(
               S.current.login_screen_login_in_acc,
-              maxLines: 2,
+              maxLines: 1,
               style: const TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.w500,
@@ -145,7 +147,7 @@ class LogInButton extends StatelessWidget {
           horizontal: getValueForScreenType<double>(
             context: context,
             mobile: MediaQuery.of(context).size.width * 0.3,
-            tablet: MediaQuery.of(context).size.height * 0.03,
+            tablet: MediaQuery.of(context).size.width * 0.03,
             desktop: 30,
           ),
         ),
@@ -173,7 +175,7 @@ class ForgetPasswordButton extends StatelessWidget {
       padding: EdgeInsets.only(
         left: getValueForScreenType<double>(
           context: context,
-          mobile: MediaQuery.of(context).size.width * 0.3,
+          mobile: MediaQuery.of(context).size.width * 0.36,
           tablet: 0,
           desktop: 0,
         ),
@@ -181,7 +183,7 @@ class ForgetPasswordButton extends StatelessWidget {
       //MediaQuery.of(context).size.width * 0.42
       child: TextButton(
         onPressed: () {
-          context.read<AuthBloc>().add(LoginValidateField());
+          context.pushRoute(const HomeRoute());
         },
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(

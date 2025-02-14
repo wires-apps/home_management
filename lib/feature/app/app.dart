@@ -43,6 +43,13 @@ class _AppState extends State<AppView> {
         supportedLocales: S.delegate.supportedLocales,
         routerDelegate: _appRouter.delegate(),
         routeInformationParser: _appRouter.defaultRouteParser(),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.white,
+            brightness: Brightness.light,
+          ),
+          scaffoldBackgroundColor: Colors.white,
+        ),
       ),
     );
   }
