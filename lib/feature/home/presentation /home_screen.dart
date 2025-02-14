@@ -151,7 +151,7 @@ class _MenuButtons extends StatelessWidget {
               size: 30,
             ),
           ),
-          Gap(0),
+          const Gap(0),
         ]),
         _ItemMenu(
           onPressed: () {},
@@ -179,39 +179,8 @@ class _MenuButtons extends StatelessWidget {
   }
 }
 
-class _MainButton extends StatefulWidget {
+class _MainButton extends StatelessWidget {
   const _MainButton();
-
-  @override
-  State<_MainButton> createState() => _MainButtonState();
-}
-
-class _MainButtonState extends State<_MainButton> with WidgetsBindingObserver {
-  PersistentBottomSheetController? _bottomSheetController;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeMetrics() {
-    super.didChangeMetrics();
-    final homeBloc = context.read<HomeBloc>();
-
-    if (homeBloc.state.needToCloseDialog) {
-      // _bottomSheetController?.close();
-      // Future.delayed(const Duration(milliseconds: 400), () {});
-      // homeBloc.add(const HomeListenBottomSheet(needToCloseDialog: false));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,15 +190,9 @@ class _MainButtonState extends State<_MainButton> with WidgetsBindingObserver {
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: MediaQuery.of(context).size.height * 0.03),
           child: TextButton(
             onPressed: () {
-              _bottomSheetController = _scaffoldKey.currentState?.showBottomSheet(
-                  // context: context,
-                  // isScrollControlled: true,
+              _scaffoldKey.currentState?.showBottomSheet(
                   backgroundColor: Colors.transparent,
-                  // showDragHandle: true,
-                  // clipBehavior: Clip.hardEdge,
                   enableDrag: true,
-                  // useRootNavigator: true,
-                  // barrierColor: Colors.transparent,
                   (buildContext) {
                 return const CustomBottomSheet(
                   heightFactor: 0.7,
@@ -310,7 +273,6 @@ class _ItemMenu extends StatelessWidget {
               maxFontSize: 18,
               style: const TextStyle(
                 color: Colors.black,
-                // fontSize: 16,
               ),
             ),
           ],
