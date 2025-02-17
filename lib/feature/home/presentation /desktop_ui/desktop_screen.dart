@@ -149,8 +149,7 @@ class _SidebarMenu extends StatelessWidget {
               ),
             ),
             _ItemMenu(
-              onPressed: () {
-              },
+              onPressed: () {},
               titleButton: S.of(context).home_screen_payment_communal_service,
               icon: Icons.monetization_on,
             ),

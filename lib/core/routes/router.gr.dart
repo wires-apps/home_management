@@ -43,7 +43,7 @@ class LoginRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [NotificationPage]
+/// [NotificationMobilePage]
 class NotificationRoute extends PageRouteInfo<void> {
   const NotificationRoute({List<PageRouteInfo>? children})
     : super(NotificationRoute.name, initialChildren: children);
@@ -53,7 +53,7 @@ class NotificationRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const NotificationPage();
+      return const NotificationMobilePage();
     },
   );
 }

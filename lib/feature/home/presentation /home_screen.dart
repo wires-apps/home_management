@@ -36,15 +36,16 @@ class MobileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeBloc(),
       child: Scaffold(
+        backgroundColor: AppColors.cE9F0E8,
         key: _scaffoldKey,
         appBar: AppBar(
           title: Text('Мобильный экран'),
           backgroundColor: Colors.white,
           surfaceTintColor: Colors.white,
         ),
-        body: Container(
-          color: AppColors.cE9F0E8,
-          child: const Column(
+        body: const Padding(
+          padding: EdgeInsets.only(top:10),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _NotificationList(),
@@ -190,9 +191,7 @@ class _MainButton extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: MediaQuery.of(context).size.height * 0.03),
           child: TextButton(
             onPressed: () {
-              _scaffoldKey.currentState?.showBottomSheet(
-                  backgroundColor: Colors.transparent,
-                  enableDrag: true,
+              _scaffoldKey.currentState?.showBottomSheet(backgroundColor: Colors.transparent, enableDrag: true,
                   (buildContext) {
                 return const CustomBottomSheet(
                   heightFactor: 0.7,
