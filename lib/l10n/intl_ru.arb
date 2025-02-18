@@ -12,5 +12,9 @@
   "home_screen_complaints_suggestions": "Жалобы/Предложения",
   "home_screen_call_master": "Вызвать мастера",
   "home_screen_knowledge_base": "База знаний",
-  "home_screen_menu": "Меню"
+  "home_screen_menu": "Меню",
+  "complaints_suggestions_title": "Жалобы \nПредложения",
+  "complaints_suggestions_leave_complaint": "Оставить жалобу",
+  "complaints_suggestions_current_complaints": "Текущие жалобы",
+  "complaints_suggestions_leave_suggestion": "Оставить предложение"
 }

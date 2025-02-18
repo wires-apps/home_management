@@ -179,6 +179,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Жалобы \nПредложения`
+  String get complaints_suggestions_title {
+    return Intl.message(
+      'Жалобы \nПредложения',
+      name: 'complaints_suggestions_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Оставить жалобу`
+  String get complaints_suggestions_leave_complaint {
+    return Intl.message(
+      'Оставить жалобу',
+      name: 'complaints_suggestions_leave_complaint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Текущие жалобы`
+  String get complaints_suggestions_current_complaints {
+    return Intl.message(
+      'Текущие жалобы',
+      name: 'complaints_suggestions_current_complaints',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Оставить предложение`
+  String get complaints_suggestions_leave_suggestion {
+    return Intl.message(
+      'Оставить предложение',
+      name: 'complaints_suggestions_leave_suggestion',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

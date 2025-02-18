@@ -7,6 +7,7 @@ import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/widgets/bottom_sheet/custom_bottom_sheet.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
+import 'package:home_management/feature/complaints_suggestions/presentation/complaints_suggestions_page.dart';
 import 'package:home_management/feature/home/bloc/home_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -41,7 +42,7 @@ class MobileScreen extends StatelessWidget {
         key: _scaffoldKey,
         appBar: AppBar(
           leading: const BackButtonWidget(),
-          title: Text('Мобильный экран'),
+          title: const Text('Мобильный экран'),
           backgroundColor: Colors.white,
           surfaceTintColor: Colors.white,
         ),
@@ -157,14 +158,12 @@ class _MenuButtons extends StatelessWidget {
           const Gap(0),
         ]),
         _ItemMenu(
-          onPressed: () {
-            context.router.push(const UtilityBillsRoute());
-          },
+          onPressed: () => context.router.push(const UtilityBillsRoute()),
           titleButton: S.of(context).home_screen_payment_communal_service,
           icon: Icons.monetization_on_outlined,
         ),
         _ItemMenu(
-          onPressed: () {},
+          onPressed: () => showComplaintDialog(context),
           titleButton: S.of(context).home_screen_complaints_suggestions,
           icon: Icons.feedback,
         ),
