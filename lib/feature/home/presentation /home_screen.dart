@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/widgets/bottom_sheet/custom_bottom_sheet.dart';
+import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/feature/home/bloc/home_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -39,12 +40,13 @@ class MobileScreen extends StatelessWidget {
         backgroundColor: AppColors.cE9F0E8,
         key: _scaffoldKey,
         appBar: AppBar(
+          leading: const BackButtonWidget(),
           title: Text('Мобильный экран'),
           backgroundColor: Colors.white,
           surfaceTintColor: Colors.white,
         ),
         body: const Padding(
-          padding: EdgeInsets.only(top:10),
+          padding: EdgeInsets.only(top: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -155,7 +157,9 @@ class _MenuButtons extends StatelessWidget {
           const Gap(0),
         ]),
         _ItemMenu(
-          onPressed: () {},
+          onPressed: () {
+            context.router.push(const UtilityBillsRoute());
+          },
           titleButton: S.of(context).home_screen_payment_communal_service,
           icon: Icons.monetization_on_outlined,
         ),
@@ -188,7 +192,9 @@ class _MainButton extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: MediaQuery.of(context).size.height * 0.03),
+          margin: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.height * 0.03,
+              vertical: MediaQuery.of(context).size.height * 0.024),
           child: TextButton(
             onPressed: () {
               _scaffoldKey.currentState?.showBottomSheet(backgroundColor: Colors.transparent, enableDrag: true,
@@ -200,21 +206,19 @@ class _MainButton extends StatelessWidget {
               });
             },
             style: TextButton.styleFrom(
-              backgroundColor: AppColors.cA7BEA6,
+              backgroundColor: AppColors.c047839,
               padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.03,
-                horizontal: MediaQuery.of(context).size.width * 0.4,
+                vertical: MediaQuery.of(context).size.height * 0.024,
+                horizontal: MediaQuery.of(context).size.height * 0.02,
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            child: Text(
-              S.of(context).home_screen_menu,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-              ),
+            child: const Icon(
+              Icons.menu,
+              color: Colors.white,
+              size: 24,
             ),
           ),
         );

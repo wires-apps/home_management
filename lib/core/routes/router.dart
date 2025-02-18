@@ -3,6 +3,8 @@ import 'package:home_management/feature/auth/presentation/login_page.dart';
 import 'package:home_management/feature/home/presentation%20/home_screen.dart';
 import 'package:home_management/feature/notification/presentation/mobile_notification_page.dart';
 
+import '../../feature/public_utilities/utility_bills_page.dart';
+
 part 'router.gr.dart';
 
 @AutoRouterConfig(
@@ -22,12 +24,14 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           path: '/home',
           page: HomeRoute.page,
-          initial: false,
         ),
         AutoRoute(
           path: '/notification',
           page: NotificationRoute.page,
-          initial: false,
+        ),
+        AutoRoute(
+          path: '/utility_bills',
+          page: UtilityBillsRoute.page,
         ),
       ];
 }
