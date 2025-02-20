@@ -7,8 +7,7 @@
 // ignore_for_file:unnecessary_brace_in_string_interps, unnecessary_new
 // ignore_for_file:prefer_single_quotes,comment_references, directives_ordering
 // ignore_for_file:annotate_overrides,prefer_generic_function_type_aliases
-// ignore_for_file:unused_import, file_names, avoid_escaping_inner_quotes
-// ignore_for_file:unnecessary_string_interpolations, unnecessary_string_escapes
+// ignore_for_file:unused_import, file_names
 
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
@@ -21,37 +20,23 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "complaints_suggestions_current_complaints":
-            MessageLookupByLibrary.simpleMessage("Текущие жалобы"),
-        "complaints_suggestions_leave_complaint":
-            MessageLookupByLibrary.simpleMessage("Оставить жалобу"),
-        "complaints_suggestions_leave_suggestion":
-            MessageLookupByLibrary.simpleMessage("Оставить предложение"),
-        "complaints_suggestions_title":
-            MessageLookupByLibrary.simpleMessage("Жалобы \nПредложения"),
-        "error_input_email":
-            MessageLookupByLibrary.simpleMessage("Неверный e-mail"),
-        "error_password_too_short":
-            MessageLookupByLibrary.simpleMessage("Пароль слишком короткий"),
-        "error_required_field":
-            MessageLookupByLibrary.simpleMessage("Обязательное поле*"),
-        "home_screen_call_master":
-            MessageLookupByLibrary.simpleMessage("Вызвать мастера"),
-        "home_screen_complaints_suggestions":
-            MessageLookupByLibrary.simpleMessage("Жалобы/Предложения"),
-        "home_screen_knowledge_base":
-            MessageLookupByLibrary.simpleMessage("База знаний"),
-        "home_screen_menu": MessageLookupByLibrary.simpleMessage("Меню"),
-        "home_screen_payment_communal_service":
-            MessageLookupByLibrary.simpleMessage("Оплата комунальных услуг"),
-        "login_screen_email": MessageLookupByLibrary.simpleMessage("Email"),
-        "login_screen_forget_password":
-            MessageLookupByLibrary.simpleMessage("Забыли пароль?"),
-        "login_screen_login_in_acc":
-            MessageLookupByLibrary.simpleMessage("Войдите в свой аккаунт"),
-        "login_screen_login_in_title":
-            MessageLookupByLibrary.simpleMessage("Войти"),
-        "login_screen_password": MessageLookupByLibrary.simpleMessage("Пароль")
-      };
+  static _notInlinedMessages(_) => <String, Function> {
+    "complaints_suggestions_current_complaints" : MessageLookupByLibrary.simpleMessage("Текущие жалобы"),
+    "complaints_suggestions_leave_complaint" : MessageLookupByLibrary.simpleMessage("Оставить жалобу"),
+    "complaints_suggestions_leave_suggestion" : MessageLookupByLibrary.simpleMessage("Оставить предложение"),
+    "complaints_suggestions_title" : MessageLookupByLibrary.simpleMessage("Жалобы \nПредложения"),
+    "error_input_email" : MessageLookupByLibrary.simpleMessage("Неверный e-mail"),
+    "error_password_too_short" : MessageLookupByLibrary.simpleMessage("Пароль слишком короткий"),
+    "error_required_field" : MessageLookupByLibrary.simpleMessage("Обязательное поле*"),
+    "home_screen_call_master" : MessageLookupByLibrary.simpleMessage("Вызвать мастера"),
+    "home_screen_complaints_suggestions" : MessageLookupByLibrary.simpleMessage("Жалобы/Предложения"),
+    "home_screen_knowledge_base" : MessageLookupByLibrary.simpleMessage("База знаний"),
+    "home_screen_menu" : MessageLookupByLibrary.simpleMessage("Меню"),
+    "home_screen_payment_communal_service" : MessageLookupByLibrary.simpleMessage("Оплата комунальных услуг"),
+    "login_screen_email" : MessageLookupByLibrary.simpleMessage("Email"),
+    "login_screen_forget_password" : MessageLookupByLibrary.simpleMessage("Забыли пароль?"),
+    "login_screen_login_in_acc" : MessageLookupByLibrary.simpleMessage("Войдите в свой аккаунт"),
+    "login_screen_login_in_title" : MessageLookupByLibrary.simpleMessage("Войти"),
+    "login_screen_password" : MessageLookupByLibrary.simpleMessage("Пароль")
+  };
 }

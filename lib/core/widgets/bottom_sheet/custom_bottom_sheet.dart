@@ -8,11 +8,13 @@ class CustomBottomSheet extends StatelessWidget {
     required this.mainWidget,
     required this.heightFactor,
     this.borderSideColor = Colors.white,
+    this.backgroundColor = Colors.grey,
   });
 
   final Widget mainWidget;
   final double heightFactor;
   final Color borderSideColor;
+  final Color backgroundColor;
   final Radius? topLeft;
   final Radius? topRight;
 
@@ -21,7 +23,7 @@ class CustomBottomSheet extends StatelessWidget {
     return FractionallySizedBox(
       heightFactor: heightFactor,
       child: BottomSheet(
-          backgroundColor: Colors.grey.shade400,
+          backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             side: BorderSide(
               strokeAlign: BorderSide.strokeAlignInside,

@@ -11,16 +11,16 @@ class UtilityBillsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.cF7F9F7,
+      backgroundColor: AppColors.cE0DEDE,
       appBar: AppBar(
-        backgroundColor: AppColors.cF7F9F7,
-        surfaceTintColor: AppColors.cF7F9F7,
+        backgroundColor: AppColors.cE0DEDE,
+        surfaceTintColor: AppColors.cE0DEDE,
         title: const Text('Oplata'),
         centerTitle: true,
         elevation: 0,
         leading: getDeviceType(MediaQuery.of(context).size) == DeviceScreenType.desktop
             ? const SizedBox()
-            : const BackButtonWidget(),
+            : const BackButtonAppBarWidget(),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -55,7 +55,7 @@ class _UtilityBillItem extends StatelessWidget {
         onPressed: () {},
         style: TextButton.styleFrom(
           side: const BorderSide(color: Colors.green),
-          backgroundColor: AppColors.cE9F0E8,
+          backgroundColor: AppColors.cF7F9F7,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

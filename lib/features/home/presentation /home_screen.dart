@@ -7,8 +7,8 @@ import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/widgets/bottom_sheet/custom_bottom_sheet.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
-import 'package:home_management/feature/complaints_suggestions/presentation/complaints_suggestions_page.dart';
-import 'package:home_management/feature/home/bloc/home_bloc.dart';
+import 'package:home_management/features/complaints_suggestions/presentation/complaints_suggestions_page.dart';
+import 'package:home_management/features/home/bloc/home_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../generated/l10n.dart';
@@ -38,10 +38,10 @@ class MobileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeBloc(),
       child: Scaffold(
-        backgroundColor: AppColors.cE9F0E8,
+        backgroundColor: AppColors.cE0DEDE,
         key: _scaffoldKey,
         appBar: AppBar(
-          leading: const BackButtonWidget(),
+          leading: const BackButtonAppBarWidget(),
           title: const Text('Мобильный экран'),
           backgroundColor: Colors.white,
           surfaceTintColor: Colors.white,
@@ -144,23 +144,14 @@ class _MenuButtons extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        Row(children: [
-          IconButton(
-            onPressed: () {
-              context.maybePop();
-            },
-            icon: const Icon(
-              Icons.dangerous_outlined,
-              color: AppColors.cF7F9F7,
-              size: 30,
-            ),
-          ),
-          const Gap(0),
+        const Row(children: [
+          BackButtonWidget(),
+          Gap(0),
         ]),
         _ItemMenu(
           onPressed: () => context.router.push(const UtilityBillsRoute()),
           titleButton: S.of(context).home_screen_payment_communal_service,
-          icon: Icons.monetization_on_outlined,
+          icon: Icons.monetization_on,
         ),
         _ItemMenu(
           onPressed: () => showComplaintDialog(context),
@@ -200,12 +191,13 @@ class _MainButton extends StatelessWidget {
                   (buildContext) {
                 return const CustomBottomSheet(
                   heightFactor: 0.7,
+                  backgroundColor: Colors.white,
                   mainWidget: SingleChildScrollView(child: _MenuButtons()),
                 );
               });
             },
             style: TextButton.styleFrom(
-              backgroundColor: AppColors.c047839,
+              backgroundColor: AppColors.c9EC271,
               padding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).size.height * 0.024,
                 horizontal: MediaQuery.of(context).size.height * 0.02,
@@ -245,7 +237,7 @@ class _ItemMenu extends StatelessWidget {
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.c9EC271,
           padding: EdgeInsets.symmetric(
             vertical: MediaQuery.of(context).size.height * 0.01,
             horizontal: MediaQuery.of(context).size.width * 0.04,
@@ -259,12 +251,12 @@ class _ItemMenu extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.026),
               decoration: BoxDecoration(
-                color: AppColors.cE9F0E8,
+                color: AppColors.cF7F9F7,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
                 icon,
-                color: AppColors.c8ED3AB,
+                color: AppColors.cA5BE76,
                 size: 26,
               ),
             ),
@@ -274,7 +266,7 @@ class _ItemMenu extends StatelessWidget {
               minFontSize: 16,
               maxFontSize: 18,
               style: const TextStyle(
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
           ],

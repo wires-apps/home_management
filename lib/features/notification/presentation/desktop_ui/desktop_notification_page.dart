@@ -9,9 +9,9 @@ class DesktopNotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.cE9F0E8,
+      backgroundColor: AppColors.c72A9E1,
       appBar: AppBar(
-        backgroundColor: AppColors.cE9F0E8,
+        backgroundColor: AppColors.c72A9E1,
         title: const Text(
           'Уведомление',
           style: TextStyle(color: Colors.black),

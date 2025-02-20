@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
-import 'package:home_management/feature/notification/presentation/desktop_ui/desktop_notification_page.dart';
+import 'package:home_management/features/notification/presentation/desktop_ui/desktop_notification_page.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 @RoutePage()
@@ -26,10 +26,10 @@ class MobileNotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.cE9F0E8,
+      backgroundColor: AppColors.cE0DEDE,
       appBar: AppBar(
-        leading: const BackButtonWidget(),
-        backgroundColor: AppColors.cE9F0E8,
+        leading: const BackButtonAppBarWidget(),
+        backgroundColor: AppColors.cE0DEDE,
         title: const Text(
           'Уведомление',
           style: TextStyle(color: Colors.black),
@@ -63,7 +63,7 @@ class Body extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.grey[300],
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.green),
+                border: Border.all(color: AppColors.c72A9E1),
               ),
               child: const Center(
                 child: Icon(
@@ -86,6 +86,7 @@ class Body extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(40),
+                border: Border.all(color: AppColors.c72A9E1),
               ),
               child: const Text(
                 'Введите текст уведомления...',
