@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:home_management/feature/auth/presentation/login_page.dart';
-import 'package:home_management/feature/home/presentation%20/home_screen.dart';
-import 'package:home_management/feature/notification/presentation/mobile_notification_page.dart';
+import 'package:home_management/features/auth/presentation/login_page.dart';
+import 'package:home_management/features/home/presentation%20/home_screen.dart';
+import 'package:home_management/features/notification/presentation/mobile_notification_page.dart';
+import 'package:home_management/features/public_utilities/presentation/utility_bills_page.dart';
 
 part 'router.gr.dart';
 
@@ -22,12 +23,14 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           path: '/home',
           page: HomeRoute.page,
-          initial: false,
         ),
         AutoRoute(
           path: '/notification',
           page: NotificationRoute.page,
-          initial: false,
+        ),
+        AutoRoute(
+          path: '/utility_bills',
+          page: UtilityBillsRoute.page,
         ),
       ];
 }

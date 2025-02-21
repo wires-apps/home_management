@@ -7,7 +7,7 @@ import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/validators/validator_utils.dart';
 import 'package:home_management/core/widgets/text_form_field.dart';
-import 'package:home_management/feature/auth/bloc/auth_bloc.dart';
+import 'package:home_management/features/auth/bloc/auth_bloc.dart';
 import 'package:home_management/generated/l10n.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: AppColors.cE9F0E8,
+      backgroundColor: AppColors.cE0DEDE,
       resizeToAvoidBottomInset: false,
       body: _LoginBody(),
     );
@@ -66,7 +66,7 @@ class _LoginBody extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.w500,
-                color: Colors.black,
+                color: AppColors.c224795,
               ),
             ),
             Gap(40),
@@ -141,7 +141,7 @@ class LogInButton extends StatelessWidget {
         context.read<AuthBloc>().add(LoginValidateField());
       },
       style: TextButton.styleFrom(
-        backgroundColor: AppColors.c047839,
+        backgroundColor: AppColors.c05A84F,
         padding: EdgeInsets.symmetric(
           vertical: MediaQuery.of(context).size.height * 0.016,
           horizontal: getValueForScreenType<double>(

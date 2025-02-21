@@ -1,19 +1,17 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:home_management/core/res/app_colors.dart';
 
-@RoutePage()
 class DesktopNotificationPage extends StatelessWidget {
   const DesktopNotificationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.cE9F0E8,
+      backgroundColor: AppColors.c72A9E1,
       appBar: AppBar(
-        backgroundColor: AppColors.cE9F0E8,
+        backgroundColor: AppColors.c72A9E1,
         title: const Text(
           'Уведомление',
           style: TextStyle(color: Colors.black),

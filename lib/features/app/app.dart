@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/routes/router.dart';
-import 'package:home_management/feature/auth/bloc/auth_bloc.dart';
+import 'package:home_management/features/auth/bloc/auth_bloc.dart';
 import 'package:home_management/generated/l10n.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
