@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:home_management/core/common/models/complaint_screen_type.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/generated/l10n.dart';
 
 void showComplaintDialog(BuildContext context) {
@@ -32,19 +35,31 @@ void showComplaintDialog(BuildContext context) {
                 _ListTile(
                   icon: const Icon(Icons.report, color: Colors.red),
                   title: S.of(context).complaints_suggestions_leave_complaint,
-                  onTap: () {},
+                  onTap: () {
+                    context.pushRoute(
+                      NewComplaintRoute(page: ComplaintScreenType.newComplaint),
+                    );
+                  },
                 ),
                 const Gap(10),
                 _ListTile(
                   icon: const Icon(Icons.list_alt, color: Colors.blue),
                   title: S.of(context).complaints_suggestions_current_complaints,
-                  onTap: () {},
+                  onTap: () {
+                    context.pushRoute(
+                      ComplaintsRoute(page: ComplaintScreenType.complaints),
+                    );
+                  },
                 ),
                 const Gap(10),
                 _ListTile(
                   icon: const Icon(Icons.lightbulb, color: Colors.yellowAccent),
                   title: S.of(context).complaints_suggestions_leave_suggestion,
-                  onTap: () {},
+                  onTap: () {
+                    // context.pushRoute(
+                    //   SuggestionRoute(complaintScreenType: ComplaintScreenType.complaint),
+                    // );
+                  },
                 ),
               ],
             ),

@@ -12,12 +12,16 @@ abstract class ValidatorUtils {
     return emailValid ? null : S.current.error_input_email;
   }
 
-  static String? validatePassword(String? password) {
+  static String? validateCredentials(String? password, {required bool needCheckPhone}) {
     if (password == null || password.isEmpty) {
       return S.current.error_required_field;
     }
-    if (password.length < 8) {
-      return S.current.error_password_too_short;
+    if (needCheckPhone && password.length < 17) {
+      return S.current.error_phone_too_short;
+    } else {
+      if (password.length < 11) {
+        return S.current.error_password_too_short;
+      }
     }
     return null;
   }

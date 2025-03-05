@@ -77,6 +77,16 @@ class S {
     );
   }
 
+  /// `Телефон`
+  String get login_screen_phone {
+    return Intl.message(
+      'Телефон',
+      name: 'login_screen_phone',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Пароль`
   String get login_screen_password {
     return Intl.message(
@@ -102,6 +112,16 @@ class S {
     return Intl.message(
       'Пароль слишком короткий',
       name: 'error_password_too_short',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Номер должен содержать 11 цифр.`
+  String get error_phone_too_short {
+    return Intl.message(
+      'Номер должен содержать 11 цифр.',
+      name: 'error_phone_too_short',
       desc: '',
       args: [],
     );

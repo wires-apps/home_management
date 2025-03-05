@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/bloc/base_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 part 'auth_event.dart';
 
@@ -21,7 +22,13 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  final TextEditingController phoneController = TextEditingController();
+  final maskFormatter = MaskTextInputFormatter(
+    mask: '+7 (###) ###-##-##',
+    filter: {"#": RegExp(r'[0-9]')},
+  );
+  // MaskedTextController phoneController =
+  // MaskedTextController(mask: '+7 (000) 000-00-00');
   void _onChangeEmail(
     LoginEmailChanged event,
     Emitter<AuthState> emit,
