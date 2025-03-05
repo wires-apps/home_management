@@ -1,36 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../res/app_colors.dart';
 
 class InputTextField extends StatelessWidget {
   final String? errorText;
-  final String hintText;
+  final String? hintText;
   final bool obscureText;
   final TextInputAction textInputAction;
+  final TextInputType? textInputType;
   final TextEditingController controller;
   final Function(String? value)? onChanged;
   final Widget? suffixIconButton;
+  final String? label;
+  final List<TextInputFormatter>? inputFormatters;
 
   const InputTextField({
     super.key,
     required this.errorText,
     this.obscureText = false,
     required this.controller,
-    required this.hintText,
+     this.hintText,
     required this.textInputAction,
     this.suffixIconButton,
+    this.label,
+    this.textInputType ,
     this.onChanged,
+    this.inputFormatters,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: textInputType,
       textInputAction: TextInputAction.next,
       obscureText: obscureText,
       onChanged: onChanged,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
+        labelText: label,
         suffixIcon: suffixIconButton,
         errorText: errorText,
         errorStyle: const TextStyle(fontSize: 14, color: AppColors.cCE1628),

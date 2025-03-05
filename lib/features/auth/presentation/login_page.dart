@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/validators/validator_utils.dart';
+import 'package:home_management/core/widgets/buttons/login_button.dart';
 import 'package:home_management/core/widgets/text_form_field.dart';
 import 'package:home_management/features/auth/bloc/auth_bloc.dart';
 import 'package:home_management/generated/l10n.dart';
@@ -69,13 +70,22 @@ class _LoginBody extends StatelessWidget {
                 color: AppColors.c224795,
               ),
             ),
-            Gap(40),
-            TextFieldEmail(),
-            Gap(16),
-            TextFieldPassword(),
-            ForgetPasswordButton(),
-            Gap(50),
-            LogInButton()
+            const Gap(40),
+            const _EmailTextField(),
+            const Gap(16),
+            const _PasswordTextField(),
+            const Gap(16),
+            const _PhoneTextField(),
+            const _ForgetPasswordButton(),
+            const Gap(50),
+            LogInButton(
+              onPressed: () {
+                context.pushRoute(const VerificationRoute());
+
+                // context.read<AuthBloc>().add(LoginValidateField());
+              },
+              title: S.of(context).login_screen_login_in_title,
+            )
           ],
         ),
       ),
@@ -83,8 +93,8 @@ class _LoginBody extends StatelessWidget {
   }
 }
 
-class TextFieldEmail extends StatelessWidget {
-  const TextFieldEmail({super.key});
+class _EmailTextField extends StatelessWidget {
+  const _EmailTextField();
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +113,8 @@ class TextFieldEmail extends StatelessWidget {
   }
 }
 
-class TextFieldPassword extends StatelessWidget {
-  const TextFieldPassword({super.key});
+class _PasswordTextField extends StatelessWidget {
+  const _PasswordTextField();
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +125,9 @@ class TextFieldPassword extends StatelessWidget {
           onChanged: (email) => bloc.add(LoginPasswordChanged()),
           controller: bloc.passwordController,
           hintText: S.of(context).login_screen_password,
-          errorText:
-              state.needCheckCorrectPassword ? ValidatorUtils.validatePassword(bloc.passwordController.text) : null,
+          errorText: state.needCheckCorrectPassword
+              ? ValidatorUtils.validateCredentials(bloc.passwordController.text, needCheckPhone: false)
+              : null,
           textInputAction: TextInputAction.done,
           obscureText: state.isObscured,
           suffixIconButton: IconButton(
@@ -131,43 +142,35 @@ class TextFieldPassword extends StatelessWidget {
   }
 }
 
-class LogInButton extends StatelessWidget {
-  const LogInButton({super.key});
+class _PhoneTextField extends StatelessWidget {
+  const _PhoneTextField();
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {
-        context.read<AuthBloc>().add(LoginValidateField());
+    final bloc = context.read<AuthBloc>();
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        return InputTextField(
+          onChanged: (email) => bloc.add(LoginPasswordChanged()),
+          controller: bloc.phoneController,
+          inputFormatters: [bloc.maskFormatter],
+          hintText: S.of(context).login_screen_phone,
+          textInputType: TextInputType.number,
+          errorText: state.needCheckCorrectPassword
+              ? ValidatorUtils.validateCredentials(
+                  bloc.phoneController.text,
+                  needCheckPhone: true,
+                )
+              : null,
+          textInputAction: TextInputAction.done,
+        );
       },
-      style: TextButton.styleFrom(
-        backgroundColor: AppColors.c05A84F,
-        padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * 0.016,
-          horizontal: getValueForScreenType<double>(
-            context: context,
-            mobile: MediaQuery.of(context).size.width * 0.3,
-            tablet: MediaQuery.of(context).size.width * 0.03,
-            desktop: 30,
-          ),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
-      child: Text(
-        S.of(context).login_screen_login_in_title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-        ),
-      ),
     );
   }
 }
 
-class ForgetPasswordButton extends StatelessWidget {
-  const ForgetPasswordButton({super.key});
+class _ForgetPasswordButton extends StatelessWidget {
+  const _ForgetPasswordButton();
 
   @override
   Widget build(BuildContext context) {
