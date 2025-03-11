@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/bloc/base_bloc.dart';
 import 'package:home_management/core/common/models/complaint_screen_type.dart';
+import 'package:home_management/core/network/error_handling/snack_bar_info.dart';
 import 'package:image_picker/image_picker.dart';
 
 part 'complaint_event.dart';

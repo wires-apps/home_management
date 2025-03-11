@@ -1,0 +1,10 @@
+import 'package:dartz/dartz.dart';
+import 'package:home_management/core/network/error_handling/failures.dart';
+import 'package:home_management/features/auth/models/sign_in_request_dto.dart';
+import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
+
+abstract class AuthRemoteRepository {
+  const AuthRemoteRepository();
+
+  Future<Either<Failure, SignInResponseDto>> logIn(SignInRequestDto signInRequest);
+}

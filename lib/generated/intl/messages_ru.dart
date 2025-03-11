@@ -34,11 +34,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "home_screen_knowledge_base" : MessageLookupByLibrary.simpleMessage("База знаний"),
     "home_screen_menu" : MessageLookupByLibrary.simpleMessage("Меню"),
     "home_screen_payment_communal_service" : MessageLookupByLibrary.simpleMessage("Оплата комунальных услуг"),
-    "login_screen_email" : MessageLookupByLibrary.simpleMessage("Email"),
+    "login_screen_email" : MessageLookupByLibrary.simpleMessage("personal account"),
     "login_screen_forget_password" : MessageLookupByLibrary.simpleMessage("Забыли пароль?"),
     "login_screen_login_in_acc" : MessageLookupByLibrary.simpleMessage("Войдите в свой аккаунт"),
     "login_screen_login_in_title" : MessageLookupByLibrary.simpleMessage("Войти"),
-    "login_screen_password" : MessageLookupByLibrary.simpleMessage("Пароль"),
+    "login_screen_password" : MessageLookupByLibrary.simpleMessage("password"),
     "login_screen_phone" : MessageLookupByLibrary.simpleMessage("Телефон")
   };
 }

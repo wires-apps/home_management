@@ -87,20 +87,20 @@ class S {
     );
   }
 
-  /// `Пароль`
+  /// `password`
   String get login_screen_password {
     return Intl.message(
-      'Пароль',
+      'password',
       name: 'login_screen_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Email`
+  /// `personal account`
   String get login_screen_email {
     return Intl.message(
-      'Email',
+      'personal account',
       name: 'login_screen_email',
       desc: '',
       args: [],
