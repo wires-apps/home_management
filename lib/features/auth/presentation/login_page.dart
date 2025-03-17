@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/validators/validator_utils.dart';
@@ -18,10 +19,19 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: AppColors.cE0DEDE,
-      resizeToAvoidBottomInset: false,
-      body: _LoginBody(),
+    return BlocSnackBarListenerWithChild<AuthBloc>(
+      child: Scaffold(
+        backgroundColor: AppColors.cE0DEDE,
+        resizeToAvoidBottomInset: false,
+        body: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state.screen == AuthScreen.sms) {
+              context.pushRoute(VerificationRoute(model: state.model));
+            }
+          },
+          child: const _LoginBody(),
+        ),
+      ),
     );
   }
 }
@@ -80,9 +90,9 @@ class _LoginBody extends StatelessWidget {
             const Gap(50),
             LogInButton(
               onPressed: () {
-                context.pushRoute(const VerificationRoute());
+                // context.pushRoute(const VerificationRoute());
 
-                // context.read<AuthBloc>().add(LoginValidateField());
+                context.read<AuthBloc>().add(LoginValidateField());
               },
               title: S.of(context).login_screen_login_in_title,
             )
@@ -153,7 +163,7 @@ class _PhoneTextField extends StatelessWidget {
         return InputTextField(
           onChanged: (email) => bloc.add(LoginPasswordChanged()),
           controller: bloc.phoneController,
-          inputFormatters: [bloc.maskFormatter],
+          // inputFormatters: [bloc.maskFormatter],
           hintText: S.of(context).login_screen_phone,
           textInputType: TextInputType.number,
           errorText: state.needCheckCorrectPassword

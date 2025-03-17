@@ -1,12 +1,30 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
+import 'package:home_management/core/widgets/loader.dart';
+import 'package:home_management/features/public_utilities/bloc/utility_bills_bloc.dart';
+import 'package:home_management/features/public_utilities/models/debt_item_response.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 @RoutePage()
 class UtilityBillsPage extends StatelessWidget {
   const UtilityBillsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<UtilityBillsBloc>()..add(LoadUtilityBills()),
+      child: const _Body(),
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body();
 
   @override
   Widget build(BuildContext context) {
@@ -30,22 +48,59 @@ class UtilityBillsPage extends StatelessWidget {
           tablet: MediaQuery.of(context).size.width * 0.16,
           desktop: MediaQuery.of(context).size.height * 0.4,
         )),
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return _UtilityBillItem(
-              isOverdue: index % 2 == 0 ? true : false,
+        child: BlocBuilder<UtilityBillsBloc, UtilityBillsState>(builder: (context, state) {
+          final List<DebtItemResponse> items = state.debts ?? [];
+          final bloc = context.read<UtilityBillsBloc>();
+
+          if (items.isEmpty && state.status.isSuccess) {
+            return const Center(
+              child: AutoSizeText(
+                'Коммунальные услуги отсутствуют',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: AppColors.c2A569A,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             );
-          },
-        ),
+          }
+
+          if (items.isEmpty && !state.status.isFailure) {
+            return const Loader();
+          }
+
+          return ListView.builder(
+            itemCount: items.length,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              if (state.status.isFailure) {
+                return const SizedBox();
+              }
+
+              return _UtilityBillItem(
+                isOverdue: items[index].overdue,
+                name: items[index].name,
+                amount: items[index].amount,
+              );
+            },
+          );
+        }),
       ),
     );
   }
 }
 
 class _UtilityBillItem extends StatelessWidget {
-  const _UtilityBillItem({required this.isOverdue});
+  const _UtilityBillItem({
+    required this.isOverdue,
+    required this.name,
+    required this.amount,
+  });
 
   final bool isOverdue;
+  final String name;
+  final String amount;
 
   @override
   Widget build(BuildContext context) {
@@ -65,13 +120,13 @@ class _UtilityBillItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Коммунальная услуга 1',
+              Text(
+                name,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Сумма : 2044',
+              Text(
+                'Сумма : $amount',
                 style: TextStyle(fontSize: 16),
               ),
               isOverdue

@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthBloc>(
-      create: (_) => AuthBloc(),
+      create: (_) => getIt<AuthBloc>()..add(LoginInitDevice()),
       child: const AppView(),
     );
   }

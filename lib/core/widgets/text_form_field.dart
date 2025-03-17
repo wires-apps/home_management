@@ -17,7 +17,7 @@ class InputTextField extends StatelessWidget {
 
   const InputTextField({
     super.key,
-    required this.errorText,
+     this.errorText,
     this.obscureText = false,
     required this.controller,
      this.hintText,

@@ -10,13 +10,14 @@ class ComplaintState extends BaseState {
   });
 
   final File? image;
-  final ComplaintScreenType ? page;
+  final ComplaintScreenType? page;
 
   @override
   ComplaintState copyWith({
     BaseStatus? status,
+    SnackBarInfo? dialogInfo,
     File? image,
-    ComplaintScreenType ? page,
+    ComplaintScreenType? page,
   }) =>
       ComplaintState(
         status: status ?? this.status,

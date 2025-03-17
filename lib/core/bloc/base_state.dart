@@ -6,28 +6,33 @@ enum BaseStatus {
   failure;
 
   bool get isFailure => this == BaseStatus.failure;
+
   bool get isSuccess => this == BaseStatus.success;
+
   bool get isLoading => this == BaseStatus.loading;
 }
 
 class BaseState extends Equatable {
   const BaseState({
     required this.status,
-    // this.snackBarInfo,
+    this.dialogInfo,
   });
 
   final BaseStatus status;
-  // final SnackBarInfo? snackBarInfo;
+  final SnackBarInfo? dialogInfo;
 
   BaseState copyWith({
     BaseStatus? status,
-    // SnackBarInfo? snackBarInfo,
+    SnackBarInfo? dialogInfo,
   }) =>
       BaseState(
         status: status ?? this.status,
-        // snackBarInfo: snackBarInfo,
+        dialogInfo: dialogInfo,
       );
 
   @override
-  List<Object?> get props => [status/*, snackBarInfo*/];
+  List<Object?> get props => [
+        status,
+        dialogInfo,
+      ];
 }

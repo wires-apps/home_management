@@ -9,6 +9,8 @@ abstract class AuthEvent extends BaseEvent {
 
 class LoginValidateField extends AuthEvent {}
 
+class LoginInitDevice extends AuthEvent {}
+
 class LoginEmailChanged extends AuthEvent {}
 
 class LoginPasswordChanged extends AuthEvent {}

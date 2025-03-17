@@ -87,20 +87,20 @@ class S {
     );
   }
 
-  /// `Пароль`
+  /// `password`
   String get login_screen_password {
     return Intl.message(
-      'Пароль',
+      'password',
       name: 'login_screen_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Email`
+  /// `personal account`
   String get login_screen_email {
     return Intl.message(
-      'Email',
+      'personal account',
       name: 'login_screen_email',
       desc: '',
       args: [],
@@ -182,6 +182,16 @@ class S {
     return Intl.message(
       'База знаний',
       name: 'home_screen_knowledge_base',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Активность`
+  String get home_screen_activity {
+    return Intl.message(
+      'Активность',
+      name: 'home_screen_activity',
       desc: '',
       args: [],
     );
