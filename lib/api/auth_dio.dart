@@ -1,13 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:home_management/core/res/constants.dart';
-import 'package:home_management/features/auth/repository/auth_local_repository.dart';
 
-class MainDio {
+class AuthDio {
   final Dio dio;
-  final AuthLocalRepository _authLocalRepository;
 
-  MainDio(
-    this._authLocalRepository, {
+  AuthDio({
     Dio? dio,
     List<Interceptor>? interceptors,
   }) : dio = dio ??

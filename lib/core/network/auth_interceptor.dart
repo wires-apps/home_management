@@ -1,6 +1,10 @@
-import 'package:dio/dio.dart';
-import 'package:home_management/features/auth/repository/auth_local_repository.dart';
+import 'dart:io';
 
+import 'package:dio/dio.dart';
+import 'package:home_management/core/di/dependency_injection.dart';
+import 'package:home_management/core/res/constants.dart';
+import 'package:home_management/features/auth/repository/auth_local_repository.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 class AuthInterceptor extends Interceptor {
   AuthInterceptor(this._authLocalRepository);
@@ -9,35 +13,20 @@ class AuthInterceptor extends Interceptor {
 
   @override
   Future<void> onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
-    // final email = options.data is FormData
-    //     ? (options.data as FormData)
-    //         .fields
-    //         .firstWhereOrNull((entry) => entry.key == 'username')
-    //         ?.value
-    //     : null;
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
+    final talker = getIt<Talker>();
 
-    // if (email != null) {
-    //   final mainDio = getIt<MainDio>();
-    //   if (email.toLowerCase().contains('stage')) {
-    //     await mainDio.setStageBaseUrl();
-    //     debugPrint('I contain staging here: $email');
-    //   } else {
-    //     await mainDio.setProdBaseUrl();
-    //   }
-    //   options.baseUrl = mainDio.getCurrentBaseUrl();
-    // }
-
-    // debugPrint('AuthInterceptor onRequest -> path: ${options.path}}'
-    //     '\n data: ${options.data}'
-    //     '\n baseUrl: ${options.baseUrl}'
-    //     '\n headers: ${options.headers}'
-    //     '\n email: $email'
-    //     '');
-    // if (options.path != authSignInEndpoint) {
-    //   options.headers[HttpHeaders.cookieHeader] =
-    //       await _authLocalRepository.getSessionToken();
-    // }
+    talker.info('AuthInterceptor onRequest -> path: ${options.path}}'
+        '\n data: ${options.data}'
+        '\n baseUrl: ${options.baseUrl}'
+        '\n headers: ${options.headers}'
+        '');
+    if (options.path != authSignInEndpoint) {
+      final token = await _authLocalRepository.getSessionToken();
+      options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+    }
     super.onRequest(options, handler);
   }
 }

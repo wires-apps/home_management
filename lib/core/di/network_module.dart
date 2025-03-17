@@ -1,4 +1,5 @@
-import 'package:home_management/api/api.dart';
+import 'package:home_management/api/auth_dio.dart';
+import 'package:home_management/api/main_dio.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/network/auth_interceptor.dart';
 import 'package:home_management/core/network/error_interceptor.dart';
@@ -11,8 +12,14 @@ void initNetworkModule() {
   );
   getIt.registerSingleton(ErrorInterceptor(talker: getIt()));
   getIt.registerSingleton<MainDio>(
-    MainDio(getIt(), interceptors: [
+    MainDio(interceptors: [
       getIt<AuthInterceptor>(),
+      getIt<ErrorInterceptor>(),
+      getIt<TalkerDioLogger>(),
+    ]),
+  );
+  getIt.registerSingleton<AuthDio>(
+    AuthDio(interceptors: [
       getIt<ErrorInterceptor>(),
       getIt<TalkerDioLogger>(),
     ]),

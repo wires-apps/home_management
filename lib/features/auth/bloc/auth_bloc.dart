@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/bloc/base_bloc.dart';
 import 'package:home_management/core/network/error_handling/snack_bar_info.dart';
 import 'package:home_management/features/auth/models/sign_in_request_dto.dart';
+import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
+import 'package:home_management/features/auth/repository/auth_local_repository.dart';
 import 'package:home_management/features/auth/repository/auth_remote_repository.dart';
 
 part 'auth_event.dart';
@@ -13,12 +15,15 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
-  AuthBloc(this._repository)
-      : super(const AuthState(
-          status: BaseStatus.loading,
-          screen: AuthScreen.unknown,
-          shouldInit: false,
-        )) {
+  AuthBloc(
+    this._repository,
+    this._localRepository,
+  ) : super(
+          const AuthState(
+            status: BaseStatus.loading,
+            screen: AuthScreen.unknown,
+          ),
+        ) {
     on<LoginEmailChanged>(_onChangeEmail);
     on<LoginPasswordChanged>(_onChangePhoneNumber);
     on<LoginValidateField>(_onValidField);
@@ -31,6 +36,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   final TextEditingController phoneController = TextEditingController();
 
   final AuthRemoteRepository _repository;
+  final AuthLocalRepository _localRepository;
 
   ///TODO added when backend will be ready
   // final maskFormatter = MaskTextInputFormatter(
@@ -80,6 +86,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
       state.copyWith(
         status: BaseStatus.success,
         isObscured: !state.isObscured,
+        screen: AuthScreen.unknown,
       ),
     );
   }
@@ -100,6 +107,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     LoginValidateField event,
     Emitter<AuthState> emit,
   ) async {
+    emit(state.copyWith(status: BaseStatus.loading, screen: AuthScreen.unknown));
     if (emailController.text.isEmpty || passwordController.text.isEmpty || phoneController.text.isEmpty) {
       emit(
         state.copyWith(
@@ -128,6 +136,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
           );
         },
         (r) {
+          _localRepository.saveUserId(r.userId);
           emit(
             state.copyWith(
               status: BaseStatus.success,

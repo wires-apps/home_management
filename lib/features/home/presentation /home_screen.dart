@@ -14,8 +14,6 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../../../generated/l10n.dart';
 import 'desktop_ui/desktop_screen.dart';
 
-final _scaffoldKey = GlobalKey<ScaffoldState>();
-
 @RoutePage()
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -23,36 +21,38 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (context) => const MobileScreen(),
-      tablet: (context) => const MobileScreen(),
+      mobile: (context) => MobileScreen(),
+      tablet: (context) => MobileScreen(),
       desktop: (context) => const DesktopScreen(),
     );
   }
 }
 
 class MobileScreen extends StatelessWidget {
-  const MobileScreen({super.key});
+  MobileScreen({super.key});
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeBloc(),
-      child: Scaffold(
-        backgroundColor: AppColors.cE0DEDE,
-        key: _scaffoldKey,
-        appBar: AppBar(
-          leading: const BackButtonAppBarWidget(),
-          title: const Text('Мобильный экран'),
-          backgroundColor: Colors.white,
-          surfaceTintColor: Colors.white,
-        ),
-        body: const Padding(
+    return Scaffold(
+      backgroundColor: AppColors.cE0DEDE,
+      key: _scaffoldKey,
+      appBar: AppBar(
+        leading: const BackButtonAppBarWidget(),
+        title: const Text('Мобильный экран'),
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+      ),
+      body: BlocProvider(
+        create: (context) => HomeBloc(),
+        child: Padding(
           padding: EdgeInsets.only(top: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _NotificationList(),
-              _MainButton(),
+              const _NotificationList(),
+              _MainButton(_scaffoldKey),
             ],
           ),
         ),
@@ -168,6 +168,11 @@ class _MenuButtons extends StatelessWidget {
           titleButton: S.of(context).home_screen_knowledge_base,
           icon: Icons.library_books,
         ),
+        _ItemMenu(
+          onPressed: () {},
+          titleButton: S.of(context).home_screen_activity,
+          icon: Icons.directions_run,
+        ),
         const Gap(30),
       ],
     );
@@ -175,7 +180,9 @@ class _MenuButtons extends StatelessWidget {
 }
 
 class _MainButton extends StatelessWidget {
-  const _MainButton();
+  const _MainButton(this.scaffoldKey);
+
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +194,7 @@ class _MainButton extends StatelessWidget {
               vertical: MediaQuery.of(context).size.height * 0.024),
           child: TextButton(
             onPressed: () {
-              _scaffoldKey.currentState?.showBottomSheet(backgroundColor: Colors.transparent, enableDrag: true,
+              scaffoldKey.currentState?.showBottomSheet(backgroundColor: Colors.transparent, enableDrag: true,
                   (buildContext) {
                 return const CustomBottomSheet(
                   heightFactor: 0.7,

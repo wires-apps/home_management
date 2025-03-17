@@ -187,6 +187,16 @@ class S {
     );
   }
 
+  /// `Активность`
+  String get home_screen_activity {
+    return Intl.message(
+      'Активность',
+      name: 'home_screen_activity',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Меню`
   String get home_screen_menu {
     return Intl.message(

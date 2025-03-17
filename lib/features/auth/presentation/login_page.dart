@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state.screen == AuthScreen.sms) {
-              context.pushRoute(const VerificationRoute());
+              context.pushRoute(VerificationRoute(model: state.model));
             }
           },
           child: const _LoginBody(),

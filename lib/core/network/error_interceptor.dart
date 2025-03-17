@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class ErrorInterceptor extends Interceptor {
@@ -20,10 +18,6 @@ class ErrorInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    if (err.response?.statusCode == 401 &&
-        err.requestOptions.path != '/api/users/me' &&
-        err.requestOptions.path != '/auth/login') {
-    }
     talker.error('\nonError:'
         '\nResponse: ${err.response}'
         '\nError message: ${err.message}'

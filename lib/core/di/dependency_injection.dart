@@ -5,6 +5,7 @@ import 'package:home_management/core/di/auth_injection_module.dart';
 import 'package:home_management/core/di/complaint_injection.dart';
 import 'package:home_management/core/di/network_module.dart';
 import 'package:home_management/core/di/talker_injection.dart';
+import 'package:home_management/core/di/utility_bills_injection_module.dart';
 import 'package:home_management/core/routes/di/navigation_module.dart';
 import 'package:home_management/features/auth/repository/auth_local_repository.dart';
 
@@ -26,4 +27,5 @@ Future initDependencyInjection() async {
   initNetworkModule();
   initAuthModule();
   initComplaint();
+  initUtilityBillsModule();
 }

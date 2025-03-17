@@ -230,16 +230,39 @@ class UtilityBillsRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [VerificationPage]
-class VerificationRoute extends PageRouteInfo<void> {
-  const VerificationRoute({List<PageRouteInfo>? children})
-    : super(VerificationRoute.name, initialChildren: children);
+class VerificationRoute extends PageRouteInfo<VerificationRouteArgs> {
+  VerificationRoute({
+    Key? key,
+    SignInResponseDto? model,
+    List<PageRouteInfo>? children,
+  }) : super(
+         VerificationRoute.name,
+         args: VerificationRouteArgs(key: key, model: model),
+         initialChildren: children,
+       );
 
   static const String name = 'VerificationRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const VerificationPage();
+      final args = data.argsAs<VerificationRouteArgs>(
+        orElse: () => const VerificationRouteArgs(),
+      );
+      return VerificationPage(key: args.key, model: args.model);
     },
   );
+}
+
+class VerificationRouteArgs {
+  const VerificationRouteArgs({this.key, this.model});
+
+  final Key? key;
+
+  final SignInResponseDto? model;
+
+  @override
+  String toString() {
+    return 'VerificationRouteArgs{key: $key, model: $model}';
+  }
 }

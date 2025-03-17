@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "error_password_too_short" : MessageLookupByLibrary.simpleMessage("Пароль слишком короткий"),
     "error_phone_too_short" : MessageLookupByLibrary.simpleMessage("Номер должен содержать 11 цифр."),
     "error_required_field" : MessageLookupByLibrary.simpleMessage("Обязательное поле*"),
+    "home_screen_activity" : MessageLookupByLibrary.simpleMessage("Активность"),
     "home_screen_call_master" : MessageLookupByLibrary.simpleMessage("Вызвать мастера"),
     "home_screen_complaints_suggestions" : MessageLookupByLibrary.simpleMessage("Жалобы/Предложения"),
     "home_screen_knowledge_base" : MessageLookupByLibrary.simpleMessage("База знаний"),
