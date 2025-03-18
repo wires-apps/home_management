@@ -4,6 +4,7 @@ import 'package:home_management/core/common/models/complaint_screen_type.dart';
 import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
 import 'package:home_management/features/auth/presentation/login_page.dart';
 import 'package:home_management/features/auth/presentation/verification_page.dart';
+import 'package:home_management/features/call_master/presentation%20/master_page.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaint/new_complaint_page.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/suggestion/suggestion_page.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaint/details_complaint/presentation%20/complaint_details.dart';
@@ -60,6 +61,10 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           path: '/suggestion_page',
           page: SuggestionRoute.page,
+        ),
+        AutoRoute(
+          path: '/call_master_page',
+          page: CallMasterRoute.page,
         ),
       ];
 }

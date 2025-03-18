@@ -246,6 +246,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Вызов Мастера`
+  String get call_master_app_bar_title {
+    return Intl.message(
+      'Вызов Мастера',
+      name: 'call_master_app_bar_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сделать фото`
+  String get call_master_take_photo {
+    return Intl.message(
+      'Сделать фото',
+      name: 'call_master_take_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Прикрепить фото`
+  String get call_master_attach_photo {
+    return Intl.message(
+      'Прикрепить фото',
+      name: 'call_master_attach_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вызвать Мастера`
+  String get call_master_title_button {
+    return Intl.message(
+      'Вызвать Мастера',
+      name: 'call_master_title_button',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выбор категории`
+  String get call_master_choose_category {
+    return Intl.message(
+      'Выбор категории',
+      name: 'call_master_choose_category',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

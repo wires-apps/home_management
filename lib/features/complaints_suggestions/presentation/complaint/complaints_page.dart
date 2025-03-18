@@ -68,9 +68,11 @@ class _UtilityBillItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: TextButton(
         onPressed: () {
-          context.pushRoute(ComplaintDetailsRoute(
-            page: ComplaintScreenType.complaintDetails,
-          ));
+          context.pushRoute(
+            ComplaintDetailsRoute(
+              page: ComplaintScreenType.complaintDetails,
+            ),
+          );
         },
         style: TextButton.styleFrom(
           side: const BorderSide(color: Colors.green),

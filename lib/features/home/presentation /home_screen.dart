@@ -159,7 +159,7 @@ class _MenuButtons extends StatelessWidget {
           icon: Icons.feedback,
         ),
         _ItemMenu(
-          onPressed: () {},
+          onPressed: () => context.router.push(const CallMasterRoute()),
           titleButton: S.of(context).home_screen_call_master,
           icon: Icons.construction,
         ),
