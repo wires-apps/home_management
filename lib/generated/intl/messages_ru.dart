@@ -21,6 +21,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "call_master_app_bar_title" : MessageLookupByLibrary.simpleMessage("Вызов Мастера"),
+    "call_master_attach_photo" : MessageLookupByLibrary.simpleMessage("Прикрепить фото"),
+    "call_master_choose_category" : MessageLookupByLibrary.simpleMessage("Выбор категории"),
+    "call_master_take_photo" : MessageLookupByLibrary.simpleMessage("Сделать фото"),
+    "call_master_title_button" : MessageLookupByLibrary.simpleMessage("Вызвать Мастера"),
     "complaints_suggestions_current_complaints" : MessageLookupByLibrary.simpleMessage("Текущие жалобы"),
     "complaints_suggestions_leave_complaint" : MessageLookupByLibrary.simpleMessage("Оставить жалобу"),
     "complaints_suggestions_leave_suggestion" : MessageLookupByLibrary.simpleMessage("Оставить предложение"),

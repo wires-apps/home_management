@@ -8,6 +8,8 @@ import 'package:home_management/generated/l10n.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthBloc>(

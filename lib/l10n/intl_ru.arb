@@ -19,5 +19,10 @@
   "complaints_suggestions_title": "Жалобы \nПредложения",
   "complaints_suggestions_leave_complaint": "Оставить жалобу",
   "complaints_suggestions_current_complaints": "Текущие жалобы",
-  "complaints_suggestions_leave_suggestion": "Оставить предложение"
+  "complaints_suggestions_leave_suggestion": "Оставить предложение",
+  "call_master_app_bar_title": "Вызов Мастера",
+  "call_master_take_photo": "Сделать фото",
+  "call_master_attach_photo": "Прикрепить фото",
+  "call_master_title_button": "Вызвать Мастера",
+  "call_master_choose_category": "Выбор категории"
 }
