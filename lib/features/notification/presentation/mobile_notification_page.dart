@@ -1,100 +1,196 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
+import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
+import 'package:home_management/core/widgets/loader.dart';
+import 'package:home_management/core/widgets/shimmer_image.dart';
+import 'package:home_management/features/notification/bloc/notification_bloc.dart';
+import 'package:home_management/features/notification/models/photo_model_response_dto.dart';
 import 'package:home_management/features/notification/presentation/desktop_ui/desktop_notification_page.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:shimmer/shimmer.dart';
 
 @RoutePage()
 class NotificationPage extends StatelessWidget {
-  const NotificationPage({super.key});
+  const NotificationPage({super.key, required this.id});
+
+  final int id;
 
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (context) => const MobileNotificationPage(),
-      tablet: (context) => const MobileNotificationPage(),
+      mobile: (context) => MobileNotificationPage(id: id),
+      tablet: (context) => MobileNotificationPage(id: id),
       desktop: (context) => const DesktopNotificationPage(),
     );
   }
 }
 
 class MobileNotificationPage extends StatelessWidget {
-  const MobileNotificationPage({super.key});
+  const MobileNotificationPage({super.key, required this.id});
+
+  final int id;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.cE0DEDE,
-      appBar: AppBar(
-        leading: const BackButtonAppBarWidget(),
-        backgroundColor: AppColors.cE0DEDE,
-        title: const Text(
-          'Уведомление',
-          style: TextStyle(color: Colors.black),
+    return BlocProvider(
+      create: (context) => getIt<NotificationBloc>()..add(NotificationDownload(id: id)),
+      child: BlocSnackBarListenerWithChild<NotificationBloc>(
+        child: BlocBuilder<NotificationBloc, NotificationState>(
+          builder: (context, state) {
+            print('url -------------> ${state.item?.pdfUrl}');
+            return Scaffold(
+              backgroundColor: AppColors.cE0DEDE,
+              appBar: AppBar(
+                leading: const BackButtonAppBarWidget(),
+                backgroundColor: AppColors.cE0DEDE,
+                title: const Text(
+                  'Уведомление',
+                  style: TextStyle(color: Colors.black),
+                ),
+                centerTitle: true,
+                actions: [
+                  state.item?.hasPdf == true ? _PdfButton(state.item?.pdfUrl ?? '') : SizedBox(),
+                  Gap(20),
+                ],
+                // elevation: 0,
+              ),
+              body: const Body(),
+            );
+          },
         ),
-        centerTitle: true,
-        // elevation: 0,
       ),
-      body: const Body(),
     );
   }
 }
 
 class Body extends StatelessWidget {
-  const Body({
-    super.key,
-  });
+  const Body({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 04,
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          const Gap(10),
-          Expanded(
-            flex: 1,
-            child: Container(
-              width: double.infinity,
-              height: 250,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: AppColors.c72A9E1),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.image,
-                  size: 50,
-                  color: Colors.black54,
+    return BlocBuilder<NotificationBloc, NotificationState>(
+      builder: (context, state) {
+        if (state.status.isLoading) {
+          return const Loader();
+        }
+        return Container(
+          height: MediaQuery.of(context).size.height * 04,
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const Gap(10),
+              PhotoCarousel(photoUrls: state.item?.photos),
+              const SizedBox(height: 20),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 24,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(40),
+                    border: Border.all(color: AppColors.c72A9E1),
+                  ),
+                  child: const Text(
+                    'Введите текст уведомления...',
+                  ),
                 ),
               ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class PhotoCarousel extends StatelessWidget {
+  final List<PhotoModelResponseDto>? photoUrls;
+
+  const PhotoCarousel({super.key, required this.photoUrls});
+
+  @override
+  Widget build(BuildContext context) {
+    if (photoUrls == null) {
+      return Container(
+        height: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.grey.shade500,
+        ),
+        child: const Center(
+          child: Text(
+            'Нет фото',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w200,
             ),
           ),
-          const SizedBox(height: 20),
-          Expanded(
-            flex: 2,
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 24,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(40),
-                border: Border.all(color: AppColors.c72A9E1),
-              ),
-              child: const Text(
-                'Введите текст уведомления...',
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-        ],
+        ),
+      );
+    }
+    List<String> photoPaths = photoUrls!.map((photo) => photo.path).toList();
+    if (photoPaths.length == 1) {
+      return SizedBox(
+        height: 300,
+        child: ShimmerImage(
+          borderRadius: 10,
+          imageUrl: 'http://212.112.105.242:8800/storage/${photoPaths[0]}',
+          fit: BoxFit.cover,
+          width: double.infinity,
+        ),
+      );
+    }
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: 300,
+        enlargeCenterPage: true,
+        autoPlay: true,
+        aspectRatio: 16 / 9,
+        enableInfiniteScroll: true,
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+        autoPlayCurve: Curves.fastOutSlowIn,
+        scrollDirection: Axis.horizontal,
+      ),
+      items: photoPaths.map((url) {
+        return ShimmerImage(
+          borderRadius: 10,
+          imageUrl: 'http://212.112.105.242:8800/storage/$url',
+          fit: BoxFit.cover,
+          width: double.infinity,
+        );
+      }).toList(),
+    );
+  }
+}
+
+class _PdfButton extends StatelessWidget {
+  const _PdfButton(this.url);
+
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        context.read<NotificationBloc>().add(NotificationOpenPdfUrl(url: url));
+      },
+      icon: const Icon(
+        Icons.picture_as_pdf,
+        size: 30,
+        color: AppColors.cA5BE76,
       ),
     );
   }

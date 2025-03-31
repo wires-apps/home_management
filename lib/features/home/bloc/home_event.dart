@@ -8,4 +8,12 @@ abstract class HomeEvent extends BaseEvent {
 }
 
 
+class NotificationsDownload extends HomeEvent {
+  final bool isFirstFetch;
+
+  const NotificationsDownload({required this.isFirstFetch});
+
+  @override
+  List<Object> get props => [isFirstFetch];
+}
 

@@ -32,7 +32,7 @@ void showComplaintDialog(BuildContext context) {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _ListTile(
+                ListTileWidget(
                   icon: const Icon(Icons.report, color: Colors.red),
                   title: S.of(context).complaints_suggestions_leave_complaint,
                   onTap: () {
@@ -42,7 +42,7 @@ void showComplaintDialog(BuildContext context) {
                   },
                 ),
                 const Gap(10),
-                _ListTile(
+                ListTileWidget(
                   icon: const Icon(Icons.list_alt, color: Colors.blue),
                   title: S.of(context).complaints_suggestions_current_complaints,
                   onTap: () {
@@ -52,7 +52,7 @@ void showComplaintDialog(BuildContext context) {
                   },
                 ),
                 const Gap(10),
-                _ListTile(
+                ListTileWidget(
                   icon: const Icon(Icons.lightbulb, color: Colors.yellowAccent),
                   title: S.of(context).complaints_suggestions_leave_suggestion,
                   onTap: () {
@@ -70,8 +70,9 @@ void showComplaintDialog(BuildContext context) {
   );
 }
 
-class _ListTile extends StatelessWidget {
-  const _ListTile({
+class ListTileWidget extends StatelessWidget {
+  const ListTileWidget({
+    super.key,
     required this.icon,
     required this.title,
     required this.onTap,

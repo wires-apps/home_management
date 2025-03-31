@@ -13,7 +13,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthBloc>(
-      create: (_) => getIt<AuthBloc>()..add(LoginInitDevice()),
+      create: (_) => getIt<AuthBloc>()
+        ..add(LoginInitDevice())
+        ..add(CheckSessionToken()),
       child: const AppView(),
     );
   }
@@ -31,26 +33,51 @@ class _AppState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveApp(
-      builder: (context) => MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthBloc, AuthState>(
+            listenWhen: (prev, curr) => prev.screen != curr.screen,
+            listener: (context, state) {
+              switch (state.screen) {
+                case AuthScreen.logIn:
+                  _appRouter.pushAndPopUntil<void>(const LoginRoute(), predicate: (
+                    Route<dynamic> route,
+                  ) {
+                    return false;
+                  });
+                  break;
+                case AuthScreen.home:
+                  _appRouter.replaceAll([const HomeRoute()]);
+                  break;
 
-        ///"supportedLocales" Don't work in languages other than english
-        supportedLocales: S.delegate.supportedLocales,
-        routerDelegate: _appRouter.delegate(),
-        routeInformationParser: _appRouter.defaultRouteParser(),
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.white,
-            brightness: Brightness.light,
+                case AuthScreen.sms:
+                  _appRouter.push(
+                    VerificationRoute(model: state.model),
+                  );
+              }
+            }),
+      ],
+      child: ResponsiveApp(
+        builder: (context) => MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+
+          ///"supportedLocales" Don't work in languages other than english
+          supportedLocales: S.delegate.supportedLocales,
+          routerDelegate: _appRouter.delegate(),
+          routeInformationParser: _appRouter.defaultRouteParser(),
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.white,
+              brightness: Brightness.light,
+            ),
+            scaffoldBackgroundColor: Colors.white,
           ),
-          scaffoldBackgroundColor: Colors.white,
         ),
       ),
     );

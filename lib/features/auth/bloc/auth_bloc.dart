@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/bloc/base_bloc.dart';
 import 'package:home_management/core/network/error_handling/snack_bar_info.dart';
+import 'package:home_management/features/auth/interactor/auth_interactor.dart';
 import 'package:home_management/features/auth/models/sign_in_request_dto.dart';
 import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
 import 'package:home_management/features/auth/repository/auth_local_repository.dart';
@@ -18,10 +19,10 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   AuthBloc(
     this._repository,
     this._localRepository,
+    this._interactor,
   ) : super(
           const AuthState(
             status: BaseStatus.loading,
-            screen: AuthScreen.unknown,
           ),
         ) {
     on<LoginEmailChanged>(_onChangeEmail);
@@ -29,6 +30,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     on<LoginValidateField>(_onValidField);
     on<LoginTogglePasswordVisibility>(_onChangeObscuredPassword);
     on<LoginInitDevice>(_addedDeviceInfo);
+    on<CheckSessionToken>(_onCheckSession);
   }
 
   final TextEditingController emailController = TextEditingController();
@@ -37,6 +39,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
 
   final AuthRemoteRepository _repository;
   final AuthLocalRepository _localRepository;
+  final AuthInteractor _interactor;
 
   ///TODO added when backend will be ready
   // final maskFormatter = MaskTextInputFormatter(
@@ -73,9 +76,25 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     emit(
       state.copyWith(
         status: BaseStatus.success,
+        screen: AuthScreen.logIn,
         device: device,
       ),
     );
+  }
+
+  Future<void> _onCheckSession(
+    CheckSessionToken event,
+    Emitter<AuthState> emit,
+  ) async {
+    final checkLogin = await _interactor.isUserLoggedIn();
+    if (checkLogin) {
+      emit(
+        state.copyWith(
+          status: BaseStatus.success,
+          screen: AuthScreen.home,
+        ),
+      );
+    }
   }
 
   void _onChangeObscuredPassword(
@@ -86,7 +105,6 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
       state.copyWith(
         status: BaseStatus.success,
         isObscured: !state.isObscured,
-        screen: AuthScreen.unknown,
       ),
     );
   }
@@ -107,7 +125,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     LoginValidateField event,
     Emitter<AuthState> emit,
   ) async {
-    emit(state.copyWith(status: BaseStatus.loading, screen: AuthScreen.unknown));
+    emit(state.copyWith(status: BaseStatus.loading));
     if (emailController.text.isEmpty || passwordController.text.isEmpty || phoneController.text.isEmpty) {
       emit(
         state.copyWith(
@@ -130,7 +148,6 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
           emit(
             state.copyWith(
               status: BaseStatus.failure,
-              screen: AuthScreen.unknown,
               dialogInfo: SnackBarInfo.getErrorMessage(failure),
             ),
           );

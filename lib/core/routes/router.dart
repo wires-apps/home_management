@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management/core/common/models/complaint_screen_type.dart';
+import 'package:home_management/features/activity/presentation/advertisement_page.dart';
+import 'package:home_management/features/activity/presentation/voting_page.dart';
 import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
 import 'package:home_management/features/auth/presentation/login_page.dart';
 import 'package:home_management/features/auth/presentation/verification_page.dart';
@@ -9,10 +11,13 @@ import 'package:home_management/features/complaints_suggestions/presentation/com
 import 'package:home_management/features/complaints_suggestions/presentation/suggestion/suggestion_page.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaint/details_complaint/presentation%20/complaint_details.dart';
 import 'package:home_management/features/home/presentation%20/home_screen.dart';
+import 'package:home_management/features/knowledge_base/presentation/knowledge_base_page.dart';
+import 'package:home_management/features/knowledge_base/rules/presentation/rules_page.dart';
 import 'package:home_management/features/notification/presentation/mobile_notification_page.dart';
 import 'package:home_management/features/public_utilities/presentation/utility_bills_page.dart';
 
 import '../../features/complaints_suggestions/presentation/complaint/complaints_page.dart';
+import '../../features/knowledge_base/rules/presentation/rules_details.dart';
 
 part 'router.gr.dart';
 
@@ -65,6 +70,26 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           path: '/call_master_page',
           page: CallMasterRoute.page,
+        ),
+        AutoRoute(
+          path: '/knowledge_base_page',
+          page: KnowledgeBaseRoute.page,
+        ),
+        AutoRoute(
+          path: '/rules_page',
+          page: RulesRoute.page,
+        ),
+        AutoRoute(
+          path: '/rule_details_page',
+          page: RulesDetailsRoute.page,
+        ),
+        AutoRoute(
+          path: '/voting_page',
+          page: VotingRoute.page,
+        ),
+        AutoRoute(
+          path: '/advertisement_page',
+          page: AdvertisementRoute.page,
         ),
       ];
 }

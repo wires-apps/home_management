@@ -93,7 +93,7 @@ class _NotificationItem extends StatelessWidget {
         splashColor: Colors.green.shade100,
         borderRadius: BorderRadius.circular(20),
         onTap: () {
-          context.pushRoute(const NotificationRoute());
+          // context.pushRoute(const NotificationRoute());
         },
         child: Container(
           padding: const EdgeInsets.all(20),

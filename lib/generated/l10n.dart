@@ -296,6 +296,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Голосование`
+  String get activity_voting_title {
+    return Intl.message(
+      'Голосование',
+      name: 'activity_voting_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Объявления`
+  String get activity_advertisement_title {
+    return Intl.message(
+      'Объявления',
+      name: 'activity_advertisement_title',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

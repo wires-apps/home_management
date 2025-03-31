@@ -3,7 +3,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:home_management/core/di/auth_injection_module.dart';
 import 'package:home_management/core/di/complaint_injection.dart';
+import 'package:home_management/core/di/home_injection_module.dart';
 import 'package:home_management/core/di/network_module.dart';
+import 'package:home_management/core/di/notification_module.dart';
 import 'package:home_management/core/di/talker_injection.dart';
 import 'package:home_management/core/di/utility_bills_injection_module.dart';
 import 'package:home_management/core/routes/di/navigation_module.dart';
@@ -27,5 +29,7 @@ Future initDependencyInjection() async {
   initNetworkModule();
   initAuthModule();
   initComplaint();
+  initHomeModule();
   initUtilityBillsModule();
+  initNotificationModule();
 }

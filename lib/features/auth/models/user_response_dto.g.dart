@@ -18,7 +18,6 @@ UserResponseDto _$UserResponseDtoFromJson(Map<String, dynamic> json) =>
             'name',
             'personal_account',
             'phone_number',
-            'residential_complex_id',
             'block_number',
             'apartment_number'
           ],
@@ -29,8 +28,8 @@ UserResponseDto _$UserResponseDtoFromJson(Map<String, dynamic> json) =>
           personalAccount:
               $checkedConvert('personal_account', (v) => v as String),
           phoneNumber: $checkedConvert('phone_number', (v) => v as String),
-          residentialComplexId:
-              $checkedConvert('residential_complex_id', (v) => v as String),
+          residentialComplexId: $checkedConvert(
+              'residential_complex_id', (v) => (v as num?)?.toInt()),
           blockNumber: $checkedConvert('block_number', (v) => v as String),
           apartmentNumber:
               $checkedConvert('apartment_number', (v) => v as String),
@@ -52,7 +51,8 @@ Map<String, dynamic> _$UserResponseDtoToJson(UserResponseDto instance) =>
       'name': instance.name,
       'personal_account': instance.personalAccount,
       'phone_number': instance.phoneNumber,
-      'residential_complex_id': instance.residentialComplexId,
+      if (instance.residentialComplexId case final value?)
+        'residential_complex_id': value,
       'block_number': instance.blockNumber,
       'apartment_number': instance.apartmentNumber,
     };

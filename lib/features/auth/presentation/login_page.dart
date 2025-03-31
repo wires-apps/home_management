@@ -19,18 +19,11 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSnackBarListenerWithChild<AuthBloc>(
+    return const BlocSnackBarListenerWithChild<AuthBloc>(
       child: Scaffold(
         backgroundColor: AppColors.cE0DEDE,
         resizeToAvoidBottomInset: false,
-        body: BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state.screen == AuthScreen.sms) {
-              context.pushRoute(VerificationRoute(model: state.model));
-            }
-          },
-          child: const _LoginBody(),
-        ),
+        body: _LoginBody(),
       ),
     );
   }

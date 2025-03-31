@@ -27,6 +27,7 @@ void initAuthModule() {
     () => AuthBloc(
       getIt(),
       getIt(),
+      getIt(),
     ),
   );
 
