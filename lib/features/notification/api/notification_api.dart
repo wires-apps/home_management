@@ -1,0 +1,37 @@
+import 'dart:async';
+
+import 'package:dio/dio.dart';
+import 'package:home_management/api/base_api.dart';
+import 'package:home_management/features/notification/models/notification_response_dto.dart';
+import 'package:home_management/features/notification/models/single_data_notification_response_dto.dart';
+
+class NotificationApi extends BaseApi {
+  final Dio _dio;
+
+  const NotificationApi(this._dio) : super(dio: _dio);
+
+  Future<Response<NotificationResponseDto>> getNotifications({
+    required int page,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+  }) async =>
+      callPut(
+        path: '/api/notifications',
+        method: HttpMethod.get,
+        queryParam: <String, dynamic>{
+          'page': page,
+        },
+        getData: (json) => NotificationResponseDto.fromJson(json),
+      );
+
+  Future<Response<SingleDataNotificationResponseDto>> getSingleNotification({
+    required int id,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+  }) async =>
+      callPut(
+        path: '/api/notifications/$id',
+        method: HttpMethod.get,
+        getData: (json) => SingleDataNotificationResponseDto.fromJson(json),
+      );
+}

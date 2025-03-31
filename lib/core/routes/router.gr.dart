@@ -11,9 +11,26 @@
 part of 'router.dart';
 
 /// generated route for
+/// [AdvertisementPage]
+class AdvertisementRoute extends PageRouteInfo<void> {
+  const AdvertisementRoute({List<PageRouteInfo>? children})
+    : super(AdvertisementRoute.name, initialChildren: children);
+
+  static const String name = 'AdvertisementRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AdvertisementPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CallMasterPage]
 class CallMasterRoute extends PageRouteInfo<void> {
-  const CallMasterRoute({List<PageRouteInfo>? children}) : super(CallMasterRoute.name, initialChildren: children);
+  const CallMasterRoute({List<PageRouteInfo>? children})
+    : super(CallMasterRoute.name, initialChildren: children);
 
   static const String name = 'CallMasterRoute';
 
@@ -33,10 +50,10 @@ class ComplaintDetailsRoute extends PageRouteInfo<ComplaintDetailsRouteArgs> {
     required ComplaintScreenType page,
     List<PageRouteInfo>? children,
   }) : super(
-          ComplaintDetailsRoute.name,
-          args: ComplaintDetailsRouteArgs(key: key, page: page),
-          initialChildren: children,
-        );
+         ComplaintDetailsRoute.name,
+         args: ComplaintDetailsRouteArgs(key: key, page: page),
+         initialChildren: children,
+       );
 
   static const String name = 'ComplaintDetailsRoute';
 
@@ -70,10 +87,10 @@ class ComplaintsRoute extends PageRouteInfo<ComplaintsRouteArgs> {
     required ComplaintScreenType page,
     List<PageRouteInfo>? children,
   }) : super(
-          ComplaintsRoute.name,
-          args: ComplaintsRouteArgs(key: key, page: page),
-          initialChildren: children,
-        );
+         ComplaintsRoute.name,
+         args: ComplaintsRouteArgs(key: key, page: page),
+         initialChildren: children,
+       );
 
   static const String name = 'ComplaintsRoute';
 
@@ -102,7 +119,8 @@ class ComplaintsRouteArgs {
 /// generated route for
 /// [HomePage]
 class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute({List<PageRouteInfo>? children}) : super(HomeRoute.name, initialChildren: children);
+  const HomeRoute({List<PageRouteInfo>? children})
+    : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
@@ -115,9 +133,26 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [KnowledgeBasePage]
+class KnowledgeBaseRoute extends PageRouteInfo<void> {
+  const KnowledgeBaseRoute({List<PageRouteInfo>? children})
+    : super(KnowledgeBaseRoute.name, initialChildren: children);
+
+  static const String name = 'KnowledgeBaseRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const KnowledgeBasePage();
+    },
+  );
+}
+
+/// generated route for
 /// [LoginPage]
 class LoginRoute extends PageRouteInfo<void> {
-  const LoginRoute({List<PageRouteInfo>? children}) : super(LoginRoute.name, initialChildren: children);
+  const LoginRoute({List<PageRouteInfo>? children})
+    : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
@@ -137,10 +172,10 @@ class NewComplaintRoute extends PageRouteInfo<NewComplaintRouteArgs> {
     required ComplaintScreenType page,
     List<PageRouteInfo>? children,
   }) : super(
-          NewComplaintRoute.name,
-          args: NewComplaintRouteArgs(key: key, page: page),
-          initialChildren: children,
-        );
+         NewComplaintRoute.name,
+         args: NewComplaintRouteArgs(key: key, page: page),
+         initialChildren: children,
+       );
 
   static const String name = 'NewComplaintRoute';
 
@@ -168,15 +203,66 @@ class NewComplaintRouteArgs {
 
 /// generated route for
 /// [NotificationPage]
-class NotificationRoute extends PageRouteInfo<void> {
-  const NotificationRoute({List<PageRouteInfo>? children}) : super(NotificationRoute.name, initialChildren: children);
+class NotificationRoute extends PageRouteInfo<NotificationRouteArgs> {
+  NotificationRoute({Key? key, required int id, List<PageRouteInfo>? children})
+    : super(
+        NotificationRoute.name,
+        args: NotificationRouteArgs(key: key, id: id),
+        initialChildren: children,
+      );
 
   static const String name = 'NotificationRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const NotificationPage();
+      final args = data.argsAs<NotificationRouteArgs>();
+      return NotificationPage(key: args.key, id: args.id);
+    },
+  );
+}
+
+class NotificationRouteArgs {
+  const NotificationRouteArgs({this.key, required this.id});
+
+  final Key? key;
+
+  final int id;
+
+  @override
+  String toString() {
+    return 'NotificationRouteArgs{key: $key, id: $id}';
+  }
+}
+
+/// generated route for
+/// [RulesDetailsPage]
+class RulesDetailsRoute extends PageRouteInfo<void> {
+  const RulesDetailsRoute({List<PageRouteInfo>? children})
+    : super(RulesDetailsRoute.name, initialChildren: children);
+
+  static const String name = 'RulesDetailsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RulesDetailsPage();
+    },
+  );
+}
+
+/// generated route for
+/// [RulesPage]
+class RulesRoute extends PageRouteInfo<void> {
+  const RulesRoute({List<PageRouteInfo>? children})
+    : super(RulesRoute.name, initialChildren: children);
+
+  static const String name = 'RulesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RulesPage();
     },
   );
 }
@@ -189,13 +275,13 @@ class SuggestionRoute extends PageRouteInfo<SuggestionRouteArgs> {
     required ComplaintScreenType complaintScreenType,
     List<PageRouteInfo>? children,
   }) : super(
-          SuggestionRoute.name,
-          args: SuggestionRouteArgs(
-            key: key,
-            complaintScreenType: complaintScreenType,
-          ),
-          initialChildren: children,
-        );
+         SuggestionRoute.name,
+         args: SuggestionRouteArgs(
+           key: key,
+           complaintScreenType: complaintScreenType,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'SuggestionRoute';
 
@@ -227,7 +313,8 @@ class SuggestionRouteArgs {
 /// generated route for
 /// [UtilityBillsPage]
 class UtilityBillsRoute extends PageRouteInfo<void> {
-  const UtilityBillsRoute({List<PageRouteInfo>? children}) : super(UtilityBillsRoute.name, initialChildren: children);
+  const UtilityBillsRoute({List<PageRouteInfo>? children})
+    : super(UtilityBillsRoute.name, initialChildren: children);
 
   static const String name = 'UtilityBillsRoute';
 
@@ -247,10 +334,10 @@ class VerificationRoute extends PageRouteInfo<VerificationRouteArgs> {
     SignInResponseDto? model,
     List<PageRouteInfo>? children,
   }) : super(
-          VerificationRoute.name,
-          args: VerificationRouteArgs(key: key, model: model),
-          initialChildren: children,
-        );
+         VerificationRoute.name,
+         args: VerificationRouteArgs(key: key, model: model),
+         initialChildren: children,
+       );
 
   static const String name = 'VerificationRoute';
 
@@ -276,4 +363,20 @@ class VerificationRouteArgs {
   String toString() {
     return 'VerificationRouteArgs{key: $key, model: $model}';
   }
+}
+
+/// generated route for
+/// [VotingPage]
+class VotingRoute extends PageRouteInfo<void> {
+  const VotingRoute({List<PageRouteInfo>? children})
+    : super(VotingRoute.name, initialChildren: children);
+
+  static const String name = 'VotingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const VotingPage();
+    },
+  );
 }

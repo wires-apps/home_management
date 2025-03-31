@@ -16,3 +16,4 @@ class LoginEmailChanged extends AuthEvent {}
 class LoginPasswordChanged extends AuthEvent {}
 
 class LoginTogglePasswordVisibility extends AuthEvent {}
+class CheckSessionToken extends AuthEvent {}

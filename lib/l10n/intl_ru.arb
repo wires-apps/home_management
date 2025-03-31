@@ -24,5 +24,7 @@
   "call_master_take_photo": "Сделать фото",
   "call_master_attach_photo": "Прикрепить фото",
   "call_master_title_button": "Вызвать Мастера",
-  "call_master_choose_category": "Выбор категории"
+  "call_master_choose_category": "Выбор категории",
+  "activity_voting_title": "Голосование",
+  "activity_advertisement_title": "Объявления"
 }

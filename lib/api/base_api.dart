@@ -47,14 +47,20 @@ abstract class BaseApi {
 
   Future<Response<DATA>> callPut<REQUEST, DATA>({
     required String path,
-    required REQUEST request,
+    REQUEST? request,
     required HttpMethod method,
+    Map<String, dynamic>? queryParam,
     required DATA Function(Map<String, dynamic>) getData,
   }) async {
     final options = Options(method: method.value, contentType: jsonContentType);
     dynamic bodyData = _encodeRequest(request, options.compose(dio.options, path));
 
-    final response = await dio.request<Object>(path, data: bodyData, options: options);
+    final response = await dio.request<Object>(
+      path,
+      data: bodyData,
+      options: options,
+      queryParameters: queryParam,
+    );
 
     DATA responseData = _getData(response: response, getData: getData);
 

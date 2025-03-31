@@ -19,6 +19,7 @@ class UserResponseDto extends Equatable {
     required this.blockNumber,
     required this.apartmentNumber,
   });
+
   @JsonKey(name: 'id', required: true, includeIfNull: false)
   final num id;
 
@@ -31,8 +32,8 @@ class UserResponseDto extends Equatable {
   @JsonKey(name: 'phone_number', required: true, includeIfNull: false)
   final String phoneNumber;
 
-  @JsonKey(name: 'residential_complex_id', required: true, includeIfNull: false)
-  final String residentialComplexId;
+  @JsonKey(name: 'residential_complex_id', required: false, includeIfNull: false)
+  final int? residentialComplexId;
 
   @JsonKey(name: 'block_number', required: true, includeIfNull: false)
   final String blockNumber;

@@ -1,9 +1,8 @@
 part of 'auth_bloc.dart';
 
 enum AuthScreen {
-  unknown,
+  logIn,
   home,
-  failure,
   sms,
 }
 
@@ -11,7 +10,7 @@ class AuthState extends BaseState {
   const AuthState({
     required super.status,
     super.dialogInfo,
-    this.screen = AuthScreen.unknown,
+    this.screen = AuthScreen.logIn,
     this.device,
     this.needCheckEmail = false,
     this.isObscured = true,
