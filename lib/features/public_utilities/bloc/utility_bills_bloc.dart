@@ -1,5 +1,4 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/bloc/base_bloc.dart';
 import 'package:home_management/core/network/error_handling/snack_bar_info.dart';
 import 'package:home_management/features/public_utilities/models/debt_item_response.dart';
@@ -9,7 +8,7 @@ part 'utility_bills_event.dart';
 
 part 'utility_bills_state.dart';
 
-class UtilityBillsBloc extends Bloc<UtilityBillsEvent, UtilityBillsState> {
+class UtilityBillsBloc extends BaseBloc<UtilityBillsEvent, UtilityBillsState> {
   UtilityBillsBloc(this._repository) : super(const UtilityBillsState(status: BaseStatus.success)) {
     on<LoadUtilityBills>(_onLoadUtilityBills);
   }

@@ -48,10 +48,11 @@ class ComplaintDetailsRoute extends PageRouteInfo<ComplaintDetailsRouteArgs> {
   ComplaintDetailsRoute({
     Key? key,
     required ComplaintScreenType page,
+    required int id,
     List<PageRouteInfo>? children,
   }) : super(
          ComplaintDetailsRoute.name,
-         args: ComplaintDetailsRouteArgs(key: key, page: page),
+         args: ComplaintDetailsRouteArgs(key: key, page: page, id: id),
          initialChildren: children,
        );
 
@@ -61,21 +62,27 @@ class ComplaintDetailsRoute extends PageRouteInfo<ComplaintDetailsRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ComplaintDetailsRouteArgs>();
-      return ComplaintDetailsPage(key: args.key, page: args.page);
+      return ComplaintDetailsPage(key: args.key, page: args.page, id: args.id);
     },
   );
 }
 
 class ComplaintDetailsRouteArgs {
-  const ComplaintDetailsRouteArgs({this.key, required this.page});
+  const ComplaintDetailsRouteArgs({
+    this.key,
+    required this.page,
+    required this.id,
+  });
 
   final Key? key;
 
   final ComplaintScreenType page;
 
+  final int id;
+
   @override
   String toString() {
-    return 'ComplaintDetailsRouteArgs{key: $key, page: $page}';
+    return 'ComplaintDetailsRouteArgs{key: $key, page: $page, id: $id}';
   }
 }
 

@@ -10,5 +10,9 @@ void initNotificationModule() {
     ),
   );
 
-  getIt.registerFactory(() => NotificationBloc(getIt()));
+  getIt.registerFactory(
+    () => NotificationBloc(
+      getIt(),
+    ),
+  );
 }

@@ -24,3 +24,12 @@ class ChangePage extends ComplaintDetailsEvent {
   @override
   List<Object> get props => [page];
 }
+
+class DownloadItemComplaint extends ComplaintDetailsEvent {
+  final int id;
+
+  const DownloadItemComplaint({required this.id});
+
+  @override
+  List<Object> get props => [id];
+}

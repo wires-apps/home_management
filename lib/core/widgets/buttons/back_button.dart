@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import '../../res/app_colors.dart';
 
 class BackButtonAppBarWidget extends StatelessWidget {
-  const BackButtonAppBarWidget({super.key});
+  const BackButtonAppBarWidget({super.key, this.onPressed});
+
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,10 @@ class BackButtonAppBarWidget extends StatelessWidget {
           Icons.arrow_back,
           color: AppColors.c224795,
         ),
-        onPressed: () {
-          context.router.maybePop();
-        },
+        onPressed: onPressed ??
+            () {
+              context.router.maybePop();
+            },
       ),
     );
   }

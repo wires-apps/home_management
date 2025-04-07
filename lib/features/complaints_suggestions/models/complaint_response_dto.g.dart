@@ -1,39 +1,36 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'data_notification_response_dto.dart';
+part of 'complaint_response_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-DataNotificationResponseDto _$DataNotificationResponseDtoFromJson(
+SingleComplaintResponseDto _$SingleComplaintResponseDtoFromJson(
         Map<String, dynamic> json) =>
     $checkedCreate(
-      'DataNotificationResponseDto',
+      'SingleComplaintResponseDto',
       json,
       ($checkedConvert) {
         $checkKeys(
           json,
           requiredKeys: const [
             'id',
-            'title',
+            'user_id',
             'message',
-            'type',
+            'status',
             'created_at',
             'updated_at',
             'photos'
           ],
         );
-        final val = DataNotificationResponseDto(
+        final val = SingleComplaintResponseDto(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
-          title: $checkedConvert('title', (v) => v as String),
+          userId: $checkedConvert('user_id', (v) => (v as num).toInt()),
           message: $checkedConvert('message', (v) => v as String),
-          type: $checkedConvert('type', (v) => v as String),
-          userId: $checkedConvert('user_id', (v) => (v as num?)?.toInt()),
-          residentialComplexId: $checkedConvert(
-              'residential_complex_id', (v) => (v as num?)?.toInt()),
-          createdAt: $checkedConvert('created_at', (v) => v as String?),
-          updatedAt: $checkedConvert('updated_at', (v) => v as String?),
+          status: $checkedConvert('status', (v) => v as String),
+          createdAt: $checkedConvert('created_at', (v) => v as String),
+          updatedAt: $checkedConvert('updated_at', (v) => v as String),
           photos: $checkedConvert(
               'photos',
               (v) => (v as List<dynamic>)
@@ -45,23 +42,19 @@ DataNotificationResponseDto _$DataNotificationResponseDtoFromJson(
       },
       fieldKeyMap: const {
         'userId': 'user_id',
-        'residentialComplexId': 'residential_complex_id',
         'createdAt': 'created_at',
         'updatedAt': 'updated_at'
       },
     );
 
-Map<String, dynamic> _$DataNotificationResponseDtoToJson(
-        DataNotificationResponseDto instance) =>
+Map<String, dynamic> _$SingleComplaintResponseDtoToJson(
+        SingleComplaintResponseDto instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'title': instance.title,
+      'user_id': instance.userId,
       'message': instance.message,
-      'type': instance.type,
-      if (instance.userId case final value?) 'user_id': value,
-      if (instance.residentialComplexId case final value?)
-        'residential_complex_id': value,
-      if (instance.createdAt case final value?) 'created_at': value,
-      if (instance.updatedAt case final value?) 'updated_at': value,
+      'status': instance.status,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
       'photos': instance.photos.map((e) => e.toJson()).toList(),
     };

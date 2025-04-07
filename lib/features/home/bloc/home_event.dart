@@ -7,7 +7,6 @@ abstract class HomeEvent extends BaseEvent {
   List<Object> get props => [];
 }
 
-
 class NotificationsDownload extends HomeEvent {
   final bool isFirstFetch;
 
@@ -17,3 +16,6 @@ class NotificationsDownload extends HomeEvent {
   List<Object> get props => [isFirstFetch];
 }
 
+class LogoutEvent extends HomeEvent {}
+
+class NotificationSendFcmToken extends HomeEvent {}

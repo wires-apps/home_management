@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "525943915998",
+    "project_id": "home-management-85f32",
+    "storage_bucket": "home-management-85f32.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525943915998:android:224dd62a6928d8af67894f",
+        "android_client_info": {
+          "package_name": "com.example.home_management"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6wyRbf4aC8rAC_xEEahVOhR33dpJHYYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

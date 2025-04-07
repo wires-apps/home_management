@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/common/models/complaint_screen_type.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
@@ -19,16 +20,14 @@ class ComplaintsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ComplaintBloc>(),
-      child: BlocBuilder<ComplaintBloc, ComplaintState>(
-          buildWhen: (prev, curr) => prev.page != curr.page || prev.status != curr.status || prev.image != curr.image,
-          builder: (context, state) {
-            return Scaffold(
-              backgroundColor: AppColors.cE0DEDE,
-              appBar: CustomAppBar(page: page, context: context),
-              body: const _Body(),
-            );
-          }),
+      create: (context) => getIt<ComplaintBloc>()..add(DownloadComplaint()),
+      child: BlocSnackBarListenerWithChild<ComplaintBloc>(
+        child: Scaffold(
+          backgroundColor: AppColors.cE0DEDE,
+          appBar: CustomAppBar(page: page, context: context),
+          body: const _Body(),
+        ),
+      ),
     );
   }
 }
@@ -38,29 +37,55 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: getValueForScreenType<double>(
-        context: context,
-        mobile: MediaQuery.of(context).size.width * 0.06,
-        tablet: MediaQuery.of(context).size.width * 0.16,
-        desktop: MediaQuery.of(context).size.height * 0.4,
-      )),
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return _UtilityBillItem(
-            isOverdue: index % 2 == 0 ? true : false,
+    return BlocBuilder<ComplaintBloc, ComplaintState>(
+      buildWhen: (prev, curr) =>
+          prev.page != curr.page ||
+          prev.status != curr.status ||
+          prev.image != curr.image ||
+          prev.complaints != curr.complaints,
+      builder: (context, state) {
+        if (state.status.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: AppColors.c05A84F,
+            ),
           );
-        },
-      ),
+        }
+        final complaints = state.complaints ?? [];
+        return Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: getValueForScreenType<double>(
+            context: context,
+            mobile: MediaQuery.of(context).size.width * 0.06,
+            tablet: MediaQuery.of(context).size.width * 0.16,
+            desktop: MediaQuery.of(context).size.height * 0.4,
+          )),
+          child: ListView.builder(
+            itemCount: complaints.length,
+            itemBuilder: (context, index) {
+              return _UtilityBillItem(
+                isOverdue: complaints[index].status == 'pending',
+                message: complaints[index].message,
+                id: complaints[index].id,
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
 
 class _UtilityBillItem extends StatelessWidget {
-  const _UtilityBillItem({required this.isOverdue});
+  const _UtilityBillItem({
+    required this.isOverdue,
+    required this.id,
+    this.message,
+  });
 
   final bool isOverdue;
+  final String? message;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +95,7 @@ class _UtilityBillItem extends StatelessWidget {
         onPressed: () {
           context.pushRoute(
             ComplaintDetailsRoute(
+              id: id,
               page: ComplaintScreenType.complaintDetails,
             ),
           );
@@ -90,10 +116,10 @@ class _UtilityBillItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Center(
+              Center(
                 child: Text(
-                  'Жалоба',
-                  style: TextStyle(
+                  message ?? 'Жалоба',
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,13 +8,12 @@ import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
+import 'package:home_management/core/widgets/error_dialog.dart';
 import 'package:home_management/core/widgets/loader.dart';
-import 'package:home_management/core/widgets/shimmer_image.dart';
 import 'package:home_management/features/notification/bloc/notification_bloc.dart';
 import 'package:home_management/features/notification/models/photo_model_response_dto.dart';
 import 'package:home_management/features/notification/presentation/desktop_ui/desktop_notification_page.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:shimmer/shimmer.dart';
 
 @RoutePage()
 class NotificationPage extends StatelessWidget {
@@ -43,14 +43,13 @@ class MobileNotificationPage extends StatelessWidget {
       child: BlocSnackBarListenerWithChild<NotificationBloc>(
         child: BlocBuilder<NotificationBloc, NotificationState>(
           builder: (context, state) {
-            print('url -------------> ${state.item?.pdfUrl}');
             return Scaffold(
               backgroundColor: AppColors.cE0DEDE,
               appBar: AppBar(
                 leading: const BackButtonAppBarWidget(),
                 backgroundColor: AppColors.cE0DEDE,
-                title: const Text(
-                  'Уведомление',
+                title: Text(
+                  state.item?.title ?? 'Уведомление',
                   style: TextStyle(color: Colors.black),
                 ),
                 centerTitle: true,
@@ -87,24 +86,7 @@ class Body extends StatelessWidget {
               const Gap(10),
               PhotoCarousel(photoUrls: state.item?.photos),
               const SizedBox(height: 20),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 24,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(40),
-                    border: Border.all(color: AppColors.c72A9E1),
-                  ),
-                  child: const Text(
-                    'Введите текст уведомления...',
-                  ),
-                ),
-              ),
+              AutoWrapTextField(message: state.item?.message),
               const SizedBox(height: 20),
             ],
           ),
@@ -121,7 +103,7 @@ class PhotoCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (photoUrls == null) {
+    if (photoUrls == null || photoUrls!.isEmpty) {
       return Container(
         height: 300,
         decoration: BoxDecoration(
@@ -141,14 +123,20 @@ class PhotoCarousel extends StatelessWidget {
       );
     }
     List<String> photoPaths = photoUrls!.map((photo) => photo.path).toList();
+
     if (photoPaths.length == 1) {
       return SizedBox(
         height: 300,
-        child: ShimmerImage(
-          borderRadius: 10,
-          imageUrl: 'http://212.112.105.242:8800/storage/${photoPaths[0]}',
-          fit: BoxFit.cover,
-          width: double.infinity,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.network(
+            'http://212.112.105.242:8800/storage/${photoPaths[0]}',
+            fit: BoxFit.cover,
+            width: double.infinity,
+            errorBuilder: (context, error, stackTrace) {
+              return const FailureImage();
+            },
+          ),
         ),
       );
     }
@@ -165,11 +153,13 @@ class PhotoCarousel extends StatelessWidget {
         scrollDirection: Axis.horizontal,
       ),
       items: photoPaths.map((url) {
-        return ShimmerImage(
-          borderRadius: 10,
-          imageUrl: 'http://212.112.105.242:8800/storage/$url',
-          fit: BoxFit.cover,
-          width: double.infinity,
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.network(
+            'http://212.112.105.242:8800/storage/$url',
+            fit: BoxFit.cover,
+            width: double.infinity,
+          ),
         );
       }).toList(),
     );
@@ -191,6 +181,36 @@ class _PdfButton extends StatelessWidget {
         Icons.picture_as_pdf,
         size: 30,
         color: AppColors.cA5BE76,
+      ),
+    );
+  }
+}
+
+class AutoWrapTextField extends StatelessWidget {
+  const AutoWrapTextField({super.key, this.message});
+
+  final String? message;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.5, // Ограничение по высоте
+      ),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppColors.c224795),
+        ),
+        child: SingleChildScrollView(
+          child: AutoSizeText(
+            message ?? '',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
       ),
     );
   }
