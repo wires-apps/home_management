@@ -13,6 +13,7 @@ class ComplaintSuggestionApi extends BaseApi {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
   }) async {
+
     const path = r'/api/complaints';
     final options = Options(
       method: r'GET',
@@ -58,7 +59,7 @@ class ComplaintSuggestionApi extends BaseApi {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
   }) async =>
-      callPut(
+      await callPut(
         path: '/api/complaints/$id',
         method: HttpMethod.get,
         getData: (json) => SingleComplaintResponseDto.fromJson(json),

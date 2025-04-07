@@ -10,10 +10,9 @@ import 'package:home_management/features/auth/models/sms_verification_request_dt
 import 'package:home_management/features/auth/models/sms_verification_response_dto.dart';
 
 class AuthApi extends BaseApi {
-  final Dio _dio;
   final Dio _authDio;
 
-  const AuthApi(this._dio, this._authDio) : super(dio: _dio);
+  const AuthApi(Dio dio, this._authDio) : super(dio: dio);
 
   Future<Response<SignInResponseDto>> signIn({
     required SignInRequestDto signInRequest,
@@ -82,7 +81,7 @@ class AuthApi extends BaseApi {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
   }) async =>
-      callPut(
+      await callPut(
         path: r'/api/verify-sms',
         request: smsRequest,
         method: HttpMethod.post,

@@ -8,16 +8,14 @@ import 'package:home_management/features/notification/models/notification_servic
 import 'package:home_management/features/notification/models/single_data_notification_response_dto.dart';
 
 class NotificationApi extends BaseApi {
-  final Dio _dio;
-
-  const NotificationApi(this._dio) : super(dio: _dio);
+  const NotificationApi(Dio dio) : super(dio: dio);
 
   Future<Response<NotificationResponseDto>> getNotifications({
     required int page,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
   }) async =>
-      callPut(
+      await callPut(
         path: '/api/notifications',
         method: HttpMethod.get,
         queryParam: <String, dynamic>{
@@ -31,7 +29,7 @@ class NotificationApi extends BaseApi {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
   }) async =>
-      callPut(
+      await callPut(
         path: '/api/notifications/$id',
         method: HttpMethod.get,
         getData: (json) => SingleDataNotificationResponseDto.fromJson(json),
@@ -42,7 +40,7 @@ class NotificationApi extends BaseApi {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
   }) async =>
-      callPut(
+      await callPut(
         path: '/api/user-fcm-token',
         method: HttpMethod.post,
         request: fcmModel,
