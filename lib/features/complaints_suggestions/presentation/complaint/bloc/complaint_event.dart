@@ -24,3 +24,5 @@ class ChangePage extends ComplaintEvent {
   @override
   List<Object> get props => [page];
 }
+
+class DownloadComplaint extends ComplaintEvent {}

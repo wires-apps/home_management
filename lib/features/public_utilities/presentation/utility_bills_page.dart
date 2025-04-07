@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
@@ -18,7 +19,9 @@ class UtilityBillsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<UtilityBillsBloc>()..add(LoadUtilityBills()),
-      child: const _Body(),
+      child: const BlocSnackBarListenerWithChild<UtilityBillsBloc>(
+        child: _Body(),
+      ),
     );
   }
 }

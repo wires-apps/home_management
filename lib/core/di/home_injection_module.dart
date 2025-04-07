@@ -11,6 +11,10 @@ void initHomeModule() {
   );
 
   getIt.registerFactory(
-    () => HomeBloc(getIt()),
+    () => HomeBloc(
+      getIt(),
+      getIt(),
+      getIt(),
+    ),
   );
 }

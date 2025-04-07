@@ -39,26 +39,39 @@ class MobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<HomeBloc>()..add(const NotificationsDownload(isFirstFetch: true)),
+      create: (context) => getIt<HomeBloc>()..add(const NotificationsDownload(isFirstFetch: true))..add(NotificationSendFcmToken()),
       child: BlocSnackBarListenerWithChild<HomeBloc>(
-        child: Scaffold(
-          backgroundColor: AppColors.cE0DEDE,
-          key: _scaffoldKey,
-          appBar: AppBar(
-            leading: const BackButtonAppBarWidget(),
-            title: const Text('Мобильный экран'),
-            backgroundColor: Colors.white,
-            surfaceTintColor: Colors.white,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SingleDropdownList(),
-                _MainButton(_scaffoldKey),
-              ],
-            ),
+        child: BlocListener<HomeBloc, HomeState>(
+          listener: (context, state) {
+            if (state.needToCloseHomePage) {
+              context.router.replace(const LoginRoute());
+            }
+          },
+          child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              return Scaffold(
+                backgroundColor: AppColors.cE0DEDE,
+                key: _scaffoldKey,
+                appBar: AppBar(
+                  leading: BackButtonAppBarWidget(
+                    onPressed: () => context.read<HomeBloc>().add(LogoutEvent()),
+                  ),
+                  title: const Text('Мобильный экран'),
+                  backgroundColor: Colors.white,
+                  surfaceTintColor: Colors.white,
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SingleDropdownList(),
+                      _MainButton(_scaffoldKey),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),

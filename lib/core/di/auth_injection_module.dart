@@ -1,4 +1,5 @@
 import 'package:home_management/api/auth_dio.dart';
+import 'package:home_management/api/main_dio.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/features/auth/api/auth_api.dart';
 import 'package:home_management/features/auth/bloc/auth_bloc.dart';
@@ -12,7 +13,7 @@ import '../../features/auth/repository/auth_remote_repository_impl.dart';
 void initAuthModule() {
   getIt.registerLazySingleton(
     () => AuthApi(
-      getIt<AuthDio>().dio,
+      getIt<MainDio>().dio,
       getIt<AuthDio>().dio,
     ),
   );

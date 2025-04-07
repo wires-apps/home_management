@@ -36,7 +36,7 @@ class DataNotificationResponseDto extends Equatable {
   final String type;
 
   @JsonKey(name: 'user_id', required: false, includeIfNull: false)
-  final String? userId;
+  final int? userId;
 
   @JsonKey(name: 'residential_complex_id', required: false, includeIfNull: false)
   final int? residentialComplexId;

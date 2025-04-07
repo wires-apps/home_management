@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/res/app_colors.dart';
-import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/validators/validator_utils.dart';
 import 'package:home_management/core/widgets/buttons/login_button.dart';
 import 'package:home_management/core/widgets/text_form_field.dart';
@@ -79,7 +78,7 @@ class _LoginBody extends StatelessWidget {
             const _PasswordTextField(),
             const Gap(16),
             const _PhoneTextField(),
-            const _ForgetPasswordButton(),
+            // const _ForgetPasswordButton(),
             const Gap(50),
             LogInButton(
               onPressed: () {
@@ -171,41 +170,41 @@ class _PhoneTextField extends StatelessWidget {
     );
   }
 }
-
-class _ForgetPasswordButton extends StatelessWidget {
-  const _ForgetPasswordButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: getValueForScreenType<double>(
-          context: context,
-          mobile: MediaQuery.of(context).size.width * 0.36,
-          tablet: 0,
-          desktop: 0,
-        ),
-      ),
-      //MediaQuery.of(context).size.width * 0.42
-      child: TextButton(
-        onPressed: () {
-          context.pushRoute(const HomeRoute());
-        },
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          overlayColor: Colors.green.shade100,
-        ),
-        child: Text(
-          S.of(context).login_screen_forget_password,
-          style: const TextStyle(
-            color: Colors.green,
-            fontSize: 14,
-          ),
-          maxLines: 1,
-        ),
-      ),
-    );
-  }
-}
+//maybe will need it:
+// class _ForgetPasswordButton extends StatelessWidget {
+//   const _ForgetPasswordButton();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: EdgeInsets.only(
+//         left: getValueForScreenType<double>(
+//           context: context,
+//           mobile: MediaQuery.of(context).size.width * 0.36,
+//           tablet: 0,
+//           desktop: 0,
+//         ),
+//       ),
+//       //MediaQuery.of(context).size.width * 0.42
+//       child: TextButton(
+//         onPressed: () {
+//           context.pushRoute(const HomeRoute());
+//         },
+//         style: TextButton.styleFrom(
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(30),
+//           ),
+//           overlayColor: Colors.green.shade100,
+//         ),
+//         child: Text(
+//           S.of(context).login_screen_forget_password,
+//           style: const TextStyle(
+//             color: Colors.green,
+//             fontSize: 14,
+//           ),
+//           maxLines: 1,
+//         ),
+//       ),
+//     );
+//   }
+// }

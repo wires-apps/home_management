@@ -3,6 +3,7 @@ part of 'home_bloc.dart';
 class HomeState extends BaseState {
   const HomeState({
     this.needToCloseDialog = false,
+    this.needToCloseHomePage = false,
     this.hasReachedMax = false,
     this.items = const [],
     this.lastPage = 1,
@@ -16,6 +17,7 @@ class HomeState extends BaseState {
   final List<DataNotificationResponseDto> items;
   final int lastPage;
   final int currentPage;
+  final bool needToCloseHomePage;
 
   @override
   HomeState copyWith({
@@ -23,6 +25,7 @@ class HomeState extends BaseState {
     SnackBarInfo? dialogInfo,
     bool? needToCloseDialog,
     bool? hasReachedMax,
+    bool? needToCloseHomePage,
     List<DataNotificationResponseDto>? items,
     int? lastPage,
     int? currentPage,
@@ -35,6 +38,7 @@ class HomeState extends BaseState {
         hasReachedMax: hasReachedMax ?? this.hasReachedMax,
         lastPage: lastPage ?? this.lastPage,
         currentPage: currentPage ?? this.currentPage,
+        needToCloseHomePage: needToCloseHomePage ?? this.needToCloseHomePage,
       );
 
   @override
@@ -45,5 +49,6 @@ class HomeState extends BaseState {
         hasReachedMax,
         lastPage,
         currentPage,
+        needToCloseHomePage,
       ];
 }

@@ -6,6 +6,7 @@ import 'package:home_management/core/di/complaint_injection.dart';
 import 'package:home_management/core/di/home_injection_module.dart';
 import 'package:home_management/core/di/network_module.dart';
 import 'package:home_management/core/di/notification_module.dart';
+import 'package:home_management/core/di/notification_service_injection_modul.dart';
 import 'package:home_management/core/di/talker_injection.dart';
 import 'package:home_management/core/di/utility_bills_injection_module.dart';
 import 'package:home_management/core/routes/di/navigation_module.dart';
@@ -28,6 +29,7 @@ Future initDependencyInjection() async {
   initTalker();
   initNetworkModule();
   initAuthModule();
+  initNotificationService();
   initComplaint();
   initHomeModule();
   initUtilityBillsModule();
