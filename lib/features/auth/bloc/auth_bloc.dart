@@ -10,6 +10,7 @@ import 'package:home_management/features/auth/models/sign_in_request_dto.dart';
 import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
 import 'package:home_management/features/auth/repository/auth_local_repository.dart';
 import 'package:home_management/features/auth/repository/auth_remote_repository.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 part 'auth_event.dart';
 
@@ -41,11 +42,10 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   final AuthLocalRepository _localRepository;
   final AuthInteractor _interactor;
 
-  ///TODO added when backend will be ready
-  // final maskFormatter = MaskTextInputFormatter(
-  //   mask: '+7 (###) ###-##-##',
-  //   filter: {"#": RegExp(r'[0-9]')},
-  // );
+  final maskFormatter = MaskTextInputFormatter(
+    mask: '+7 (###) ###-##-##',
+    filter: {"#": RegExp(r'[0-9]')},
+  );
 
   void _onChangeEmail(
     LoginEmailChanged event,

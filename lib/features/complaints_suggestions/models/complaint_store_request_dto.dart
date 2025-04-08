@@ -11,9 +11,9 @@ part 'complaint_store_request_dto.g.dart';
   disallowUnrecognizedKeys: false,
   explicitToJson: true,
 )
-class ComplaintStoreRequestDto extends Equatable /*with ToFormData*/ {
+class ComplaintStoreRequestDto extends Equatable {
   const ComplaintStoreRequestDto({
-     this.photos,
+    this.photos,
     required this.message,
   });
 
@@ -32,19 +32,4 @@ class ComplaintStoreRequestDto extends Equatable /*with ToFormData*/ {
         message,
         photos,
       ];
-
-// @override
-// Future<FormData> toFormData() async {
-//   final List<MultipartFile> multipartPhotos = await Future.wait(
-//     photos.map((file) async => MultipartFile.fromFile(
-//       file.path,
-//       filename: file.path.split('/').last,
-//     )),
-//   );
-//
-//   return FormData.fromMap({
-//     'message': message,
-//     'photos': multipartPhotos,
-//   });
-// }
 }

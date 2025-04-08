@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/core/widgets/loader.dart';
 import 'package:home_management/features/public_utilities/bloc/utility_bills_bloc.dart';
@@ -52,7 +53,7 @@ class _Body extends StatelessWidget {
           desktop: MediaQuery.of(context).size.height * 0.4,
         )),
         child: BlocBuilder<UtilityBillsBloc, UtilityBillsState>(builder: (context, state) {
-          final List<DebtSingleItemResponse> items = state.debts ?? [];
+          final List<DebtItemResponse> items = state.debts ?? [];
           final bloc = context.read<UtilityBillsBloc>();
 
           if (items.isEmpty && state.status.isSuccess) {
@@ -82,6 +83,7 @@ class _Body extends StatelessWidget {
               }
 
               return _UtilityBillItem(
+                id: items[index].id,
                 isOverdue: items[index].overdue,
                 name: items[index].name,
                 amount: items[index].amount,
@@ -98,9 +100,11 @@ class _UtilityBillItem extends StatelessWidget {
   const _UtilityBillItem({
     required this.isOverdue,
     required this.name,
+    required this.id,
     required this.amount,
   });
 
+  final int id;
   final bool isOverdue;
   final String name;
   final String amount;
@@ -110,7 +114,7 @@ class _UtilityBillItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () => context.router.push(SingleUtilityBillsRoute(id: id)),
         style: TextButton.styleFrom(
           side: const BorderSide(color: Colors.green),
           backgroundColor: AppColors.cF7F9F7,

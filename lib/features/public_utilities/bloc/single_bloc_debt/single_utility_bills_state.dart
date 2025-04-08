@@ -7,13 +7,13 @@ class SingleUtilityBillsState extends BaseState {
     this.debt,
   });
 
-  final DebtSingleItemResponse? debt;
+  final DebtSingleResponse? debt;
 
   @override
   SingleUtilityBillsState copyWith({
     BaseStatus? status,
     SnackBarInfo? dialogInfo,
-    DebtSingleItemResponse? debt,
+    DebtSingleResponse? debt,
   }) =>
       SingleUtilityBillsState(
         status: status ?? this.status,
