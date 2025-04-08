@@ -2,27 +2,37 @@ part of 'knowledge_base_bloc.dart';
 
 enum ReportCategory { plumbing, electrical, carpentry, other }
 
-class MasterState extends BaseState {
+class KnowledgeBaseState extends BaseState {
   final ReportCategory? selectedCategory;
   final String details;
   final File? image;
+  final List<KnowledgeBaseCategoryDto>? categories;
 
-  const MasterState({this.selectedCategory, this.details = '', this.image, required super.status, super.dialogInfo});
+  const KnowledgeBaseState({
+    this.selectedCategory,
+    this.details = '',
+    this.image,
+    required super.status,
+    super.dialogInfo,
+    this.categories,
+  });
 
   @override
-  MasterState copyWith({
+  KnowledgeBaseState copyWith({
     ReportCategory? selectedCategory,
     String? details,
     File? image,
     BaseStatus? status,
     SnackBarInfo? dialogInfo,
+    List<KnowledgeBaseCategoryDto>? categories,
   }) =>
-      MasterState(
+      KnowledgeBaseState(
         status: status ?? this.status,
         dialogInfo: dialogInfo,
         selectedCategory: selectedCategory ?? this.selectedCategory,
         details: details ?? this.details,
         image: image ?? this.image,
+        categories: categories ?? this.categories,
       );
 
   @override
@@ -32,5 +42,6 @@ class MasterState extends BaseState {
         selectedCategory,
         details,
         image,
+        categories,
       ];
 }

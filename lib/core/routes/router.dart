@@ -7,11 +7,13 @@ import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
 import 'package:home_management/features/auth/presentation/login_page.dart';
 import 'package:home_management/features/auth/presentation/verification_page.dart';
 import 'package:home_management/features/call_master/presentation/master_page.dart';
+import 'package:home_management/features/complaints_suggestions/presentation/complaint/details_complaint/presentation/complaint_details.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaint/new_complaint_page.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/suggestion/suggestion_page.dart';
-import 'package:home_management/features/complaints_suggestions/presentation/complaint/details_complaint/presentation/complaint_details.dart';
 import 'package:home_management/features/home/presentation/home_screen.dart';
-import 'package:home_management/features/knowledge_base/presentation/knowledge_base_page.dart';
+import 'package:home_management/features/knowledge_base/presentation/article_details/article_details_page.dart';
+import 'package:home_management/features/knowledge_base/presentation/articles/knowledge_base_articles_page.dart';
+import 'package:home_management/features/knowledge_base/presentation/categories/knowledge_base_categories_page.dart';
 import 'package:home_management/features/knowledge_base/rules/presentation/rules_page.dart';
 import 'package:home_management/features/notification/presentation/mobile_notification_page.dart';
 import 'package:home_management/features/public_utilities/presentation/utility_bills_page.dart';
@@ -73,7 +75,15 @@ class AppRouter extends RootStackRouter {
         ),
         AutoRoute(
           path: '/knowledge_base_page',
-          page: KnowledgeBaseRoute.page,
+          page: KnowledgeBaseCategoriesRoute.page,
+        ),
+        AutoRoute(
+          path: '/knowledge_base_articles_page',
+          page: KnowledgeBaseArticlesRoute.page,
+        ),
+        AutoRoute(
+          path: '/knowledge_base_article_details_page',
+          page: ArticleDetailsRoute.page,
         ),
         AutoRoute(
           path: '/rules_page',

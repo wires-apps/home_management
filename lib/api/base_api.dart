@@ -143,6 +143,17 @@ abstract class BaseApi {
     }
   }
 
+  DATA _getListData<DATA>({
+    required Response response,
+    required DATA Function(List<dynamic>) getData,
+  }) {
+    try {
+      return getData(response.data! as List<dynamic>);
+    } catch (error, stackTrace) {
+      throw _getResponseDioException(response, error, stackTrace);
+    }
+  }
+
   DioException _getResponseDioException(Response response, Object error, StackTrace stackTrace) {
     return DioException(
       requestOptions: response.requestOptions,
@@ -159,6 +170,99 @@ abstract class BaseApi {
       type: DioExceptionType.unknown,
       error: error,
       stackTrace: stackTrace,
+    );
+  }
+
+  Future<Response<DATA>> callDioPut<REQUEST, DATA>({
+    required String path,
+    required REQUEST request,
+    required DATA Function(Map<String, dynamic>) getData,
+  }) async {
+    return _call(path: path, request: request, options: putOptions, getData: getData);
+  }
+
+  Future<Response<DATA>> callDioPost<REQUEST, DATA>({
+    required String path,
+    required REQUEST request,
+    required DATA Function(Map<String, dynamic>) getData,
+  }) async {
+    return _call(path: path, request: request, options: postOptions, getData: getData);
+  }
+
+  Future<Response<DATA>> callDioGet<REQUEST, DATA>({
+    required String path,
+    REQUEST? request,
+    required DATA Function(Map<String, dynamic>) getData,
+  }) async {
+    return _call(path: path, request: request, options: getOptions, getData: getData);
+  }
+
+  Future<Response<DATA>> _call<REQUEST, DATA>({
+    required String path,
+    required REQUEST request,
+    required Options options,
+    required DATA Function(Map<String, dynamic>) getData,
+  }) async {
+    dynamic bodyData = _encodeRequest(request, options.compose(dio.options, path));
+
+    final response = await dio.request<Object>(path, data: bodyData, options: options);
+
+    DATA responseData = _getData(response: response, getData: getData);
+
+    return Response<DATA>(
+      data: responseData,
+      headers: response.headers,
+      isRedirect: response.isRedirect,
+      requestOptions: response.requestOptions,
+      redirects: response.redirects,
+      statusCode: response.statusCode,
+      statusMessage: response.statusMessage,
+      extra: response.extra,
+    );
+  }
+
+  Future<Response<DATA>> _callList<REQUEST, DATA>({
+    required String path,
+    required REQUEST request,
+    required Options options,
+    required DATA Function(List<dynamic>) getData,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    dynamic bodyData = _encodeRequest(request, options.compose(dio.options, path));
+
+    final response = await dio.request<Object>(
+      path,
+      data: bodyData,
+      options: options,
+      queryParameters: queryParameters,
+    );
+
+    DATA responseData = _getListData(response: response, getData: getData);
+
+    return Response<DATA>(
+      data: responseData,
+      headers: response.headers,
+      isRedirect: response.isRedirect,
+      requestOptions: response.requestOptions,
+      redirects: response.redirects,
+      statusCode: response.statusCode,
+      statusMessage: response.statusMessage,
+      extra: response.extra,
+    );
+  }
+
+  Future<Response<DATA>> callDioGetList<REQUEST, DATA>({
+    required String path,
+    REQUEST? request,
+    Map<String, dynamic>? queryParameters,
+    required DATA Function(List<dynamic>) getData,
+  }) async {
+    return _callList(
+      path: path,
+      request: request,
+      options: getOptions,
+      getData: getData,
+      queryParameters: queryParameters,
     );
   }
 }

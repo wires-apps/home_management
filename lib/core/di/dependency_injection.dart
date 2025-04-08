@@ -12,6 +12,7 @@ import 'package:home_management/core/di/talker_injection.dart';
 import 'package:home_management/core/di/utility_bills_injection_module.dart';
 import 'package:home_management/core/routes/di/navigation_module.dart';
 import 'package:home_management/features/auth/repository/auth_local_repository.dart';
+import 'package:home_management/features/knowledge_base/di/knowledge_base_module.dart';
 
 import '../../features/auth/repository/auth_local_repository_impl.dart';
 
@@ -36,4 +37,5 @@ Future initDependencyInjection() async {
   initUtilityBillsModule();
   initNotificationModule();
   initSuggestion();
+  initKnowledgeBaseModule();
 }

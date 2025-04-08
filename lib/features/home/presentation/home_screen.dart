@@ -113,7 +113,7 @@ class _MenuButtons extends StatelessWidget {
           icon: Icons.construction,
         ),
         ItemMenu(
-          onPressed: () => context.router.push(const KnowledgeBaseRoute()),
+          onPressed: () => context.router.push(const KnowledgeBaseCategoriesRoute()),
           titleButton: S.of(context).home_screen_knowledge_base,
           icon: Icons.library_books,
         ),
