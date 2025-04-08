@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'complaint_store_request_dto.g.dart';
+part 'suggestion_store_request_dto.g.dart';
 
 @JsonSerializable(
   checked: true,
@@ -11,8 +11,8 @@ part 'complaint_store_request_dto.g.dart';
   disallowUnrecognizedKeys: false,
   explicitToJson: true,
 )
-class ComplaintStoreRequestDto extends Equatable {
-  const ComplaintStoreRequestDto({
+class SuggestionStoreRequestDto extends Equatable {
+  const SuggestionStoreRequestDto({
     this.photos,
     required this.message,
   });
@@ -23,9 +23,9 @@ class ComplaintStoreRequestDto extends Equatable {
   @JsonKey(name: 'message', required: true, includeIfNull: false)
   final String message;
 
-  factory ComplaintStoreRequestDto.fromJson(Map<String, dynamic> json) => _$ComplaintStoreRequestDtoFromJson(json);
+  factory SuggestionStoreRequestDto.fromJson(Map<String, dynamic> json) => _$SuggestionStoreRequestDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ComplaintStoreRequestDtoToJson(this);
+  Map<String, dynamic> toJson() => _$SuggestionStoreRequestDtoToJson(this);
 
   @override
   List<Object?> get props => [

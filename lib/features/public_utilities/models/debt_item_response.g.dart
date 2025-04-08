@@ -6,9 +6,10 @@ part of 'debt_item_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DebtSingleItemResponse _$DebtItemResponseFromJson(Map<String, dynamic> json) =>
+DebtSingleItemResponse _$DebtSingleItemResponseFromJson(
+        Map<String, dynamic> json) =>
     $checkedCreate(
-      'DebtItemResponse',
+      'DebtSingleItemResponse',
       json,
       ($checkedConvert) {
         $checkKeys(
@@ -37,7 +38,8 @@ DebtSingleItemResponse _$DebtItemResponseFromJson(Map<String, dynamic> json) =>
       fieldKeyMap: const {'userId': 'user_id', 'dueDate': 'due_date'},
     );
 
-Map<String, dynamic> _$DebtItemResponseToJson(DebtSingleItemResponse instance) =>
+Map<String, dynamic> _$DebtSingleItemResponseToJson(
+        DebtSingleItemResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user_id': instance.userId,

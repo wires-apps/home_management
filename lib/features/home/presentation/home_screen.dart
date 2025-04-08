@@ -82,7 +82,9 @@ class MobileScreen extends StatelessWidget {
 }
 
 class _MenuButtons extends StatelessWidget {
-  const _MenuButtons();
+  const _MenuButtons({this.controller});
+
+  final PersistentBottomSheetController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +103,7 @@ class _MenuButtons extends StatelessWidget {
           icon: Icons.monetization_on,
         ),
         ItemMenu(
-          onPressed: () => showComplaintDialog(context),
+          onPressed: () => showComplaintDialog(context: context, hideBottomSheet: () => controller?.close()),
           titleButton: S.of(context).home_screen_complaints_suggestions,
           icon: Icons.feedback,
         ),
@@ -127,9 +129,10 @@ class _MenuButtons extends StatelessWidget {
 }
 
 class _MainButton extends StatelessWidget {
-  const _MainButton(this.scaffoldKey);
+  _MainButton(this.scaffoldKey);
 
   final GlobalKey<ScaffoldState> scaffoldKey;
+  PersistentBottomSheetController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -141,12 +144,12 @@ class _MainButton extends StatelessWidget {
               vertical: MediaQuery.of(context).size.height * 0.024),
           child: TextButton(
             onPressed: () {
-              scaffoldKey.currentState?.showBottomSheet(backgroundColor: Colors.transparent, enableDrag: true,
-                  (buildContext) {
-                return const CustomBottomSheet(
+              controller = scaffoldKey.currentState
+                  ?.showBottomSheet(backgroundColor: Colors.transparent, enableDrag: true, (buildContext) {
+                return CustomBottomSheet(
                   heightFactor: 0.7,
                   backgroundColor: Colors.white,
-                  mainWidget: SingleChildScrollView(child: _MenuButtons()),
+                  mainWidget: SingleChildScrollView(child: _MenuButtons(controller: controller)),
                 );
               });
             },

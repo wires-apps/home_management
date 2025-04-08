@@ -41,9 +41,9 @@ class DebtSingleItemResponse extends Equatable {
   @JsonKey(name: 'deepLink', required: true, includeIfNull: false)
   final String deepLink;
 
-  factory DebtSingleItemResponse.fromJson(Map<String, dynamic> json) => _$DebtItemResponseFromJson(json);
+  factory DebtSingleItemResponse.fromJson(Map<String, dynamic> json) => _$DebtSingleItemResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DebtItemResponseToJson(this);
+  Map<String, dynamic> toJson() => _$DebtSingleItemResponseToJson(this);
 
   @override
   List<Object?> get props => [

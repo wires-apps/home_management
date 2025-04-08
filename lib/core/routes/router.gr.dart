@@ -276,45 +276,18 @@ class RulesRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [SuggestionPage]
-class SuggestionRoute extends PageRouteInfo<SuggestionRouteArgs> {
-  SuggestionRoute({
-    Key? key,
-    required ComplaintScreenType complaintScreenType,
-    List<PageRouteInfo>? children,
-  }) : super(
-         SuggestionRoute.name,
-         args: SuggestionRouteArgs(
-           key: key,
-           complaintScreenType: complaintScreenType,
-         ),
-         initialChildren: children,
-       );
+class SuggestionRoute extends PageRouteInfo<void> {
+  const SuggestionRoute({List<PageRouteInfo>? children})
+    : super(SuggestionRoute.name, initialChildren: children);
 
   static const String name = 'SuggestionRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<SuggestionRouteArgs>();
-      return SuggestionPage(
-        key: args.key,
-        complaintScreenType: args.complaintScreenType,
-      );
+      return const SuggestionPage();
     },
   );
-}
-
-class SuggestionRouteArgs {
-  const SuggestionRouteArgs({this.key, required this.complaintScreenType});
-
-  final Key? key;
-
-  final ComplaintScreenType complaintScreenType;
-
-  @override
-  String toString() {
-    return 'SuggestionRouteArgs{key: $key, complaintScreenType: $complaintScreenType}';
-  }
 }
 
 /// generated route for

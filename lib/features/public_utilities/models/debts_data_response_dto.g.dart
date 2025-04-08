@@ -19,8 +19,8 @@ DebtsDataResponse _$DebtsDataResponseFromJson(Map<String, dynamic> json) =>
           data: $checkedConvert(
               'data',
               (v) => (v as List<dynamic>)
-                  .map((e) =>
-                      DebtSingleItemResponse.fromJson(e as Map<String, dynamic>))
+                  .map((e) => DebtSingleItemResponse.fromJson(
+                      e as Map<String, dynamic>))
                   .toList()),
         );
         return val;

@@ -5,6 +5,8 @@ import 'package:home_management/features/complaints_suggestions/api/complaint_su
 import 'package:home_management/features/complaints_suggestions/models/complaint_response_dto.dart';
 import 'package:home_management/features/complaints_suggestions/models/complaint_store_request_dto.dart';
 import 'package:home_management/features/complaints_suggestions/models/complaint_store_response_dto.dart';
+import 'package:home_management/features/complaints_suggestions/models/suggestion_store_request_dto.dart';
+import 'package:home_management/features/complaints_suggestions/models/suggestion_store_response_dto.dart';
 import 'package:home_management/features/complaints_suggestions/repository/complaints_suggestions_remote_repository.dart';
 
 class ComplaintsSuggestionsRemoteRepositoryImpl extends ComplaintsSuggestionsRemoteRepository with BaseRepository {
@@ -36,4 +38,13 @@ class ComplaintsSuggestionsRemoteRepositoryImpl extends ComplaintsSuggestionsRem
           request: request,
         ),
       );
+
+  @override
+  Future<Either<Failure, SuggestionStoreResponseDto>> sendSuggestion({required SuggestionStoreRequestDto request}) {
+    return execute(
+      getResponse: () => _api.sendSuggestion(
+        request: request,
+      ),
+    );
+  }
 }
