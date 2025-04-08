@@ -26,3 +26,4 @@ class ChangePage extends ComplaintEvent {
 }
 
 class DownloadComplaint extends ComplaintEvent {}
+class SendComplaintStore extends ComplaintEvent {}

@@ -80,8 +80,8 @@ class AuthApi extends BaseApi {
     required SmsVerificationRequestDto smsRequest,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
-  }) async =>
-      await callPut(
+  }) =>
+      callPut(
         path: r'/api/verify-sms',
         request: smsRequest,
         method: HttpMethod.post,

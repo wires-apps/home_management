@@ -3,6 +3,8 @@ import 'package:home_management/core/network/error_handling/failures.dart';
 import 'package:home_management/core/repository/base_repository.dart';
 import 'package:home_management/features/complaints_suggestions/api/complaint_suggestion_api.dart';
 import 'package:home_management/features/complaints_suggestions/models/complaint_response_dto.dart';
+import 'package:home_management/features/complaints_suggestions/models/complaint_store_request_dto.dart';
+import 'package:home_management/features/complaints_suggestions/models/complaint_store_response_dto.dart';
 import 'package:home_management/features/complaints_suggestions/repository/complaints_suggestions_remote_repository.dart';
 
 class ComplaintsSuggestionsRemoteRepositoryImpl extends ComplaintsSuggestionsRemoteRepository with BaseRepository {
@@ -22,6 +24,16 @@ class ComplaintsSuggestionsRemoteRepositoryImpl extends ComplaintsSuggestionsRem
       execute(
         getResponse: () => _api.getSingleComplaint(
           id: id,
+        ),
+      );
+
+  @override
+  Future<Either<Failure, ComplaintStoreResponseDto>> sendComplaintStore({
+    required ComplaintStoreRequestDto request,
+  }) =>
+      execute(
+        getResponse: () => _api.sendComplaintStore(
+          request: request,
         ),
       );
 }

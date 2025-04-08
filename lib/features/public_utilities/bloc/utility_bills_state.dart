@@ -7,13 +7,13 @@ class UtilityBillsState extends BaseState {
     this.debts,
   });
 
-  final List<DebtItemResponse>? debts;
+  final List<DebtSingleItemResponse>? debts;
 
   @override
   UtilityBillsState copyWith({
     BaseStatus? status,
     SnackBarInfo? dialogInfo,
-    List<DebtItemResponse>? debts,
+    List<DebtSingleItemResponse>? debts,
   }) =>
       UtilityBillsState(
         status: status ?? this.status,

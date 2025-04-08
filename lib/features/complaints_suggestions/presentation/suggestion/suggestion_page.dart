@@ -108,7 +108,7 @@ class _AutoWrapTextFieldState extends State<AutoWrapTextField> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.5, // Ограничение по высоте
+        maxHeight: MediaQuery.of(context).size.height * 0.5,
       ),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -119,11 +119,10 @@ class _AutoWrapTextFieldState extends State<AutoWrapTextField> {
       child: TextField(
         controller: _controller,
         maxLines: null,
-        // Позволяет тексту расширяться вниз
         keyboardType: TextInputType.multiline,
         textInputAction: TextInputAction.newline,
         decoration: const InputDecoration(
-          border: InputBorder.none, // Убирает стандартную линию под текстом
+          border: InputBorder.none,
           hintText: "Введите текст...",
         ),
       ),

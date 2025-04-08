@@ -6,11 +6,11 @@ import 'package:home_management/features/activity/presentation/voting_page.dart'
 import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
 import 'package:home_management/features/auth/presentation/login_page.dart';
 import 'package:home_management/features/auth/presentation/verification_page.dart';
-import 'package:home_management/features/call_master/presentation%20/master_page.dart';
+import 'package:home_management/features/call_master/presentation/master_page.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaint/new_complaint_page.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/suggestion/suggestion_page.dart';
-import 'package:home_management/features/complaints_suggestions/presentation/complaint/details_complaint/presentation%20/complaint_details.dart';
-import 'package:home_management/features/home/presentation%20/home_screen.dart';
+import 'package:home_management/features/complaints_suggestions/presentation/complaint/details_complaint/presentation/complaint_details.dart';
+import 'package:home_management/features/home/presentation/home_screen.dart';
 import 'package:home_management/features/knowledge_base/presentation/knowledge_base_page.dart';
 import 'package:home_management/features/knowledge_base/rules/presentation/rules_page.dart';
 import 'package:home_management/features/notification/presentation/mobile_notification_page.dart';

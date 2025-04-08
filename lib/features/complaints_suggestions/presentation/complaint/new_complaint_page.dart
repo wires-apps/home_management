@@ -18,10 +18,13 @@ class NewComplaintPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.cE0DEDE,
-      appBar: CustomAppBar(page: page, context: context),
-      body: const _Body(),
+    return BlocProvider(
+      create: (context) => getIt<ComplaintBloc>(),
+      child: Scaffold(
+        backgroundColor: AppColors.cE0DEDE,
+        appBar: CustomAppBar(page: page, context: context),
+        body: const _Body(),
+      ),
     );
   }
 }
@@ -32,59 +35,60 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ComplaintBloc, ComplaintState>(
-      bloc: getIt<ComplaintBloc>(),
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
-            child: Column(children: [
-              GestureDetector(
-                onTap: () => context.read<ComplaintBloc>().add(const PickImageEvent(ImageSource.gallery)),
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade400,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.c224795),
-                  ),
-                  alignment: Alignment.center,
-                  child: state.image != null
-                      ? InteractiveViewer(
-                          panEnabled: true,
-                          minScale: 0.5,
-                          maxScale: 3.0,
-                          child: Image.file(
-                            state.image!,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () => context.read<ComplaintBloc>().add(const PickImageEvent(ImageSource.gallery)),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade400,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: AppColors.c224795),
+                    ),
+                    alignment: Alignment.center,
+                    child: state.image != null
+                        ? InteractiveViewer(
+                            panEnabled: true,
+                            minScale: 0.5,
+                            maxScale: 3.0,
+                            child: Image.file(
+                              state.image!,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                          )
+                        : Icon(
+                            Icons.photo_camera,
+                            size: 60,
+                            color: Colors.grey.shade300,
                           ),
-                        )
-                      : Icon(
-                          Icons.photo_camera,
-                          size: 60,
-                          color: Colors.grey.shade300,
-                        ),
-                ),
-              ),
-              Gap(MediaQuery.of(context).size.height * 0.02),
-              const AutoWrapTextField(),
-              Gap(MediaQuery.of(context).size.height * 0.02),
-              TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  backgroundColor: AppColors.c05A84F,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: AppColors.c224795),
                   ),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                  child: Text('Добавить', style: TextStyle(fontSize: 16, color: Colors.white)),
+                Gap(MediaQuery.of(context).size.height * 0.02),
+                const AutoWrapTextField(),
+                Gap(MediaQuery.of(context).size.height * 0.02),
+                TextButton(
+                  onPressed: () => context.read<ComplaintBloc>().add(SendComplaintStore()),
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppColors.c05A84F,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: const BorderSide(color: AppColors.c224795),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                    child: Text('Добавить', style: TextStyle(fontSize: 16, color: Colors.white)),
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ),
         );
       },

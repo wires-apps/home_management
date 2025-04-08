@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:home_management/api/base_api.dart';
 import 'package:home_management/features/complaints_suggestions/models/complaint_response_dto.dart';
+import 'package:home_management/features/complaints_suggestions/models/complaint_store_request_dto.dart';
+import 'package:home_management/features/complaints_suggestions/models/complaint_store_response_dto.dart';
 
 class ComplaintSuggestionApi extends BaseApi {
   final Dio _dio;
@@ -13,7 +15,6 @@ class ComplaintSuggestionApi extends BaseApi {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
   }) async {
-
     const path = r'/api/complaints';
     final options = Options(
       method: r'GET',
@@ -58,10 +59,25 @@ class ComplaintSuggestionApi extends BaseApi {
     required int id,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
-  }) async =>
-      await callPut(
+  }) =>
+      callPut(
         path: '/api/complaints/$id',
         method: HttpMethod.get,
         getData: (json) => SingleComplaintResponseDto.fromJson(json),
+      );
+
+  Future<Response<ComplaintStoreResponseDto>> sendComplaintStore({
+    required ComplaintStoreRequestDto request,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+  }) =>
+      callMultipart(
+        path: '/api/complaints',
+        method: HttpMethod.post,
+        request: request,
+        toJson: (r) => r.toJson(),
+        extractFiles: (r) => r.photos ?? [],
+        fileFieldName: 'photos',
+        getData: (json) => ComplaintStoreResponseDto.fromJson(json),
       );
 }

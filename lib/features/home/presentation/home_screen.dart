@@ -11,7 +11,7 @@ import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/features/activity/presentation/activity_dialog.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaints_suggestions_page.dart';
 import 'package:home_management/features/home/bloc/home_bloc.dart';
-import 'package:home_management/features/home/presentation%20/notification_list.dart';
+import 'package:home_management/features/home/presentation/notification_list.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../generated/l10n.dart';
@@ -39,7 +39,9 @@ class MobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<HomeBloc>()..add(const NotificationsDownload(isFirstFetch: true))..add(NotificationSendFcmToken()),
+      create: (context) => getIt<HomeBloc>()
+        ..add(const NotificationsDownload(isFirstFetch: true))
+        ..add(NotificationSendFcmToken()),
       child: BlocSnackBarListenerWithChild<HomeBloc>(
         child: BlocListener<HomeBloc, HomeState>(
           listener: (context, state) {

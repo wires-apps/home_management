@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 
@@ -63,6 +64,53 @@ abstract class BaseApi {
     );
 
     DATA responseData = _getData(response: response, getData: getData);
+
+    return Response<DATA>(
+      data: responseData,
+      headers: response.headers,
+      isRedirect: response.isRedirect,
+      requestOptions: response.requestOptions,
+      redirects: response.redirects,
+      statusCode: response.statusCode,
+      statusMessage: response.statusMessage,
+      extra: response.extra,
+    );
+  }
+
+  Future<Response<DATA>> callMultipart<DATA>({
+    required String path,
+    required HttpMethod method,
+    required dynamic request,
+    required Map<String, dynamic> Function(dynamic request) toJson,
+    List<File> Function(dynamic request)? extractFiles,
+    required String fileFieldName,
+    required DATA Function(Map<String, dynamic>) getData,
+  }) async {
+    final List<File> files = extractFiles?.call(request) ?? [];
+
+    final List<MultipartFile> multipartFiles = await Future.wait(
+      files.map(
+        (file) async => await MultipartFile.fromFile(
+          file.path,
+          filename: file.path.split('/').last,
+        ),
+      ),
+    );
+
+    final fields = toJson(request);
+    if (multipartFiles.isNotEmpty) {
+      fields['$fileFieldName[]'] = multipartFiles;
+    }
+
+    final formData = FormData.fromMap(fields);
+
+    final response = await dio.request<Object>(
+      path,
+      data: formData,
+      options: Options(method: method.value),
+    );
+
+    final responseData = _getData(response: response, getData: getData);
 
     return Response<DATA>(
       data: responseData,

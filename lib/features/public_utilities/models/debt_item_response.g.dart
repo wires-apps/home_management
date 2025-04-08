@@ -6,7 +6,7 @@ part of 'debt_item_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DebtItemResponse _$DebtItemResponseFromJson(Map<String, dynamic> json) =>
+DebtSingleItemResponse _$DebtItemResponseFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
       'DebtItemResponse',
       json,
@@ -19,23 +19,25 @@ DebtItemResponse _$DebtItemResponseFromJson(Map<String, dynamic> json) =>
             'name',
             'amount',
             'due_date',
-            'overdue'
+            'overdue',
+            'deepLink'
           ],
         );
-        final val = DebtItemResponse(
+        final val = DebtSingleItemResponse(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           userId: $checkedConvert('user_id', (v) => (v as num).toInt()),
           name: $checkedConvert('name', (v) => v as String),
           amount: $checkedConvert('amount', (v) => v as String),
           dueDate: $checkedConvert('due_date', (v) => v as String),
           overdue: $checkedConvert('overdue', (v) => v as bool),
+          deepLink: $checkedConvert('deepLink', (v) => v as String),
         );
         return val;
       },
       fieldKeyMap: const {'userId': 'user_id', 'dueDate': 'due_date'},
     );
 
-Map<String, dynamic> _$DebtItemResponseToJson(DebtItemResponse instance) =>
+Map<String, dynamic> _$DebtItemResponseToJson(DebtSingleItemResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user_id': instance.userId,
@@ -43,4 +45,5 @@ Map<String, dynamic> _$DebtItemResponseToJson(DebtItemResponse instance) =>
       'amount': instance.amount,
       'due_date': instance.dueDate,
       'overdue': instance.overdue,
+      'deepLink': instance.deepLink,
     };

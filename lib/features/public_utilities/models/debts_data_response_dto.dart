@@ -16,7 +16,7 @@ class DebtsDataResponse extends Equatable {
   });
 
   @JsonKey(name: 'data', required: true, includeIfNull: false)
-  final List<DebtItemResponse> data;
+  final List<DebtSingleItemResponse> data;
 
   factory DebtsDataResponse.fromJson(Map<String, dynamic> json) => _$DebtsDataResponseFromJson(json);
 

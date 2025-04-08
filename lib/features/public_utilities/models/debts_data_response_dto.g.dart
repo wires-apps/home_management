@@ -20,7 +20,7 @@ DebtsDataResponse _$DebtsDataResponseFromJson(Map<String, dynamic> json) =>
               'data',
               (v) => (v as List<dynamic>)
                   .map((e) =>
-                      DebtItemResponse.fromJson(e as Map<String, dynamic>))
+                      DebtSingleItemResponse.fromJson(e as Map<String, dynamic>))
                   .toList()),
         );
         return val;

@@ -52,7 +52,7 @@ class _Body extends StatelessWidget {
           desktop: MediaQuery.of(context).size.height * 0.4,
         )),
         child: BlocBuilder<UtilityBillsBloc, UtilityBillsState>(builder: (context, state) {
-          final List<DebtItemResponse> items = state.debts ?? [];
+          final List<DebtSingleItemResponse> items = state.debts ?? [];
           final bloc = context.read<UtilityBillsBloc>();
 
           if (items.isEmpty && state.status.isSuccess) {

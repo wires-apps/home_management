@@ -14,8 +14,8 @@ class NotificationApi extends BaseApi {
     required int page,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
-  }) async =>
-      await callPut(
+  }) =>
+      callPut(
         path: '/api/notifications',
         method: HttpMethod.get,
         queryParam: <String, dynamic>{
@@ -28,8 +28,8 @@ class NotificationApi extends BaseApi {
     required int id,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
-  }) async =>
-      await callPut(
+  }) =>
+      callPut(
         path: '/api/notifications/$id',
         method: HttpMethod.get,
         getData: (json) => SingleDataNotificationResponseDto.fromJson(json),
@@ -39,8 +39,8 @@ class NotificationApi extends BaseApi {
     required NotificationServiceRequestDto fcmModel,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
-  }) async =>
-      await callPut(
+  }) =>
+      callPut(
         path: '/api/user-fcm-token',
         method: HttpMethod.post,
         request: fcmModel,

@@ -9,16 +9,16 @@ part 'debt_item_response.g.dart';
   disallowUnrecognizedKeys: false,
   explicitToJson: true,
 )
-class DebtItemResponse extends Equatable {
-  const DebtItemResponse({
+class DebtSingleItemResponse extends Equatable {
+  const DebtSingleItemResponse({
     required this.id,
     required this.userId,
     required this.name,
     required this.amount,
     required this.dueDate,
     required this.overdue,
+    required this.deepLink,
   });
-
 
   @JsonKey(name: 'id', required: true, includeIfNull: false)
   final int id;
@@ -38,7 +38,10 @@ class DebtItemResponse extends Equatable {
   @JsonKey(name: 'overdue', required: true, includeIfNull: false)
   final bool overdue;
 
-  factory DebtItemResponse.fromJson(Map<String, dynamic> json) => _$DebtItemResponseFromJson(json);
+  @JsonKey(name: 'deepLink', required: true, includeIfNull: false)
+  final String deepLink;
+
+  factory DebtSingleItemResponse.fromJson(Map<String, dynamic> json) => _$DebtItemResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$DebtItemResponseToJson(this);
 
@@ -50,5 +53,6 @@ class DebtItemResponse extends Equatable {
         amount,
         dueDate,
         overdue,
+        deepLink,
       ];
 }
