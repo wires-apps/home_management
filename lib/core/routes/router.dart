@@ -2,7 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management/core/common/models/complaint_screen_type.dart';
 import 'package:home_management/features/activity/presentation/advertisement_page.dart';
-import 'package:home_management/features/activity/presentation/voting_page.dart';
+import 'package:home_management/features/activity/voting/presentation/single/single_poll_page.dart';
+import 'package:home_management/features/activity/voting/presentation/voting_page.dart';
 import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
 import 'package:home_management/features/auth/presentation/login_page.dart';
 import 'package:home_management/features/auth/presentation/verification_page.dart';
@@ -105,6 +106,10 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           path: '/single_utility_bills_page',
           page: SingleUtilityBillsRoute.page,
+        ),
+        AutoRoute(
+          path: '/single_vote_page',
+          page: SingleVoteRoute.page,
         ),
       ];
 }

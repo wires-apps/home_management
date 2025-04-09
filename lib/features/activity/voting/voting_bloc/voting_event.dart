@@ -7,5 +7,4 @@ abstract class VotingEvent extends BaseEvent {
   List<Object> get props => [];
 }
 
-
-
+class PollsDownload extends VotingEvent {}

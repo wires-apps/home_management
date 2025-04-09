@@ -391,6 +391,40 @@ class SingleUtilityBillsRouteArgs {
 }
 
 /// generated route for
+/// [SingleVotePage]
+class SingleVoteRoute extends PageRouteInfo<SingleVoteRouteArgs> {
+  SingleVoteRoute({Key? key, required int id, List<PageRouteInfo>? children})
+    : super(
+        SingleVoteRoute.name,
+        args: SingleVoteRouteArgs(key: key, id: id),
+        initialChildren: children,
+      );
+
+  static const String name = 'SingleVoteRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SingleVoteRouteArgs>();
+      return SingleVotePage(key: args.key, id: args.id);
+    },
+  );
+}
+
+class SingleVoteRouteArgs {
+  const SingleVoteRouteArgs({this.key, required this.id});
+
+  final Key? key;
+
+  final int id;
+
+  @override
+  String toString() {
+    return 'SingleVoteRouteArgs{key: $key, id: $id}';
+  }
+}
+
+/// generated route for
 /// [SuggestionPage]
 class SuggestionRoute extends PageRouteInfo<void> {
   const SuggestionRoute({List<PageRouteInfo>? children})
