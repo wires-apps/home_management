@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/bloc/base_bloc.dart';
 import 'package:home_management/core/network/error_handling/snack_bar_info.dart';
@@ -51,21 +53,17 @@ class SingleUtilityBillsBloc extends BaseBloc<SingleUtilityBillsEvent, SingleUti
     final deeplink = state.debt?.data.deepLink;
 
     if (deeplink == null) return;
-    final String deeplink1 = "kaspi://payment?service=Alseco&amount=6550.80";
-    print('deeplink============> $deeplink');
-    final Uri uri = Uri.parse(deeplink1);
-
-    if (await canLaunchUrl(uri)) {
-      print('uri =============> ' + uri.path);
+    final Uri uri = Uri.parse(deeplink);
+    String storeUrl = '';
+    try {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } /* else {
-      String storeUrl = '';
+    } catch (e) {
       if (Platform.isAndroid) {
         storeUrl = 'https://play.google.com/store/apps/details?id=kz.kaspi.mobile'; // URL для Android
       } else if (Platform.isIOS) {
         storeUrl = 'https://apps.apple.com/us/app/kaspi/id123456789'; // URL для iOS (замени на реальный ID приложения)
       }
       await launchUrl(Uri.parse(storeUrl));
-    }*/
+    }
   }
 }

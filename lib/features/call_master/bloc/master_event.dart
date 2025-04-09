@@ -1,24 +1,28 @@
 part of 'master_bloc.dart';
 
-abstract class MasterEvent extends BaseEvent {
+abstract class CallMasterEvent extends BaseEvent {
   @override
   List<Object?> get props => [];
 }
 
-class SelectCategory extends MasterEvent {
-  final ReportCategory category;
+class SelectCategory extends CallMasterEvent {
+  final ServiceResponseStoreItemDto category;
 
   SelectCategory(this.category);
 }
 
-class UpdateDetails extends MasterEvent {
+class UpdateDetails extends CallMasterEvent {
   final String details;
 
   UpdateDetails(this.details);
 }
 
-class AttachImage extends MasterEvent {
+class AttachImage extends CallMasterEvent {
   final File image;
 
   AttachImage(this.image);
 }
+
+class LoadCategories extends CallMasterEvent {}
+
+class CallMaster extends CallMasterEvent {}

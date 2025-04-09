@@ -2,15 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:home_management/api/base_api.dart';
 import 'package:home_management/features/call_master/models/service_request_store_dto.dart';
 import 'package:home_management/features/call_master/models/service_response_categories_dto.dart';
-import 'package:home_management/features/complaints_suggestions/models/complaint_store_request_dto.dart';
+import 'package:home_management/features/call_master/models/service_response_store_dto.dart';
 
 class CallMasterApi extends BaseApi {
   final Dio _dio;
 
   CallMasterApi(this._dio) : super(dio: _dio);
 
-  Future<Response<ServiceRequestStoreDto>> sendComplaintStore({
-    required ComplaintStoreRequestDto request,
+  Future<Response<ServiceResponseStoreDto>> callMaster({
+    required ServiceRequestStoreDto request,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
   }) =>
@@ -21,7 +21,7 @@ class CallMasterApi extends BaseApi {
         toJson: (r) => r.toJson(),
         extractFiles: (r) => r.photos ?? [],
         fileFieldName: 'photos',
-        getData: (json) => ServiceRequestStoreDto.fromJson(json),
+        getData: (json) => ServiceResponseStoreDto.fromJson(json),
       );
 
   Future<Response<List<ServiceResponseStoreItemDto>>> getServiceCategories({

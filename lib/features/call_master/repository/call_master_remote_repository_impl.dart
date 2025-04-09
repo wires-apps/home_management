@@ -1,38 +1,24 @@
-// import 'package:dartz/dartz.dart';
-// import 'package:home_management/features/call_master/repository/call_master_remote_repository.dart';
-//
-// class CallMasterRemoteRepositoryImpl extends CallMasterRemoteRepository {
-//   final NotificationApi _notificationApi;
-//
-//   CallMasterRemoteRepositoryImpl(this._notificationApi);
-//
-//   @override
-//   Future<Either<Failure, NotificationResponseDto>> getNotifications({
-//     required int page,
-//   }) =>
-//       execute(
-//         getResponse: () => _notificationApi.getNotifications(
-//           page: page,
-//         ),
-//       );
-//
-//   @override
-//   Future<Either<Failure, SingleDataNotificationResponseDto>> getSingleNotification({
-//     required int id,
-//   }) =>
-//       execute(
-//         getResponse: () => _notificationApi.getSingleNotification(
-//           id: id,
-//         ),
-//       );
-//
-//   @override
-//   Future<Either<Failure, NotificationServiceResponseDto>> sendFcmToken({
-//     required NotificationServiceRequestDto request,
-//   }) =>
-//       execute(
-//         getResponse: () => _notificationApi.sendFcmToken(
-//           fcmModel: request,
-//         ),
-//       );
-// }
+import 'package:dartz/dartz.dart';
+import 'package:home_management/core/network/error_handling/failures.dart';
+import 'package:home_management/core/repository/base_repository.dart';
+import 'package:home_management/features/call_master/api/call_master_api.dart';
+import 'package:home_management/features/call_master/models/service_request_store_dto.dart';
+import 'package:home_management/features/call_master/models/service_response_categories_dto.dart';
+import 'package:home_management/features/call_master/models/service_response_store_dto.dart';
+import 'package:home_management/features/call_master/repository/call_master_remote_repository.dart';
+
+class CallMasterRemoteRepositoryImpl extends CallMasterRemoteRepository with BaseRepository {
+  final CallMasterApi _callMasterApi;
+
+  CallMasterRemoteRepositoryImpl(this._callMasterApi);
+
+  @override
+  Future<Either<Failure, List<ServiceResponseStoreItemDto>>> getCategories() =>
+      execute(getResponse: () => _callMasterApi.getServiceCategories());
+
+  @override
+  Future<Either<Failure, ServiceResponseStoreDto>> callMaster({
+    required ServiceRequestStoreDto request,
+  }) =>
+      execute(getResponse: () => _callMasterApi.callMaster(request: request));
+}
