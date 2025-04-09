@@ -29,23 +29,11 @@ class _SingleDropdownListState extends State<SingleDropdownList> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
-      ///TODO наверно удалить все что ниже
-      // buildWhen: (HomeState previous, HomeState current) =>
-      /*     previous.items != current.items ||
-          previous.status != current.status ||
-          // previous.itemsIsEmptyFromJson != current.itemsIsEmptyFromJson*/
       builder: (BuildContext context, HomeState state) {
-        final bloc = context.read<HomeBloc>();
         final items = state.items;
 
-        // if (state.items.isEmpty && state.status.isSuccess) return SizedBox();
-
-        // if (items.isEmpty && !state.status.isFailure) {
-        //   return const Loader();
-        // }
-
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.44,
+          height: MediaQuery.of(context).size.height * 0.54,
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {

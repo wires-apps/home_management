@@ -1,11 +1,14 @@
 import 'dart:io';
 
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/ui/app_button_styles.dart';
+import 'package:home_management/core/widgets/buttons/custom_button.dart';
 import 'package:home_management/features/call_master/bloc/master_bloc.dart';
 import 'package:home_management/features/call_master/models/service_response_categories_dto.dart';
 import 'package:home_management/generated/l10n.dart';
@@ -19,32 +22,22 @@ class CallMasterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<CallMasterBloc>()..add(LoadCategories()),
-      child: BlocListener<CallMasterBloc, CallMasterState>(
-        listener: (context, state) {
-          if (state.showDialog) {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: const Row(
-                  children: [
-                    Icon(Icons.error, color: Colors.red),
-                    Gap(10),
-                    Text('Обращение отправлено'),
-                  ],
-                ),
-                content: Text('Ответ в виде “Свяжемся с вами в ближайшее время”'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Ok'),
-                  ),
-                ],
-              ),
-            );
-          }
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocSuccessSnackBarListener<CallMasterBloc>(),
+          BlocListener<CallMasterBloc, CallMasterState>(
+            listenWhen: (prev, curr) => prev.hasCalling != curr.hasCalling,
+            listener: (context, state) {
+              if (state.hasCalling) {
+                Future.delayed(const Duration(milliseconds: 30), () {
+                  if (context.mounted) {
+                    context.maybePop();
+                  }
+                });
+              }
+            },
+          ),
+        ],
         child: Scaffold(
           backgroundColor: AppColors.cE0DEDE,
           appBar: AppBar(
@@ -98,32 +91,49 @@ class _CallMasterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CallMasterBloc, CallMasterState>(
+      buildWhen: (prev, curr) => prev.isLoading != curr.isLoading || prev.isButtonEnabled != curr.isButtonEnabled,
       builder: (context, state) {
-        final bloc = context.read<CallMasterBloc>();
-        return TextButton(
-          style: TextButton.styleFrom(
-            backgroundColor: bloc.controller.text.isEmpty ? Colors.grey : AppColors.c05A84F,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 10,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
-          onPressed: () => bloc.controller.text.isEmpty ? null : bloc.add(CallMaster()),
-          child: Text(
-            S.of(context).call_master_title_button,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
+        return CustomButton(
+          onPressed: () => context.read<CallMasterBloc>().add(CallMaster()),
+          buttonStyle: AppButtonStyles.actionButtonPrimary,
+          text: 'Вызывать Мастера',
+          textStyle: const TextStyle(fontSize: 16, color: Colors.white),
+          isLoading: state.isLoading,
+          isEnabled: state.isButtonEnabled,
         );
       },
     );
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<CallMasterBloc, CallMasterState>(
+    builder: (context, state) {
+      final bloc = context.read<CallMasterBloc>();
+      return TextButton(
+        style: TextButton.styleFrom(
+          backgroundColor: bloc.controller.text.isEmpty ? Colors.grey : AppColors.c05A84F,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 10,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        onPressed: () => bloc.controller.text.isEmpty ? null : bloc.add(CallMaster()),
+        child: Text(
+          S.of(context).call_master_title_button,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _DropDownList extends StatelessWidget {

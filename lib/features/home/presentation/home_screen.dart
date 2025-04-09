@@ -62,14 +62,17 @@ class MobileScreen extends StatelessWidget {
                   backgroundColor: Colors.white,
                   surfaceTintColor: Colors.white,
                 ),
-                body: Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SingleDropdownList(),
-                      _MainButton(_scaffoldKey),
-                    ],
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const SingleDropdownList(),
+                        Gap(MediaQuery.of(context).size.height * 0.2),
+                        _MainButton(_scaffoldKey),
+                      ],
+                    ),
                   ),
                 ),
               );

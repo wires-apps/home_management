@@ -24,10 +24,16 @@ class CallMasterBloc extends BaseBloc<CallMasterEvent, CallMasterState> {
     on<AttachImage>(_onAttachImage);
     on<LoadCategories>(_onLoadCategories);
     on<CallMaster>(_onCallMaster);
+    on<CallMasterCheckButtonAvailability>(_checkButtonAvailability);
+    controller.addListener(_addCheckButtonAvailabilityEvent);
   }
 
   final CallMasterRemoteRepository _repository;
   final TextEditingController controller = TextEditingController();
+
+  void _addCheckButtonAvailabilityEvent() {
+    add(CallMasterCheckButtonAvailability());
+  }
 
   void _onSelectCategory(SelectCategory event, Emitter<CallMasterState> emit) {
     if (!isClosed) {
@@ -75,6 +81,7 @@ class CallMasterBloc extends BaseBloc<CallMasterEvent, CallMasterState> {
     Emitter<CallMasterState> emit,
   ) async {
     if (state.image == null && state.selectedCategory == null) return;
+    emit(state.copyWith(isLoading: true));
     final photos = [state.image!];
     final response = await _repository.callMaster(
       request: ServiceRequestStoreDto(
@@ -94,8 +101,20 @@ class CallMasterBloc extends BaseBloc<CallMasterEvent, CallMasterState> {
       (complaints) => emit(
         state.copyWith(
           status: BaseStatus.success,
-          showDialog: true,
+          hasCalling: true,
+          dialogInfo: const SnackBarInfo(title: 'Успешно отправлено', message: 'Свяжемся с вами в ближайшее время'),
         ),
+      ),
+    );
+  }
+
+  void _checkButtonAvailability(
+    CallMasterCheckButtonAvailability event,
+    Emitter<CallMasterState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        isButtonEnabled: controller.text.isNotEmpty && state.selectedCategory != null,
       ),
     );
   }

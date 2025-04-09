@@ -15,6 +15,9 @@ class UpdateDetails extends CallMasterEvent {
   final String details;
 
   UpdateDetails(this.details);
+
+  @override
+  List<Object?> get props => [details];
 }
 
 class AttachImage extends CallMasterEvent {
@@ -26,3 +29,5 @@ class AttachImage extends CallMasterEvent {
 class LoadCategories extends CallMasterEvent {}
 
 class CallMaster extends CallMasterEvent {}
+
+class CallMasterCheckButtonAvailability extends CallMasterEvent {}

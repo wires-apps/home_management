@@ -1,19 +1,19 @@
 part of 'master_bloc.dart';
 
-// enum ReportCategory { plumbing, electrical, carpentry, other }
-
 class CallMasterState extends BaseState {
   final ServiceResponseStoreItemDto? selectedCategory;
   final String details;
   final File? image;
   final List<ServiceResponseStoreItemDto>? categories;
-  final bool showDialog;
-  final bool activeButton;
+  final bool hasCalling;
+  final bool isButtonEnabled;
+  final bool isLoading;
 
   const CallMasterState({
     this.selectedCategory,
-    this.showDialog = false,
-    this.activeButton = false,
+    this.isLoading = false,
+    this.hasCalling = false,
+    this.isButtonEnabled = false,
     this.categories,
     this.details = '',
     this.image,
@@ -27,8 +27,9 @@ class CallMasterState extends BaseState {
     File? image,
     BaseStatus? status,
     SnackBarInfo? dialogInfo,
-    bool? showDialog,
-    bool? activeButton,
+    bool? hasCalling,
+    bool? isLoading,
+    bool? isButtonEnabled,
     ServiceResponseStoreItemDto? selectedCategory,
     List<ServiceResponseStoreItemDto>? categories,
   }) =>
@@ -39,8 +40,9 @@ class CallMasterState extends BaseState {
         details: details ?? this.details,
         image: image ?? this.image,
         categories: categories ?? this.categories,
-        showDialog: showDialog ?? this.showDialog,
-        activeButton: activeButton ?? this.activeButton,
+        isButtonEnabled: isButtonEnabled ?? this.isButtonEnabled,
+        hasCalling: hasCalling ?? this.hasCalling,
+        isLoading: isLoading ?? this.isLoading,
       );
 
   @override
@@ -51,7 +53,8 @@ class CallMasterState extends BaseState {
         details,
         image,
         categories,
-        showDialog,
-        activeButton,
+        isButtonEnabled,
+        isLoading,
+        hasCalling,
       ];
 }
