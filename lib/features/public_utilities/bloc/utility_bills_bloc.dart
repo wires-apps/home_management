@@ -9,7 +9,9 @@ part 'utility_bills_event.dart';
 part 'utility_bills_state.dart';
 
 class UtilityBillsBloc extends BaseBloc<UtilityBillsEvent, UtilityBillsState> {
-  UtilityBillsBloc(this._repository) : super(const UtilityBillsState(status: BaseStatus.success)) {
+  UtilityBillsBloc(
+    this._repository,
+  ) : super(const UtilityBillsState(status: BaseStatus.success)) {
     on<LoadUtilityBills>(_onLoadUtilityBills);
   }
 

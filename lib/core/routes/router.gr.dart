@@ -353,6 +353,44 @@ class RulesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SingleUtilityBillsPage]
+class SingleUtilityBillsRoute
+    extends PageRouteInfo<SingleUtilityBillsRouteArgs> {
+  SingleUtilityBillsRoute({
+    Key? key,
+    required int id,
+    List<PageRouteInfo>? children,
+  }) : super(
+         SingleUtilityBillsRoute.name,
+         args: SingleUtilityBillsRouteArgs(key: key, id: id),
+         initialChildren: children,
+       );
+
+  static const String name = 'SingleUtilityBillsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SingleUtilityBillsRouteArgs>();
+      return SingleUtilityBillsPage(key: args.key, id: args.id);
+    },
+  );
+}
+
+class SingleUtilityBillsRouteArgs {
+  const SingleUtilityBillsRouteArgs({this.key, required this.id});
+
+  final Key? key;
+
+  final int id;
+
+  @override
+  String toString() {
+    return 'SingleUtilityBillsRouteArgs{key: $key, id: $id}';
+  }
+}
+
+/// generated route for
 /// [SuggestionPage]
 class SuggestionRoute extends PageRouteInfo<void> {
   const SuggestionRoute({List<PageRouteInfo>? children})

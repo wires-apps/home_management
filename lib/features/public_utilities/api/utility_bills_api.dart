@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:home_management/api/base_api.dart';
-import 'package:home_management/features/public_utilities/models/debt_item_response.dart';
+import 'package:home_management/features/public_utilities/models/debt_single_response.dart';
 import 'package:home_management/features/public_utilities/models/debts_data_response_dto.dart';
 
 class UtilityBillsApi extends BaseApi {
@@ -18,7 +18,7 @@ class UtilityBillsApi extends BaseApi {
         getData: (json) => DebtsDataResponse.fromJson(json),
       );
 
-  Future<Response<DebtSingleItemResponse>> getSingleDebt({
+  Future<Response<DebtSingleResponse>> getSingleDebt({
     required int id,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -26,6 +26,6 @@ class UtilityBillsApi extends BaseApi {
       callPut(
         path: '/api/debts/$id',
         method: HttpMethod.get,
-        getData: (json) => DebtSingleItemResponse.fromJson(json),
+        getData: (json) => DebtSingleResponse.fromJson(json),
       );
 }

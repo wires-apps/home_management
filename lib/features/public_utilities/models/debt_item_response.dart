@@ -9,8 +9,8 @@ part 'debt_item_response.g.dart';
   disallowUnrecognizedKeys: false,
   explicitToJson: true,
 )
-class DebtSingleItemResponse extends Equatable {
-  const DebtSingleItemResponse({
+class DebtItemResponse extends Equatable {
+  const DebtItemResponse({
     required this.id,
     required this.userId,
     required this.name,
@@ -18,6 +18,7 @@ class DebtSingleItemResponse extends Equatable {
     required this.dueDate,
     required this.overdue,
     required this.deepLink,
+    required this.type,
   });
 
   @JsonKey(name: 'id', required: true, includeIfNull: false)
@@ -25,6 +26,9 @@ class DebtSingleItemResponse extends Equatable {
 
   @JsonKey(name: 'user_id', required: true, includeIfNull: false)
   final int userId;
+
+  @JsonKey(name: 'type', required: true, includeIfNull: false)
+  final String type;
 
   @JsonKey(name: 'name', required: true, includeIfNull: false)
   final String name;
@@ -38,12 +42,13 @@ class DebtSingleItemResponse extends Equatable {
   @JsonKey(name: 'overdue', required: true, includeIfNull: false)
   final bool overdue;
 
-  @JsonKey(name: 'deepLink', required: true, includeIfNull: false)
+  @JsonKey(name: 'deeplink', required: true, includeIfNull: false)
   final String deepLink;
 
-  factory DebtSingleItemResponse.fromJson(Map<String, dynamic> json) => _$DebtSingleItemResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DebtSingleItemResponseToJson(this);
+  factory DebtItemResponse.fromJson(Map<String, dynamic> json) => _$DebtItemResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DebtItemResponseToJson(this);
 
   @override
   List<Object?> get props => [

@@ -16,6 +16,7 @@ import 'package:home_management/features/knowledge_base/presentation/articles/kn
 import 'package:home_management/features/knowledge_base/presentation/categories/knowledge_base_categories_page.dart';
 import 'package:home_management/features/knowledge_base/rules/presentation/rules_page.dart';
 import 'package:home_management/features/notification/presentation/mobile_notification_page.dart';
+import 'package:home_management/features/public_utilities/presentation/single_utility_bills/single_utility_bills_page.dart';
 import 'package:home_management/features/public_utilities/presentation/utility_bills_page.dart';
 
 import '../../features/complaints_suggestions/presentation/complaint/complaints_page.dart';
@@ -100,6 +101,10 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           path: '/advertisement_page',
           page: AdvertisementRoute.page,
+        ),
+        AutoRoute(
+          path: '/single_utility_bills_page',
+          page: SingleUtilityBillsRoute.page,
         ),
       ];
 }

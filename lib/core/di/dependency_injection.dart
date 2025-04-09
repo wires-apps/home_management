@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:home_management/core/di/auth_injection_module.dart';
+import 'package:home_management/core/di/call_master_injection_module.dart';
 import 'package:home_management/core/di/complaint_injection.dart';
 import 'package:home_management/core/di/home_injection_module.dart';
 import 'package:home_management/core/di/network_module.dart';
@@ -28,14 +29,25 @@ Future initDependencyInjection() async {
   // );
   // await getIt.isReady<SharedPreferences>();
   initNavigationModule();
+
   initTalker();
+
   initNetworkModule();
+
   initAuthModule();
+
   initNotificationService();
+
   initComplaint();
+
   initHomeModule();
+
   initUtilityBillsModule();
+
   initNotificationModule();
+
+  initCallMasterModule();
+
   initSuggestion();
   initKnowledgeBaseModule();
 }
