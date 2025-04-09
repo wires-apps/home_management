@@ -4,7 +4,6 @@ import 'package:home_management/core/common/models/complaint_screen_type.dart';
 import 'package:home_management/features/activity/presentation/advertisement_page.dart';
 import 'package:home_management/features/activity/voting/presentation/single/single_poll_page.dart';
 import 'package:home_management/features/activity/voting/presentation/voting_page.dart';
-import 'package:home_management/features/activity/presentation/voting_page.dart';
 import 'package:home_management/features/announcements/presentation/announcement_details_page.dart';
 import 'package:home_management/features/announcements/presentation/announcements_page.dart';
 import 'package:home_management/features/announcements/presentation/new_announcement_page.dart';
