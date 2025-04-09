@@ -48,7 +48,7 @@ void showActivityDialog(BuildContext context) {
                   icon: const Icon(Icons.campaign, color: Colors.amberAccent),
                   title: S.of(context).activity_advertisement_title,
                   onTap: () {
-                    context.pushRoute(const AdvertisementRoute());
+                    context.pushRoute(const AnnouncementsRoute());
                   },
                 ),
               ],
