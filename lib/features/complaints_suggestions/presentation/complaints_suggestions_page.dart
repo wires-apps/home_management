@@ -6,7 +6,10 @@ import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/generated/l10n.dart';
 
-void showComplaintDialog(BuildContext context) {
+void showComplaintDialog({
+  required BuildContext context,
+  required VoidCallback hideBottomSheet,
+}) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -56,9 +59,11 @@ void showComplaintDialog(BuildContext context) {
                   icon: const Icon(Icons.lightbulb, color: Colors.yellowAccent),
                   title: S.of(context).complaints_suggestions_leave_suggestion,
                   onTap: () {
-                    // context.pushRoute(
-                    //   SuggestionRoute(complaintScreenType: ComplaintScreenType.complaint),
-                    // );
+                    context.maybePop();
+                    hideBottomSheet();
+                    context.pushRoute(
+                      const SuggestionRoute(),
+                    );
                   },
                 ),
               ],

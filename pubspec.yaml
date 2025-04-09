@@ -41,6 +41,7 @@ dependencies:
   firebase_messaging: ^15.2.5
   firebase_core: ^3.13.0
   flutter_local_notifications: ^19.0.0
+  top_snackbar_flutter: ^3.2.0
 #  c шимером сделать в notificaiton_page пока фотка не загрузилась
 
 dev_dependencies:

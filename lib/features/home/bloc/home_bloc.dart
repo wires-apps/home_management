@@ -9,13 +9,13 @@ import 'package:home_management/features/notification/repository/notification_re
 import 'package:home_management/features/notification/service/notifications_service.dart';
 
 part 'home_event.dart';
-
 part 'home_state.dart';
 
 class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
   HomeBloc(
     this._repository,
-    this._localRepository, this.notificationsService,
+    this._localRepository,
+    this.notificationsService,
   ) : super(
           const HomeState(
             status: BaseStatus.loading,
@@ -37,7 +37,6 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
   final NotificationRemoteRepository _repository;
   final AuthLocalRepository _localRepository;
   final NotificationsService notificationsService;
-
 
   Future<void> _onLogoutFromAccount(
     LogoutEvent event,
@@ -87,11 +86,10 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     });
   }
 
-
   Future<void> _onSendFcmToken(
-      NotificationSendFcmToken event,
-      Emitter<HomeState> emit,
-      ) async {
+    NotificationSendFcmToken event,
+    Emitter<HomeState> emit,
+  ) async {
     emit(state.copyWith(status: BaseStatus.loading));
     final token = await notificationsService.getFcmToken();
     if (token == null) return;
@@ -102,12 +100,12 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     );
 
     response.fold(
-            (l) => emit(
-          state.copyWith(
-            status: BaseStatus.failure,
-            dialogInfo: SnackBarInfo.getErrorMessage(l),
-          ),
-        ), (r) {
+        (l) => emit(
+              state.copyWith(
+                status: BaseStatus.failure,
+                dialogInfo: SnackBarInfo.getErrorMessage(l),
+              ),
+            ), (r) {
       emit(
         state.copyWith(
           status: BaseStatus.success,

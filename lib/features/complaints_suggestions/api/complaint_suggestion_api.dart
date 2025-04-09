@@ -5,6 +5,8 @@ import 'package:home_management/api/base_api.dart';
 import 'package:home_management/features/complaints_suggestions/models/complaint_response_dto.dart';
 import 'package:home_management/features/complaints_suggestions/models/complaint_store_request_dto.dart';
 import 'package:home_management/features/complaints_suggestions/models/complaint_store_response_dto.dart';
+import 'package:home_management/features/complaints_suggestions/models/suggestion_store_request_dto.dart';
+import 'package:home_management/features/complaints_suggestions/models/suggestion_store_response_dto.dart';
 
 class ComplaintSuggestionApi extends BaseApi {
   final Dio _dio;
@@ -79,5 +81,20 @@ class ComplaintSuggestionApi extends BaseApi {
         extractFiles: (r) => r.photos ?? [],
         fileFieldName: 'photos',
         getData: (json) => ComplaintStoreResponseDto.fromJson(json),
+      );
+
+  Future<Response<SuggestionStoreResponseDto>> sendSuggestion({
+    required SuggestionStoreRequestDto request,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+  }) =>
+      callMultipart(
+        path: '/api/suggestions',
+        method: HttpMethod.post,
+        request: request,
+        toJson: (r) => r.toJson(),
+        extractFiles: (r) => r.photos ?? [],
+        fileFieldName: 'photos',
+        getData: (json) => SuggestionStoreResponseDto.fromJson(json),
       );
 }
