@@ -4,6 +4,10 @@ import 'package:home_management/core/common/models/complaint_screen_type.dart';
 import 'package:home_management/features/activity/presentation/advertisement_page.dart';
 import 'package:home_management/features/activity/voting/presentation/single/single_poll_page.dart';
 import 'package:home_management/features/activity/voting/presentation/voting_page.dart';
+import 'package:home_management/features/activity/presentation/voting_page.dart';
+import 'package:home_management/features/announcements/presentation/announcement_details_page.dart';
+import 'package:home_management/features/announcements/presentation/announcements_page.dart';
+import 'package:home_management/features/announcements/presentation/new_announcement_page.dart';
 import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
 import 'package:home_management/features/auth/presentation/login_page.dart';
 import 'package:home_management/features/auth/presentation/verification_page.dart';
@@ -100,8 +104,16 @@ class AppRouter extends RootStackRouter {
           page: VotingRoute.page,
         ),
         AutoRoute(
-          path: '/advertisement_page',
-          page: AdvertisementRoute.page,
+          path: '/announcements',
+          page: AnnouncementsRoute.page,
+        ),
+        AutoRoute(
+          path: '/new_announcement',
+          page: NewAnnouncementRoute.page,
+        ),
+        AutoRoute(
+          path: '/announcement_details',
+          page: AnnouncementDetailsRoute.page,
         ),
         AutoRoute(
           path: '/single_utility_bills_page',

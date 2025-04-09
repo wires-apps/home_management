@@ -8,7 +8,7 @@ import 'package:home_management/features/knowledge_base/repository/knowledge_bas
 import 'package:home_management/features/knowledge_base/repository/knowledge_base_remote_repository_impl.dart';
 
 void initKnowledgeBaseModule() {
-  getIt.registerLazySingleton(() => KnowledgeBaseApi(getIt<MainDio>().dio));
+  getIt.registerLazySingleton(() => KnowledgeBaseApi(dio: getIt<MainDio>().dio));
   getIt.registerLazySingleton<KnowledgeBaseRemoteRepository>(() => KnowledgeBaseRemoteRepositoryImpl(api: getIt()));
   getIt.registerFactory(() => KnowledgeBaseBloc(repository: getIt()));
   getIt.registerFactory(() => KnowledgeBaseArticlesBloc(repository: getIt()));

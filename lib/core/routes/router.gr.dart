@@ -27,6 +27,66 @@ class AdvertisementRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AnnouncementDetailsPage]
+class AnnouncementDetailsRoute
+    extends PageRouteInfo<AnnouncementDetailsRouteArgs> {
+  AnnouncementDetailsRoute({
+    Key? key,
+    required int announcementId,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AnnouncementDetailsRoute.name,
+         args: AnnouncementDetailsRouteArgs(
+           key: key,
+           announcementId: announcementId,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'AnnouncementDetailsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AnnouncementDetailsRouteArgs>();
+      return AnnouncementDetailsPage(
+        key: args.key,
+        announcementId: args.announcementId,
+      );
+    },
+  );
+}
+
+class AnnouncementDetailsRouteArgs {
+  const AnnouncementDetailsRouteArgs({this.key, required this.announcementId});
+
+  final Key? key;
+
+  final int announcementId;
+
+  @override
+  String toString() {
+    return 'AnnouncementDetailsRouteArgs{key: $key, announcementId: $announcementId}';
+  }
+}
+
+/// generated route for
+/// [AnnouncementsPage]
+class AnnouncementsRoute extends PageRouteInfo<void> {
+  const AnnouncementsRoute({List<PageRouteInfo>? children})
+    : super(AnnouncementsRoute.name, initialChildren: children);
+
+  static const String name = 'AnnouncementsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AnnouncementsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ArticleDetailsPage]
 class ArticleDetailsRoute extends PageRouteInfo<ArticleDetailsRouteArgs> {
   ArticleDetailsRoute({
@@ -245,6 +305,22 @@ class LoginRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const LoginPage();
+    },
+  );
+}
+
+/// generated route for
+/// [NewAnnouncementPage]
+class NewAnnouncementRoute extends PageRouteInfo<void> {
+  const NewAnnouncementRoute({List<PageRouteInfo>? children})
+    : super(NewAnnouncementRoute.name, initialChildren: children);
+
+  static const String name = 'NewAnnouncementRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NewAnnouncementPage();
     },
   );
 }
