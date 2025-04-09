@@ -17,6 +17,7 @@ import 'package:home_management/features/auth/repository/auth_local_repository.d
 import 'package:home_management/features/knowledge_base/di/knowledge_base_module.dart';
 
 import '../../features/auth/repository/auth_local_repository_impl.dart';
+import 'vote_injection_module.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -50,6 +51,10 @@ Future initDependencyInjection() async {
   initCallMasterModule();
 
   initSuggestion();
+
   initKnowledgeBaseModule();
+
+  initVoteModule();
+
   initAnnouncementsModule();
 }

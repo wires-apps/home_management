@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
-import 'package:home_management/features/activity/bloc/voting_bloc/voting_bloc.dart';
+import 'package:home_management/features/activity/voting/voting_bloc/voting_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 @RoutePage()
@@ -36,7 +37,7 @@ class MobileScreen extends StatelessWidget {
         surfaceTintColor: AppColors.cE0DEDE,
       ),
       body: BlocProvider(
-        create: (context) => VotingBloc(),
+        create: (context) => getIt<VotingBloc>(),
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: Column(
