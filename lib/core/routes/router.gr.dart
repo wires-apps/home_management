@@ -27,6 +27,43 @@ class AdvertisementRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ArticleDetailsPage]
+class ArticleDetailsRoute extends PageRouteInfo<ArticleDetailsRouteArgs> {
+  ArticleDetailsRoute({
+    Key? key,
+    required int articleId,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ArticleDetailsRoute.name,
+         args: ArticleDetailsRouteArgs(key: key, articleId: articleId),
+         initialChildren: children,
+       );
+
+  static const String name = 'ArticleDetailsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ArticleDetailsRouteArgs>();
+      return ArticleDetailsPage(key: args.key, articleId: args.articleId);
+    },
+  );
+}
+
+class ArticleDetailsRouteArgs {
+  const ArticleDetailsRouteArgs({this.key, required this.articleId});
+
+  final Key? key;
+
+  final int articleId;
+
+  @override
+  String toString() {
+    return 'ArticleDetailsRouteArgs{key: $key, articleId: $articleId}';
+  }
+}
+
+/// generated route for
 /// [CallMasterPage]
 class CallMasterRoute extends PageRouteInfo<void> {
   const CallMasterRoute({List<PageRouteInfo>? children})
@@ -140,17 +177,58 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [KnowledgeBasePage]
-class KnowledgeBaseRoute extends PageRouteInfo<void> {
-  const KnowledgeBaseRoute({List<PageRouteInfo>? children})
-    : super(KnowledgeBaseRoute.name, initialChildren: children);
+/// [KnowledgeBaseArticlesPage]
+class KnowledgeBaseArticlesRoute
+    extends PageRouteInfo<KnowledgeBaseArticlesRouteArgs> {
+  KnowledgeBaseArticlesRoute({
+    Key? key,
+    required int categoryId,
+    List<PageRouteInfo>? children,
+  }) : super(
+         KnowledgeBaseArticlesRoute.name,
+         args: KnowledgeBaseArticlesRouteArgs(key: key, categoryId: categoryId),
+         initialChildren: children,
+       );
 
-  static const String name = 'KnowledgeBaseRoute';
+  static const String name = 'KnowledgeBaseArticlesRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const KnowledgeBasePage();
+      final args = data.argsAs<KnowledgeBaseArticlesRouteArgs>();
+      return KnowledgeBaseArticlesPage(
+        key: args.key,
+        categoryId: args.categoryId,
+      );
+    },
+  );
+}
+
+class KnowledgeBaseArticlesRouteArgs {
+  const KnowledgeBaseArticlesRouteArgs({this.key, required this.categoryId});
+
+  final Key? key;
+
+  final int categoryId;
+
+  @override
+  String toString() {
+    return 'KnowledgeBaseArticlesRouteArgs{key: $key, categoryId: $categoryId}';
+  }
+}
+
+/// generated route for
+/// [KnowledgeBaseCategoriesPage]
+class KnowledgeBaseCategoriesRoute extends PageRouteInfo<void> {
+  const KnowledgeBaseCategoriesRoute({List<PageRouteInfo>? children})
+    : super(KnowledgeBaseCategoriesRoute.name, initialChildren: children);
+
+  static const String name = 'KnowledgeBaseCategoriesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const KnowledgeBaseCategoriesPage();
     },
   );
 }
