@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 
 class TextInputField extends StatelessWidget {
   const TextInputField({
@@ -26,6 +27,7 @@ class TextInputField extends StatelessWidget {
       controller: controller,
       maxLines: maxLines,
       minLines: minLines,
+      style: AppTextStyle.style.copyWith(fontSize: 18),
       keyboardType: TextInputType.multiline,
       textInputAction: TextInputAction.newline,
       readOnly: isReadOnly,
@@ -40,9 +42,8 @@ class TextInputField extends StatelessWidget {
             const Text('*', style: TextStyle(fontSize: 18, color: AppColors.cCE1628)),
           ],
         ),
-        // labelText: 'Название темы',
         border: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppColors.c224795),
+          borderSide: const BorderSide(color: AppColors.c0084EF),
           borderRadius: BorderRadius.circular(12),
         ),
         hintText: hint,

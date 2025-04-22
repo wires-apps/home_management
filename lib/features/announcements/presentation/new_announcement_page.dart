@@ -6,6 +6,7 @@ import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/ui/app_button_styles.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/core/widgets/buttons/custom_button.dart';
 import 'package:home_management/core/widgets/input/text_input_field.dart';
@@ -39,7 +40,7 @@ class NewAnnouncementPage extends StatelessWidget {
           ),
         ],
         child: Scaffold(
-          backgroundColor: AppColors.cE0DEDE,
+          backgroundColor: AppColors.cEDEDEC,
           appBar: _AppBar(context: context),
           floatingActionButton: const _SendButton(),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -52,17 +53,13 @@ class NewAnnouncementPage extends StatelessWidget {
 
 class _AppBar extends AppBar {
   _AppBar({
-    super.key,
     required BuildContext context,
   }) : super(
-          backgroundColor: AppColors.cE0DEDE,
-          surfaceTintColor: AppColors.cE0DEDE,
+          backgroundColor: AppColors.cEDEDEC,
+          surfaceTintColor: AppColors.cEDEDEC,
           title: const Text(
             'Новое объявление',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-            ),
+            style: AppTextStyle.style,
           ),
           centerTitle: true,
           elevation: 0,
@@ -97,9 +94,7 @@ class _Body extends StatelessWidget {
 }
 
 class _PhotoWidget extends StatelessWidget {
-  const _PhotoWidget({
-    super.key,
-  });
+  const _PhotoWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -116,9 +111,7 @@ class _PhotoWidget extends StatelessWidget {
 }
 
 class _SendButton extends StatelessWidget {
-  const _SendButton({
-    super.key,
-  });
+  const _SendButton();
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +122,7 @@ class _SendButton extends StatelessWidget {
           onPressed: () => context.read<NewAnnouncementBloc>().add(NewAnnouncementSendToStore()),
           buttonStyle: AppButtonStyles.actionButtonPrimary,
           text: 'Добавить',
-          textStyle: const TextStyle(fontSize: 16, color: Colors.white),
+          textStyle: const TextStyle(fontSize: 20, color: Colors.white),
           isLoading: state.status.isLoading,
           isEnabled: state.isButtonEnabled,
         );
@@ -139,7 +132,7 @@ class _SendButton extends StatelessWidget {
 }
 
 class _TitleField extends StatelessWidget {
-  const _TitleField({super.key});
+  const _TitleField();
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +148,7 @@ class _TitleField extends StatelessWidget {
 }
 
 class _MessageField extends StatelessWidget {
-  const _MessageField({super.key});
+  const _MessageField();
 
   @override
   Widget build(BuildContext context) {

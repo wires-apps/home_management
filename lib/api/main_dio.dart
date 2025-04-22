@@ -10,6 +10,11 @@ class MainDio {
   }) : dio = dio ??
             Dio(
               BaseOptions(
+                followRedirects: false,
+                validateStatus: (status) {
+                  if (status == null) return false;
+                  return status < 500;
+                },
                 connectTimeout: const Duration(seconds: 30),
                 receiveTimeout: const Duration(seconds: 30),
               ),

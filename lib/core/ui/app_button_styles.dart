@@ -7,12 +7,16 @@ abstract class AppButtonStyles {
     minimumSize: const Size.fromHeight(36),
     padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
+      borderRadius: BorderRadius.all(Radius.circular(30)),
     ),
-    textStyle: const TextStyle(fontSize: 15, color: Colors.white),
+    textStyle: const TextStyle(
+      fontSize: 24,
+      color: Colors.white,
+      fontWeight: FontWeight.w400,
+    ),
     elevation: 0,
     foregroundColor: Colors.white,
-    backgroundColor: AppColors.c05A84F,
+    backgroundColor: AppColors.c0084EF,
     splashFactory: InkRipple.splashFactory,
   );
 }

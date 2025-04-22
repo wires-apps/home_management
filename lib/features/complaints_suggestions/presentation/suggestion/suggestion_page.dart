@@ -6,6 +6,7 @@ import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/ui/app_button_styles.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/core/widgets/buttons/custom_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,17 +29,20 @@ class SuggestionPage extends StatelessWidget {
             listenWhen: (prev, curr) => prev.hasSuggestion != curr.hasSuggestion,
             listener: (context, state) {
               if (state.hasSuggestion) {
-                Future.delayed(const Duration(milliseconds: 30), () {
-                  if (context.mounted) {
-                    context.maybePop();
-                  }
-                });
+                Future.delayed(
+                  const Duration(milliseconds: 30),
+                  () {
+                    if (context.mounted) {
+                      context.maybePop();
+                    }
+                  },
+                );
               }
             },
           ),
         ],
         child: Scaffold(
-          backgroundColor: AppColors.cE0DEDE,
+          backgroundColor: AppColors.cEDEDEC,
           appBar: _AppBar(context: context),
           body: const _Body(),
         ),
@@ -49,17 +53,13 @@ class SuggestionPage extends StatelessWidget {
 
 class _AppBar extends AppBar {
   _AppBar({
-    super.key,
     required BuildContext context,
   }) : super(
-          backgroundColor: AppColors.cE0DEDE,
-          surfaceTintColor: AppColors.cE0DEDE,
+          backgroundColor: AppColors.cEDEDEC,
+          surfaceTintColor: AppColors.cEDEDEC,
           title: const Text(
             'Новое предложение',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-            ),
+            style: AppTextStyle.style,
           ),
           centerTitle: true,
           elevation: 0,
@@ -93,14 +93,17 @@ class _Body extends StatelessWidget {
                     ),
                     alignment: Alignment.center,
                     child: state.image != null
-                        ? InteractiveViewer(
-                            panEnabled: true,
-                            minScale: 0.5,
-                            maxScale: 3.0,
-                            child: Image.file(
-                              state.image!,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: InteractiveViewer(
+                              panEnabled: true,
+                              minScale: 0.5,
+                              maxScale: 3.0,
+                              child: Image.file(
+                                state.image!,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
                             ),
                           )
                         : Icon(
@@ -124,9 +127,7 @@ class _Body extends StatelessWidget {
 }
 
 class _SendButton extends StatelessWidget {
-  const _SendButton({
-    super.key,
-  });
+  const _SendButton();
 
   @override
   Widget build(BuildContext context) {
@@ -135,16 +136,12 @@ class _SendButton extends StatelessWidget {
       builder: (context, state) {
         return CustomButton(
           onPressed: () => context.read<SuggestionBloc>().add(SuggestionSendToStore()),
-          // buttonStyle: TextButton.styleFrom(
-          //   backgroundColor: AppColors.c05A84F,
-          //   shape: RoundedRectangleBorder(
-          //     borderRadius: BorderRadius.circular(10),
-          //     side: const BorderSide(color: AppColors.c224795),
-          //   ),
-          // ),
           buttonStyle: AppButtonStyles.actionButtonPrimary,
           text: 'Добавить',
-          textStyle: const TextStyle(fontSize: 16, color: Colors.white),
+          textStyle: AppTextStyle.style.copyWith(
+            fontSize: 20,
+            color: Colors.white,
+          ),
           isLoading: state.isLoading,
           isEnabled: state.isButtonEnabled,
         );
@@ -154,7 +151,7 @@ class _SendButton extends StatelessWidget {
 }
 
 class _DescriptionField extends StatelessWidget {
-  const _DescriptionField({super.key});
+  const _DescriptionField();
 
   @override
   Widget build(BuildContext context) {
@@ -173,6 +170,7 @@ class _DescriptionField extends StatelessWidget {
       child: TextField(
         controller: bloc.textController,
         maxLines: null,
+        style: AppTextStyle.style.copyWith(fontSize: 20),
         keyboardType: TextInputType.multiline,
         textInputAction: TextInputAction.newline,
         decoration: const InputDecoration(
@@ -205,11 +203,14 @@ class _AutoWrapTextFieldState extends State<AutoWrapTextField> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.c224795),
+        border: Border.all(color: AppColors.c0084EF, width: 1.6),
       ),
       child: TextField(
         controller: _controller,
         maxLines: null,
+        style: AppTextStyle.style.copyWith(
+          fontSize: 20,
+        ),
         keyboardType: TextInputType.multiline,
         textInputAction: TextInputAction.newline,
         decoration: const InputDecoration(

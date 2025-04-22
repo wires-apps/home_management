@@ -3,6 +3,7 @@ part of 'single_voting_bloc.dart';
 class SingleVotingState extends BaseState {
   const SingleVotingState({
     this.needToCloseDialog = false,
+    this.isChooseVoting = false,
     this.hasVoting = false,
     this.selectedOption,
     this.poll,
@@ -13,6 +14,7 @@ class SingleVotingState extends BaseState {
   final bool needToCloseDialog;
   final String? selectedOption;
   final SinglePollsResponseDto? poll;
+  final bool isChooseVoting;
   final bool hasVoting;
 
   @override
@@ -23,6 +25,7 @@ class SingleVotingState extends BaseState {
     String? selectedOption,
     SinglePollsResponseDto? poll,
     bool? hasVoting,
+    bool? isChooseVoting,
   }) =>
       SingleVotingState(
         status: status ?? this.status,
@@ -31,6 +34,7 @@ class SingleVotingState extends BaseState {
         selectedOption: selectedOption ?? this.selectedOption,
         poll: poll ?? this.poll,
         hasVoting: hasVoting ?? this.hasVoting,
+        isChooseVoting: isChooseVoting ?? this.isChooseVoting,
       );
 
   @override
@@ -40,5 +44,6 @@ class SingleVotingState extends BaseState {
         selectedOption,
         poll,
         hasVoting,
+        isChooseVoting,
       ];
 }

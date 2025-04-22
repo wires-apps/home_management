@@ -11,22 +11,6 @@
 part of 'router.dart';
 
 /// generated route for
-/// [AdvertisementPage]
-class AdvertisementRoute extends PageRouteInfo<void> {
-  const AdvertisementRoute({List<PageRouteInfo>? children})
-    : super(AdvertisementRoute.name, initialChildren: children);
-
-  static const String name = 'AdvertisementRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const AdvertisementPage();
-    },
-  );
-}
-
-/// generated route for
 /// [AnnouncementDetailsPage]
 class AnnouncementDetailsRoute
     extends PageRouteInfo<AnnouncementDetailsRouteArgs> {
@@ -294,6 +278,22 @@ class KnowledgeBaseCategoriesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LoadingPage]
+class LoadingRoute extends PageRouteInfo<void> {
+  const LoadingRoute({List<PageRouteInfo>? children})
+    : super(LoadingRoute.name, initialChildren: children);
+
+  static const String name = 'LoadingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LoadingPage();
+    },
+  );
+}
+
+/// generated route for
 /// [LoginPage]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})
@@ -394,38 +394,6 @@ class NotificationRouteArgs {
   String toString() {
     return 'NotificationRouteArgs{key: $key, id: $id}';
   }
-}
-
-/// generated route for
-/// [RulesDetailsPage]
-class RulesDetailsRoute extends PageRouteInfo<void> {
-  const RulesDetailsRoute({List<PageRouteInfo>? children})
-    : super(RulesDetailsRoute.name, initialChildren: children);
-
-  static const String name = 'RulesDetailsRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const RulesDetailsPage();
-    },
-  );
-}
-
-/// generated route for
-/// [RulesPage]
-class RulesRoute extends PageRouteInfo<void> {
-  const RulesRoute({List<PageRouteInfo>? children})
-    : super(RulesRoute.name, initialChildren: children);
-
-  static const String name = 'RulesRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const RulesPage();
-    },
-  );
 }
 
 /// generated route for

@@ -30,7 +30,7 @@ SingleNotificationResponseDto _$SingleNotificationResponseDtoFromJson(
           type: $checkedConvert('type', (v) => v as String),
           title: $checkedConvert('title', (v) => v as String),
           message: $checkedConvert('message', (v) => v as String),
-          userId: $checkedConvert('user_id', (v) => v as String?),
+          userId: $checkedConvert('user_id', (v) => (v as num?)?.toInt()),
           residentialComplexId: $checkedConvert(
               'residential_complex_id', (v) => (v as num?)?.toInt()),
           photos: $checkedConvert(

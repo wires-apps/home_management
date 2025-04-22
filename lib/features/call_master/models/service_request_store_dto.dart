@@ -18,7 +18,7 @@ class ServiceRequestStoreDto extends Equatable {
   });
 
   @JsonKey(includeFromJson: false, includeToJson: false)
-  final List<File>? photos;
+  final List<File?>? photos;
 
   @JsonKey(name: 'type', required: true, includeIfNull: false)
   final String type;

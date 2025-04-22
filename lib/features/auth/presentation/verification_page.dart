@@ -7,7 +7,6 @@ import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
-import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/features/auth/bloc/verification/verify_cubit.dart';
 import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -25,24 +24,27 @@ class VerificationPage extends StatelessWidget {
       create: (context) => getIt<VerifyCubit>()
         ..addDevice()
         ..startTimer(),
-      child: CubitSnackBarListenerWithChild<VerifyCubit>(
-        child: BlocListener<VerifyCubit, VerifyState>(
-          listener: (context, state) {
-            if (state.needToGoHomeScreen) {
-              AutoRouter.of(context).replace(const HomeRoute());
-            }
-          },
-          child: Scaffold(
-            backgroundColor: AppColors.cE0DEDE,
-            appBar: AppBar(
-              elevation: 0,
-              surfaceTintColor: AppColors.cE0DEDE,
-              backgroundColor: AppColors.cE0DEDE,
-              centerTitle: true,
-              leading: const BackButtonAppBarWidget(),
-            ),
-            body: const _Body(),
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<VerifyCubit, VerifyState>(
+            listener: (context, state) {
+              if (state.needToGoHomeScreen) {
+                AutoRouter.of(context).replace(const HomeRoute());
+              }
+            },
           ),
+          CubitSnackBarListener<VerifyCubit>()
+        ],
+        child: Scaffold(
+          backgroundColor: AppColors.cEDEDEC,
+          appBar: AppBar(
+            elevation: 0,
+            surfaceTintColor: AppColors.cEDEDEC,
+            backgroundColor: AppColors.cEDEDEC,
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+          ),
+          body: const _Body(),
         ),
       ),
     );
@@ -91,13 +93,20 @@ class _Body extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const AutoSizeText(
-                  "Введите код из SMS",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  'Введите код из SMS',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.c0C3462,
+                  ),
                 ),
                 const Gap(16),
-                Text(
-                  "Мы отправили код на ваш номер",
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                const Text(
+                  'Мы отправили код на ваш номер',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
                 ),
                 const Gap(32),
                 PinCodeTextField(
@@ -115,7 +124,7 @@ class _Body extends StatelessWidget {
                     selectedFillColor: Colors.grey.shade200,
                     inactiveFillColor: Colors.grey.shade100,
                     activeColor: AppColors.c72A9E1,
-                    selectedColor: AppColors.cA5BE76,
+                    selectedColor: AppColors.cA8DEFF,
                     inactiveColor: Colors.grey,
                   ),
                 ),
@@ -127,37 +136,59 @@ class _Body extends StatelessWidget {
                 const Gap(20),
                 ElevatedButton(
                   onPressed: state.canResend ? () => context.read<VerifyCubit>().resendSms() : null,
-                  child: Text("Отправить SMS снова"),
+                  child: Text(
+                    'Отправить SMS снова',
+                    style: TextStyle(
+                      color: state.canResend ? AppColors.c0084EF : Colors.grey,
+                    ),
+                  ),
                 ),
                 const Gap(20),
-                TextButton(
-                  onPressed: () {
-                    cubit.logIn();
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: AppColors.c05A84F,
-                    padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.016,
-                      horizontal: getValueForScreenType<double>(
-                        context: context,
-                        mobile: MediaQuery.of(context).size.width * 0.2,
-                        tablet: MediaQuery.of(context).size.width * 0.03,
-                        desktop: 30,
-                      ),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: const AutoSizeText(
-                    'Подтвердить ',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
+                _VerificationButton(cubit: cubit),
               ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _VerificationButton extends StatelessWidget {
+  const _VerificationButton({
+    required this.cubit,
+  });
+
+  final VerifyCubit cubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<VerifyCubit, VerifyState>(
+      buildWhen: (prev, curr) => prev.isButtonEnabled != curr.isButtonEnabled,
+      builder: (context, state) {
+        return TextButton(
+          onPressed: state.isButtonEnabled ? () => cubit.logIn() : null,
+          style: TextButton.styleFrom(
+            backgroundColor: state.isButtonEnabled ? AppColors.c0084EF : AppColors.cE0DEDE,
+            padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * 0.016,
+              horizontal: getValueForScreenType<double>(
+                context: context,
+                mobile: MediaQuery.of(context).size.width * 0.2,
+                tablet: MediaQuery.of(context).size.width * 0.03,
+                desktop: 30,
+              ),
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          child: const AutoSizeText(
+            'Подтвердить ',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+              fontSize: 20,
             ),
           ),
         );

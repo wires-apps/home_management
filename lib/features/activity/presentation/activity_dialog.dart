@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
+import 'package:home_management/features/complaints_suggestions/presentation/complaints/complaints_suggestions_page.dart';
 import 'package:home_management/generated/l10n.dart';
 
 void showActivityDialog(BuildContext context) {
@@ -11,44 +12,54 @@ void showActivityDialog(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: Colors.white,
-        title: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Активность',
-                style: TextStyle(
-                  fontSize: 22,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                S.of(context).home_screen_activity,
+                maxLines: 2,
+                overflow: TextOverflow.visible,
+                style: const TextStyle(
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: AppColors.c224795,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         content: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(12),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _ListTileWidget(
-                  icon: const Icon(Icons.poll, color: Colors.yellowAccent),
+                const Gap(10),
+                ListTileWidget(
+                  icon: const Icon(
+                    Icons.campaign,
+                    color: Colors.amberAccent,
+                    size: 30,
+                  ),
+                  title: S.of(context).activity_advertisement_title,
+                  onTap: () {
+                    context.pushRoute(const AnnouncementsRoute());
+                  },
+                ),
+                const Gap(10),
+                ListTileWidget(
+                  icon: const Icon(
+                    Icons.poll,
+                    color: Colors.yellowAccent,
+                    size: 30,
+                  ),
                   title: S.of(context).activity_voting_title,
                   onTap: () {
                     context.pushRoute(
                       const VotingRoute(),
                     );
-                  },
-                ),
-                const Gap(20),
-                _ListTileWidget(
-                  icon: const Icon(Icons.campaign, color: Colors.amberAccent),
-                  title: S.of(context).activity_advertisement_title,
-                  onTap: () {
-                    context.pushRoute(const AnnouncementsRoute());
                   },
                 ),
               ],
@@ -58,35 +69,4 @@ void showActivityDialog(BuildContext context) {
       );
     },
   );
-}
-
-class _ListTileWidget extends StatelessWidget {
-  const _ListTileWidget({
-    required this.icon,
-    required this.title,
-    required this.onTap,
-  });
-
-  final Widget icon;
-  final String title;
-  final void Function() onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      tileColor: AppColors.c9EC271,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      leading: icon,
-      title: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16),
-        child: Text(
-          title,
-          style: const TextStyle(color: Colors.white, fontSize: 16),
-        ),
-      ),
-      onTap: onTap,
-    );
-  }
 }

@@ -5,6 +5,7 @@ import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/features/activity/voting/voting_bloc/voting_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -41,7 +42,10 @@ class MobileScreen extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             leading: const BackButtonAppBarWidget(),
-            title: const Text('Голосование'),
+            title: const Text(
+              'Голосование',
+              style: AppTextStyle.style,
+            ),
             backgroundColor: AppColors.cE0DEDE,
             surfaceTintColor: AppColors.cE0DEDE,
           ),
@@ -61,8 +65,11 @@ class _PollList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<VotingBloc, VotingState>(
+      buildWhen: (prev, curr) => prev.polls != curr.polls || prev.status != curr.status,
       builder: (context, state) {
-        final polls = state.polls ?? [];
+        final polls = state.polls;
+        if (polls == null) return const Center(child: CircularProgressIndicator());
+        if (state.status.isFailure) return const SizedBox();
         return ListView.builder(
           itemCount: state.polls?.length ?? 0,
           itemBuilder: (context, index) {
@@ -109,7 +116,7 @@ class _PollItem extends StatelessWidget {
             border: Border.all(color: AppColors.c9EC271, width: 2),
           ),
           child: Text(
-            'Голосование ' + mainText,
+            'Голосование $mainText',
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 18, color: Colors.black),
           ),

@@ -18,13 +18,16 @@ class BlocSnackBarListenerWithChild<B extends BaseBloc> extends StatelessWidget 
   @override
   Widget build(BuildContext context) {
     return BlocListener<B, BaseState>(
+      listenWhen: (prev, curr) => prev.dialogInfo != curr.dialogInfo && curr.dialogInfo != null,
       listener: (context, state) {
         final dialogInfo = state.dialogInfo;
         if (dialogInfo == null) return;
-        showDialog(
-          context: context,
-          builder: (context) => ErrorDialog(
-            title: dialogInfo.message,
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => showDialog(
+            context: context,
+            builder: (context) => ErrorDialog(
+              title: dialogInfo.message,
+            ),
           ),
         );
       },

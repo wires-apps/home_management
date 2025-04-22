@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/core/widgets/input/text_input_field.dart';
 import 'package:home_management/core/widgets/photos/photo_carousel.dart';
@@ -24,7 +25,10 @@ class AnnouncementDetailsPage extends StatelessWidget {
         backgroundColor: AppColors.cE0DEDE,
         appBar: AppBar(
           leading: const BackButtonAppBarWidget(),
-          title: Text('Объявление №$announcementId'),
+          title: Text(
+            'Объявление №$announcementId',
+            style: AppTextStyle.style,
+          ),
           backgroundColor: AppColors.cE0DEDE,
           surfaceTintColor: AppColors.cE0DEDE,
         ),
@@ -63,7 +67,7 @@ class _Body extends StatelessWidget {
 }
 
 class _TitleField extends StatelessWidget {
-  const _TitleField({super.key, this.title});
+  const _TitleField({this.title});
 
   final String? title;
 
@@ -80,7 +84,7 @@ class _TitleField extends StatelessWidget {
 }
 
 class _MessageField extends StatelessWidget {
-  const _MessageField({super.key, this.content});
+  const _MessageField({this.content});
 
   final String? content;
 

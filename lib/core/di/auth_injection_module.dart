@@ -7,6 +7,8 @@ import 'package:home_management/features/auth/bloc/verification/verify_cubit.dar
 import 'package:home_management/features/auth/interactor/auth_interactor.dart';
 import 'package:home_management/features/auth/repository/auth_local_repository.dart';
 import 'package:home_management/features/auth/repository/auth_remote_repository.dart';
+import 'package:home_management/features/auth/repository/verify_local_repository.dart';
+import 'package:home_management/features/auth/repository/verify_local_repository_impl.dart';
 
 import '../../features/auth/repository/auth_remote_repository_impl.dart';
 
@@ -24,8 +26,13 @@ void initAuthModule() {
     ),
   );
 
+  getIt.registerLazySingleton<VerifyLocalRepository>(
+    () => VerifyLocalRepositoryImpl(),
+  );
+
   getIt.registerFactory(
     () => AuthBloc(
+      getIt(),
       getIt(),
       getIt(),
       getIt(),
@@ -34,6 +41,8 @@ void initAuthModule() {
 
   getIt.registerFactory(
     () => VerifyCubit(
+      getIt(),
+      getIt(),
       getIt(),
       getIt(),
     ),

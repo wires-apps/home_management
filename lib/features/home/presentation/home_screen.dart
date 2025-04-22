@@ -6,10 +6,11 @@ import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/bottom_sheet/custom_bottom_sheet.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/features/activity/presentation/activity_dialog.dart';
-import 'package:home_management/features/complaints_suggestions/presentation/complaints_suggestions_page.dart';
+import 'package:home_management/features/complaints_suggestions/presentation/complaints/complaints_suggestions_page.dart';
 import 'package:home_management/features/home/bloc/home_bloc.dart';
 import 'package:home_management/features/home/presentation/notification_list.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -41,43 +42,51 @@ class MobileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<HomeBloc>()
         ..add(const NotificationsDownload(isFirstFetch: true))
-        ..add(NotificationSendFcmToken()),
-      child: BlocSnackBarListenerWithChild<HomeBloc>(
-        child: BlocListener<HomeBloc, HomeState>(
-          listener: (context, state) {
-            if (state.needToCloseHomePage) {
-              context.router.replace(const LoginRoute());
-            }
-          },
-          child: BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              return Scaffold(
-                backgroundColor: AppColors.cE0DEDE,
-                key: _scaffoldKey,
-                appBar: AppBar(
-                  leading: BackButtonAppBarWidget(
-                    onPressed: () => context.read<HomeBloc>().add(LogoutEvent()),
-                  ),
-                  title: const Text('Мобильный экран'),
-                  backgroundColor: Colors.white,
-                  surfaceTintColor: Colors.white,
-                ),
-                body: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const SingleDropdownList(),
-                        Gap(MediaQuery.of(context).size.height * 0.2),
-                        _MainButton(_scaffoldKey),
-                      ],
-                    ),
-                  ),
-                ),
-              );
+        ..add(
+          NotificationSendFcmToken(),
+        ),
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<HomeBloc, HomeState>(
+            listener: (context, state) {
+              if (state.needToCloseHomePage) {
+                context.router.replace(const LoginRoute());
+              }
             },
           ),
+          BlocSnackBarListener<HomeBloc>(),
+        ],
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            return Scaffold(
+              backgroundColor: AppColors.cEDEDEC,
+              key: _scaffoldKey,
+              appBar: AppBar(
+                leading: BackButtonAppBarWidget(
+                  onPressed: () => context.read<HomeBloc>().add(LogoutEvent()),
+                ),
+                title: const Text(
+                  'Wires Home',
+                  style: AppTextStyle.style,
+                ),
+                centerTitle: true,
+                backgroundColor: AppColors.cEDEDEC,
+                surfaceTintColor: AppColors.cEDEDEC,
+              ),
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SingleDropdownList(),
+                      _MainButton(_scaffoldKey),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
@@ -143,18 +152,22 @@ class _MainButton extends StatelessWidget {
       builder: (context, state) {
         return Container(
           margin: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.height * 0.03,
-              vertical: MediaQuery.of(context).size.height * 0.024),
+            horizontal: MediaQuery.of(context).size.height * 0.03,
+            vertical: MediaQuery.of(context).size.height * 0.024,
+          ),
           child: TextButton(
             onPressed: () {
-              controller = scaffoldKey.currentState
-                  ?.showBottomSheet(backgroundColor: Colors.transparent, enableDrag: true, (buildContext) {
-                return CustomBottomSheet(
-                  heightFactor: 0.7,
-                  backgroundColor: Colors.white,
-                  mainWidget: SingleChildScrollView(child: _MenuButtons(controller: controller)),
-                );
-              });
+              controller = scaffoldKey.currentState?.showBottomSheet(
+                backgroundColor: Colors.transparent,
+                enableDrag: true,
+                (buildContext) {
+                  return CustomBottomSheet(
+                    heightFactor: 0.7,
+                    backgroundColor: Colors.white,
+                    mainWidget: SingleChildScrollView(child: _MenuButtons(controller: controller)),
+                  );
+                },
+              );
             },
             style: TextButton.styleFrom(
               backgroundColor: AppColors.c9EC271,

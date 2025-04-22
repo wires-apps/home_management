@@ -8,6 +8,7 @@ import 'package:home_management/features/public_utilities/repository/utility_bil
 import 'package:url_launcher/url_launcher.dart';
 
 part 'single_utility_bills_event.dart';
+
 part 'single_utility_bills_state.dart';
 
 class SingleUtilityBillsBloc extends BaseBloc<SingleUtilityBillsEvent, SingleUtilityBillsState> {
@@ -56,7 +57,7 @@ class SingleUtilityBillsBloc extends BaseBloc<SingleUtilityBillsEvent, SingleUti
     final Uri uri = Uri.parse(deeplink);
     String storeUrl = '';
     try {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      await launchUrl(uri);
     } catch (e) {
       if (Platform.isAndroid) {
         storeUrl = 'https://play.google.com/store/apps/details?id=kz.kaspi.mobile'; // URL для Android

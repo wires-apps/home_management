@@ -4,13 +4,14 @@ enum AuthScreen {
   logIn,
   home,
   sms,
+  unknown,
 }
 
 class AuthState extends BaseState {
   const AuthState({
     required super.status,
     super.dialogInfo,
-    this.screen = AuthScreen.logIn,
+    this.screen = AuthScreen.unknown,
     this.device,
     this.needCheckEmail = false,
     this.isObscured = true,
@@ -30,13 +31,7 @@ class AuthState extends BaseState {
     BaseStatus? status,
     SnackBarInfo? dialogInfo,
     AuthScreen? screen,
-    String? username,
-    String? email,
-    String? password,
     String? device,
-    String? memoryPinCode,
-    String? createdPinCode,
-    bool? shouldInit,
     bool? needCheckEmail,
     bool? needCheckCorrectPassword,
     bool? isObscured,

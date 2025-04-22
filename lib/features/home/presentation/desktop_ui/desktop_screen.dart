@@ -3,7 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
-import 'package:home_management/features/complaints_suggestions/presentation/complaints_suggestions_page.dart';
+import 'package:home_management/features/complaints_suggestions/presentation/complaints/complaints_suggestions_page.dart';
 import 'package:home_management/generated/l10n.dart';
 
 class DesktopScreen extends StatelessWidget {

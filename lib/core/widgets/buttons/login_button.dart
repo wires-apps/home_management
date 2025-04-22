@@ -18,25 +18,25 @@ class LogInButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        backgroundColor: AppColors.c05A84F,
+        backgroundColor: AppColors.c0084EF,
         padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * 0.016,
+          vertical: MediaQuery.of(context).size.height * 0.018,
           horizontal: getValueForScreenType<double>(
             context: context,
-            mobile: MediaQuery.of(context).size.width * 0.3,
+            mobile: MediaQuery.of(context).size.width * 0.32,
             tablet: MediaQuery.of(context).size.width * 0.03,
             desktop: 30,
           ),
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
       child: AutoSizeText(
         title,
         style: const TextStyle(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: 20,
         ),
       ),
     );

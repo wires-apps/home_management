@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/bottom_loader.dart';
 import 'package:home_management/features/home/bloc/home_bloc.dart';
 
@@ -33,7 +35,7 @@ class _SingleDropdownListState extends State<SingleDropdownList> {
         final items = state.items;
 
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.54,
+          height: MediaQuery.of(context).size.height * 0.72,
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
@@ -100,14 +102,24 @@ class _NotificationItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppColors.c0084EF),
           ),
           child: Column(
             children: [
               Text(
                 mainText,
-                style: const TextStyle(fontSize: 18, color: Colors.black),
+                style: AppTextStyle.style.copyWith(
+                  fontSize: 20,
+                  color: AppColors.c224795,
+                ),
               ),
-              Text(secondText, style: const TextStyle(fontSize: 16, color: Colors.black)),
+              Text(
+                secondText,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: AppColors.c2A569A,
+                ),
+              ),
             ],
           ),
         ),

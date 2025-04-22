@@ -6,6 +6,7 @@ import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/core/widgets/loader.dart';
 import 'package:home_management/features/public_utilities/bloc/utility_bills_bloc.dart';
@@ -33,11 +34,14 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.cE0DEDE,
+      backgroundColor: AppColors.cEDEDEC,
       appBar: AppBar(
-        backgroundColor: AppColors.cE0DEDE,
-        surfaceTintColor: AppColors.cE0DEDE,
-        title: const Text('Oplata'),
+        backgroundColor: AppColors.cEDEDEC,
+        surfaceTintColor: AppColors.cEDEDEC,
+        title: const Text(
+          'Оплата',
+          style: AppTextStyle.style,
+        ),
         centerTitle: true,
         elevation: 0,
         leading: getDeviceType(MediaQuery.of(context).size) == DeviceScreenType.desktop
@@ -54,8 +58,6 @@ class _Body extends StatelessWidget {
         )),
         child: BlocBuilder<UtilityBillsBloc, UtilityBillsState>(builder: (context, state) {
           final List<DebtItemResponse> items = state.debts ?? [];
-          final bloc = context.read<UtilityBillsBloc>();
-
           if (items.isEmpty && state.status.isSuccess) {
             return const Center(
               child: AutoSizeText(
@@ -116,25 +118,29 @@ class _UtilityBillItem extends StatelessWidget {
       child: TextButton(
         onPressed: () => context.router.push(SingleUtilityBillsRoute(id: id)),
         style: TextButton.styleFrom(
-          side: const BorderSide(color: Colors.green),
-          backgroundColor: AppColors.cF7F9F7,
+          side: const BorderSide(color: AppColors.c0084EF, width: 1.6),
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(20),
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 16, left: 16, bottom: isOverdue ? 10 : 30, right: 8),
+          padding: EdgeInsets.only(top: 12, left: 12, bottom: isOverdue ? 10 : 30, right: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 name,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: AppTextStyle.style.copyWith(
+                  fontSize: 22,
+                  color: AppColors.c2A569A,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
                 'Сумма : $amount',
-                style: TextStyle(fontSize: 16),
+                style: AppTextStyle.style.copyWith(fontSize: 16, color: AppColors.c2A569A),
               ),
               isOverdue
                   ? Align(

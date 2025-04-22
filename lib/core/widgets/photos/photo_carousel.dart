@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/features/notification/models/photo_model_response_dto.dart';
 
 class PhotoCarousel extends StatelessWidget {
@@ -15,14 +16,15 @@ class PhotoCarousel extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.grey.shade500,
+          border: Border.all(color: AppColors.c0084EF, width: 1.6),
         ),
         child: const Center(
           child: Text(
             'Нет фото',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w200,
+              fontSize: 24,
+              fontWeight: FontWeight.w300,
             ),
           ),
         ),
@@ -58,27 +60,38 @@ class PhotoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Image.network(
-        'http://212.112.105.242:8800/storage/$url',
-        fit: BoxFit.cover,
-        width: double.infinity,
-        height: 300,
-        errorBuilder: (context, error, stackTrace) {
-          return Image.asset('assets/images/placeholder.png', fit: BoxFit.cover);
-        },
-        loadingBuilder: (context, widget, event) {
-          if (event?.cumulativeBytesLoaded == event?.expectedTotalBytes) {
-            return widget;
-          } else {
-            return const SizedBox(height: 300, child: Center(child: CircularProgressIndicator()));
-          }
-          // return Container(height: 300, child: const Center(child: CircularProgressIndicator()));
-        },
-        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-          return child;
-        },
+    return Container(
+      width: double.infinity,
+      height: 300,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: AppColors.c0084EF,
+          width: 2,
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.network(
+          'http://212.112.105.242:8800/storage/$url',
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Image.asset(
+              'assets/images/placeholder.png',
+              fit: BoxFit.cover,
+            );
+          },
+          loadingBuilder: (context, widget, event) {
+            if (event?.cumulativeBytesLoaded == event?.expectedTotalBytes) {
+              return widget;
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+            return child;
+          },
+        ),
       ),
     );
   }

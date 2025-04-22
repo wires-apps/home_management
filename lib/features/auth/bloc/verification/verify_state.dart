@@ -6,6 +6,7 @@ class VerifyState extends BaseState {
     required this.canResend,
     this.counter,
     this.needToGoHomeScreen = false,
+    this.isButtonEnabled = false,
     required super.status,
     super.dialogInfo,
   });
@@ -14,6 +15,7 @@ class VerifyState extends BaseState {
   final int? counter;
   final bool canResend;
   final bool needToGoHomeScreen;
+  final bool isButtonEnabled;
 
   @override
   VerifyState copyWith({
@@ -23,6 +25,7 @@ class VerifyState extends BaseState {
     int? counter,
     bool? canResend,
     bool? needToGoHomeScreen,
+    bool? isButtonEnabled,
   }) =>
       VerifyState(
         status: status ?? this.status,
@@ -31,6 +34,7 @@ class VerifyState extends BaseState {
         counter: counter ?? this.counter,
         canResend: canResend ?? this.canResend,
         needToGoHomeScreen: needToGoHomeScreen ?? this.needToGoHomeScreen,
+        isButtonEnabled: isButtonEnabled ?? this.isButtonEnabled,
       );
 
   @override
@@ -40,5 +44,6 @@ class VerifyState extends BaseState {
         counter,
         canResend,
         needToGoHomeScreen,
+        isButtonEnabled,
       ];
 }

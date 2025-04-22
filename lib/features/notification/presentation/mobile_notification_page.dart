@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/core/widgets/error_dialog.dart';
 import 'package:home_management/core/widgets/loader.dart';
@@ -44,13 +45,13 @@ class MobileNotificationPage extends StatelessWidget {
         child: BlocBuilder<NotificationBloc, NotificationState>(
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: AppColors.cE0DEDE,
+              backgroundColor: AppColors.cEDEDEC,
               appBar: AppBar(
                 leading: const BackButtonAppBarWidget(),
-                backgroundColor: AppColors.cE0DEDE,
+                backgroundColor: AppColors.cEDEDEC,
                 title: Text(
                   state.item?.title ?? 'Уведомление',
-                  style: TextStyle(color: Colors.black),
+                  style: AppTextStyle.style,
                 ),
                 centerTitle: true,
                 actions: [
@@ -115,8 +116,8 @@ class PhotoCarousel extends StatelessWidget {
             'Нет фото',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w200,
+              fontSize: 24,
+              fontWeight: FontWeight.w300,
             ),
           ),
         ),
@@ -179,7 +180,7 @@ class _PdfButton extends StatelessWidget {
       },
       icon: const Icon(
         Icons.picture_as_pdf,
-        size: 30,
+        size: 35,
         color: AppColors.cA5BE76,
       ),
     );
@@ -200,15 +201,13 @@ class AutoWrapTextField extends StatelessWidget {
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.c224795),
-        ),
         child: SingleChildScrollView(
           child: AutoSizeText(
             message ?? '',
-            style: TextStyle(fontSize: 16),
+            textAlign: TextAlign.center,
+            style: AppTextStyle.style.copyWith(
+              fontSize: 20,
+            ),
           ),
         ),
       ),
