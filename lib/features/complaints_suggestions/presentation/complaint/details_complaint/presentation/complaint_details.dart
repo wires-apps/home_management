@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:home_management/core/common/models/complaint_screen_type.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/complaint/custom_app_bar.dart';
 import 'package:home_management/core/widgets/photos/photo_carousel.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaint/details_complaint/bloc/complaint_details_bloc.dart';
@@ -26,7 +27,7 @@ class ComplaintDetailsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<ComplaintDetailsBloc>()..add(DownloadItemComplaint(id: id)),
       child: Scaffold(
-        backgroundColor: AppColors.cE0DEDE,
+        backgroundColor: AppColors.cEDEDEC,
         appBar: CustomAppBar(page: page, context: context),
         body: const _Body(),
       ),
@@ -65,20 +66,16 @@ class AutoWrapTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.5, // Ограничение по высоте
+        maxHeight: MediaQuery.of(context).size.height * 0.5,
       ),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.c224795),
-        ),
         child: SingleChildScrollView(
           child: AutoSizeText(
             message ?? '',
-            style: TextStyle(fontSize: 16),
+            textAlign: TextAlign.center,
+            style: AppTextStyle.style.copyWith(fontSize: 20),
           ),
         ),
       ),

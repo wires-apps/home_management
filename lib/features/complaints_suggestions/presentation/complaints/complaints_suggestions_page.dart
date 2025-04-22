@@ -18,12 +18,16 @@ void showComplaintDialog({
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              S.of(context).complaints_suggestions_title,
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: AppColors.c224795,
+            Expanded(
+              child: Text(
+                S.of(context).complaints_suggestions_title,
+                maxLines: 2,
+                overflow: TextOverflow.visible,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.c224795,
+                ),
               ),
             ),
           ],
@@ -36,9 +40,15 @@ void showComplaintDialog({
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ListTileWidget(
-                  icon: const Icon(Icons.report, color: Colors.red),
+                  icon: const Icon(
+                    Icons.report,
+                    color: Colors.red,
+                    size: 30,
+                  ),
                   title: S.of(context).complaints_suggestions_leave_complaint,
                   onTap: () {
+                    context.maybePop();
+                    hideBottomSheet();
                     context.pushRoute(
                       NewComplaintRoute(page: ComplaintScreenType.newComplaint),
                     );
@@ -46,7 +56,11 @@ void showComplaintDialog({
                 ),
                 const Gap(10),
                 ListTileWidget(
-                  icon: const Icon(Icons.list_alt, color: Colors.blue),
+                  icon: const Icon(
+                    Icons.list_alt,
+                    color: Colors.blue,
+                    size: 30,
+                  ),
                   title: S.of(context).complaints_suggestions_current_complaints,
                   onTap: () {
                     context.pushRoute(
@@ -56,7 +70,11 @@ void showComplaintDialog({
                 ),
                 const Gap(10),
                 ListTileWidget(
-                  icon: const Icon(Icons.lightbulb, color: Colors.yellowAccent),
+                  icon: const Icon(
+                    Icons.lightbulb,
+                    color: Colors.yellowAccent,
+                    size: 30,
+                  ),
                   title: S.of(context).complaints_suggestions_leave_suggestion,
                   onTap: () {
                     context.maybePop();
@@ -97,7 +115,11 @@ class ListTileWidget extends StatelessWidget {
       leading: icon,
       title: Text(
         title,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       onTap: onTap,
     );

@@ -17,14 +17,14 @@ class InputTextField extends StatelessWidget {
 
   const InputTextField({
     super.key,
-     this.errorText,
+    this.errorText,
     this.obscureText = false,
     required this.controller,
-     this.hintText,
+    this.hintText,
     required this.textInputAction,
     this.suffixIconButton,
     this.label,
-    this.textInputType ,
+    this.textInputType,
     this.onChanged,
     this.inputFormatters,
   });
@@ -32,55 +32,62 @@ class InputTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w400,
+        color: AppColors.c0C3462,
+      ),
       controller: controller,
       keyboardType: textInputType,
       textInputAction: TextInputAction.next,
       obscureText: obscureText,
       onChanged: onChanged,
       inputFormatters: inputFormatters,
+      textAlign: TextAlign.center,
       decoration: InputDecoration(
         labelText: label,
         suffixIcon: suffixIconButton,
         errorText: errorText,
         errorStyle: const TextStyle(fontSize: 14, color: AppColors.cCE1628),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(
             color: AppColors.cCE1628,
             width: 1.2,
           ),
         ),
-        hintText: hintText,
+        hintText: hintText ?? '',
         hintStyle: TextStyle(
-          fontSize: 14,
-          color: errorText == null ? Colors.grey.shade500 : AppColors.cCE1628,
+          fontWeight: FontWeight.w400,
+          fontSize: 22,
+          color: errorText == null ? AppColors.c0C3462 : AppColors.cCE1628,
         ),
         filled: true,
         fillColor: errorText == null ? Colors.grey.shade100 : AppColors.cFEE6EE,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(
-            color: AppColors.cA7BEA6,
+            color: AppColors.cA8DEFF,
             width: 1.2,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(
-            color: AppColors.c2A569A,
+            color: AppColors.cA8DEFF,
             width: 1.2,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(
-            color: AppColors.c2A569A,
+            color: AppColors.cA8DEFF,
             width: 2,
           ),
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 16,
+          horizontal: 30,
+          vertical: 12,
         ),
       ),
     );

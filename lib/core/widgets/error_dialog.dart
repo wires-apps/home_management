@@ -14,16 +14,33 @@ class ErrorDialog extends StatelessWidget {
         children: [
           Icon(Icons.error, color: Colors.red),
           Gap(10),
-          Text('Ошибка'),
+          Text(
+            'Ошибка',
+            style: TextStyle(fontSize: 24, color: AppColors.c0C3462),
+          ),
         ],
       ),
-      content: Text(title ?? 'Произошла ошибка'),
+      content: Text(
+        title ?? 'Произошла ошибка',
+        maxLines: 3,
+        textAlign: TextAlign.start,
+        style: const TextStyle(
+          fontSize: 20,
+          color: AppColors.c0C3462,
+        ),
+      ),
       actions: [
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Ok'),
+          child: const Text(
+            'Ок',
+            style: TextStyle(
+              fontSize: 20,
+              color: AppColors.c0C3462,
+            ),
+          ),
         ),
       ],
     );

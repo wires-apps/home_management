@@ -16,39 +16,65 @@ class SingleVotingBloc extends BaseBloc<SingleVotingEvent, SingleVotingState> {
             status: BaseStatus.loading,
           ),
         ) {
-    on<VoteChanged>(_onCallMaster);
+    on<VoteChanged>(_onSendVote);
+    on<ChooseVoice>(_onChooseVoice);
     on<VoteLoadById>(_onLoadById);
   }
 
   final VoteRemoteRepository _repository;
 
-  Future<void> _onCallMaster(
+  Future<void> _onChooseVoice(
+    ChooseVoice event,
+    Emitter<SingleVotingState> emit,
+  ) async {
+    if (event.isChoose) {
+      final id = state.poll?.poll.id;
+      final option = state.selectedOption;
+      if (id == null && option == null) return;
+      final response = await _repository.sendVote(idPoll: id!, vote: option!);
+      response.fold(
+        (failure) => emit(
+          state.copyWith(
+            status: BaseStatus.failure,
+            hasVoting: true,
+            dialogInfo: SnackBarInfo.getErrorMessage(failure),
+          ),
+        ),
+        (response) => emit(
+          state.copyWith(
+            status: BaseStatus.success,
+            hasVoting: true,
+            selectedOption: option,
+            dialogInfo: SnackBarInfo(
+              title: 'Успешно отправлено',
+              message: response.message,
+            ),
+          ),
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          hasVoting: false,
+          isChooseVoting: false,
+          status: BaseStatus.success,
+          selectedOption: null,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onSendVote(
     VoteChanged event,
     Emitter<SingleVotingState> emit,
   ) async {
-    final id = state.poll?.poll.id;
-    print('===================> ${event.option}');
     final option = _localizeVote(event.option);
-    emit(state.copyWith(status: BaseStatus.loading));
-    if (id == null) return;
-    final response = await _repository.sendVote(idPoll: id, vote: option);
-    response.fold(
-      (failure) => emit(
-        state.copyWith(
-          status: BaseStatus.failure,
-          hasVoting: true,
-          dialogInfo: SnackBarInfo.getErrorMessage(failure),
-        ),
-      ),
-      (response) => emit(
-        state.copyWith(
-          status: BaseStatus.success,
-          hasVoting: true,
-          dialogInfo: SnackBarInfo(title: 'Успешно отправлено', message: response.message),
-        ),
+    emit(
+      state.copyWith(
+        selectedOption: option,
+        isChooseVoting: true,
       ),
     );
-    emit(state.copyWith(selectedOption: event.option));
   }
 
   Future<void> _onLoadById(

@@ -49,7 +49,6 @@ class ComplaintDetailsBloc extends BaseBloc<ComplaintDetailsEvent, ComplaintDeta
     DownloadItemComplaint event,
     Emitter<ComplaintDetailsState> emit,
   ) async {
-    print('работаюююю');
     emit(state.copyWith(status: BaseStatus.loading));
     final response = await _repository.getSingleComplaint(id: event.id);
 

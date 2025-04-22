@@ -24,3 +24,12 @@ class VoteLoadById extends SingleVotingEvent {
   @override
   List<Object> get props => [id];
 }
+
+class ChooseVoice extends SingleVotingEvent {
+  final bool isChoose;
+
+  const ChooseVoice({required this.isChoose});
+
+  @override
+  List<Object> get props => [isChoose];
+}

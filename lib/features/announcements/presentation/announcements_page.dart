@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/features/announcements/bloc/announcements/announcements_bloc.dart';
 import 'package:home_management/features/announcements/models/announcement_dto.dart';
@@ -20,7 +21,10 @@ class AnnouncementsPage extends StatelessWidget {
         backgroundColor: AppColors.cE0DEDE,
         appBar: AppBar(
           leading: const BackButtonAppBarWidget(),
-          title: const Text('Объявления'),
+          title: const Text(
+            'Объявления',
+            style: AppTextStyle.style,
+          ),
           backgroundColor: AppColors.cE0DEDE,
           surfaceTintColor: AppColors.cE0DEDE,
         ),
@@ -78,11 +82,15 @@ class _AnnouncementItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppColors.c0084EF),
           ),
           child: Text(
             announcement.title,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 18, color: Colors.black),
+            style: AppTextStyle.style.copyWith(
+              fontSize: 20,
+              color: AppColors.c224795,
+            ),
           ),
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management/core/common/models/complaint_screen_type.dart';
-import 'package:home_management/features/activity/presentation/advertisement_page.dart';
+import 'package:home_management/core/widgets/loading_page.dart';
 import 'package:home_management/features/activity/voting/presentation/single/single_poll_page.dart';
 import 'package:home_management/features/activity/voting/presentation/voting_page.dart';
 import 'package:home_management/features/announcements/presentation/announcement_details_page.dart';
@@ -12,19 +12,17 @@ import 'package:home_management/features/auth/presentation/login_page.dart';
 import 'package:home_management/features/auth/presentation/verification_page.dart';
 import 'package:home_management/features/call_master/presentation/master_page.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaint/details_complaint/presentation/complaint_details.dart';
-import 'package:home_management/features/complaints_suggestions/presentation/complaint/new_complaint_page.dart';
+import 'package:home_management/features/complaints_suggestions/presentation/complaint/new_complaint/presentation/new_complaint_page.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/suggestion/suggestion_page.dart';
 import 'package:home_management/features/home/presentation/home_screen.dart';
 import 'package:home_management/features/knowledge_base/presentation/article_details/article_details_page.dart';
 import 'package:home_management/features/knowledge_base/presentation/articles/knowledge_base_articles_page.dart';
 import 'package:home_management/features/knowledge_base/presentation/categories/knowledge_base_categories_page.dart';
-import 'package:home_management/features/knowledge_base/rules/presentation/rules_page.dart';
 import 'package:home_management/features/notification/presentation/mobile_notification_page.dart';
 import 'package:home_management/features/public_utilities/presentation/single_utility_bills/single_utility_bills_page.dart';
 import 'package:home_management/features/public_utilities/presentation/utility_bills_page.dart';
 
 import '../../features/complaints_suggestions/presentation/complaint/complaints_page.dart';
-import '../../features/knowledge_base/rules/presentation/rules_details.dart';
 
 part 'router.gr.dart';
 
@@ -91,14 +89,6 @@ class AppRouter extends RootStackRouter {
           page: ArticleDetailsRoute.page,
         ),
         AutoRoute(
-          path: '/rules_page',
-          page: RulesRoute.page,
-        ),
-        AutoRoute(
-          path: '/rule_details_page',
-          page: RulesDetailsRoute.page,
-        ),
-        AutoRoute(
           path: '/voting_page',
           page: VotingRoute.page,
         ),
@@ -121,6 +111,10 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           path: '/single_vote_page',
           page: SingleVoteRoute.page,
+        ),
+        AutoRoute(
+          path: '/loading_page',
+          page: LoadingRoute.page,
         ),
       ];
 }

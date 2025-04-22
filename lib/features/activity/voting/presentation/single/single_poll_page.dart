@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/features/activity/voting/presentation/single/bloc/single_voting_bloc.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -38,9 +39,24 @@ class SingleVotePage extends StatelessWidget {
               }
             },
           ),
+          BlocListener<SingleVotingBloc, SingleVotingState>(
+            listenWhen: (prev, curr) => prev.isChooseVoting != curr.isChooseVoting,
+            listener: (context, state) {
+              if (state.isChooseVoting && state.selectedOption != null) {
+                showDialog(
+                  context: context,
+                  builder: (context) => ChooseDialog(selectedOption: state.selectedOption!),
+                ).then((value) {
+                  if (value != null && context.mounted) {
+                    context.read<SingleVotingBloc>().add(ChooseVoice(isChoose: value));
+                  }
+                });
+              }
+            },
+          ),
         ],
         child: Scaffold(
-          backgroundColor: AppColors.cE0DEDE,
+          backgroundColor: AppColors.cEDEDEC,
           appBar: _AppBar(context: context),
           body: const _Body(),
         ),
@@ -53,15 +69,11 @@ class _AppBar extends AppBar {
   _AppBar({
     required BuildContext context,
   }) : super(
-          backgroundColor: AppColors.cE0DEDE,
-          surfaceTintColor: AppColors.cE0DEDE,
+          backgroundColor: AppColors.cEDEDEC,
+          surfaceTintColor: AppColors.cEDEDEC,
           title: const Text(
             'Тема Голосования:',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w300,
-              color: AppColors.c2A569A,
-            ),
+            style: AppTextStyle.style,
           ),
           centerTitle: true,
           elevation: 0,
@@ -105,7 +117,7 @@ class _Body extends StatelessWidget {
                   message: poll?.description ?? '',
                 ),
                 Gap(MediaQuery.of(context).size.height * 0.04),
-                _VoteOptions()
+                const _VoteOptions()
               ],
             ),
           ),
@@ -127,8 +139,8 @@ class _AutoWrapTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: AppColors.c224795),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.c0084EF),
       ),
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.2,
@@ -136,7 +148,7 @@ class _AutoWrapTextField extends StatelessWidget {
       child: SingleChildScrollView(
         child: Text(
           message,
-          style: const TextStyle(fontSize: 16, color: AppColors.c224795),
+          style: AppTextStyle.style.copyWith(fontSize: 20),
           textAlign: TextAlign.center,
         ),
       ),
@@ -166,9 +178,9 @@ class _VotingResultChart extends StatelessWidget {
     };
 
     final colorList = [
-      AppColors.cA7BEA6,
-      AppColors.c72A9E1,
-      AppColors.c2A569A,
+      AppColors.c05A84F,
+      AppColors.c0084EF,
+      AppColors.c0C3462,
     ];
 
     return Column(
@@ -187,19 +199,16 @@ class _VotingResultChart extends StatelessWidget {
             showChartValuesInPercentage: true,
             decimalPlaces: 1,
           ),
-          legendOptions: const LegendOptions(
+          legendOptions: LegendOptions(
             showLegends: true,
-            legendTextStyle: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
+            legendTextStyle: AppTextStyle.style.copyWith(fontSize: 18),
             legendPosition: LegendPosition.left,
           ),
         ),
         const SizedBox(height: 12),
         Text(
           'Всего голосов: $total',
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: AppTextStyle.style.copyWith(fontSize: 20),
         ),
       ],
     );
@@ -216,9 +225,9 @@ class _VoteOptions extends StatelessWidget {
         final List<String> options = ['Да', 'Нет', 'Воздержаться'];
 
         final Map<String, Color> optionColors = {
-          'Да': AppColors.cA7BEA6, // Зеленый для "Да"
-          'Нет': AppColors.c72A9E1, // Красный для "Нет"
-          'Воздержаться': AppColors.c2A569A, // Серый для "Нейтрал"
+          'Да': AppColors.c05A84F, // Зеленый для "Да"
+          'Нет': AppColors.c0084EF, // Красный для "Нет"
+          'Воздержаться': AppColors.c0C3462, // Серый для "Нейтрал"
         };
         return Column(
           children: options.map((option) {
@@ -227,21 +236,78 @@ class _VoteOptions extends StatelessWidget {
               title: Text(
                 option,
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
                   color: optionColors[option],
                 ),
               ),
               value: option,
               groupValue: state.selectedOption,
               onChanged: (value) => context.read<SingleVotingBloc>().add(VoteChanged(option: value!)),
-              // activeColor: Colors.blue,
               activeColor: optionColors[option],
               controlAffinity: ListTileControlAffinity.trailing,
             );
           }).toList(),
         );
       },
+    );
+  }
+}
+
+class ChooseDialog extends StatelessWidget {
+  const ChooseDialog({super.key, required this.selectedOption});
+
+  final String selectedOption;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Row(
+        children: [
+          Icon(Icons.where_to_vote_outlined, color: AppColors.c0084EF),
+          Gap(10),
+          Text(
+            'Вы проголосовали!',
+            style: TextStyle(fontSize: 24, color: AppColors.c0C3462),
+          ),
+        ],
+      ),
+      content: const Text(
+        'Вы уверены в своем голосе?',
+        maxLines: 3,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 20,
+          color: AppColors.c0C3462,
+        ),
+      ),
+      actionsAlignment: MainAxisAlignment.center,
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          },
+          child: const Text(
+            'Да',
+            style: TextStyle(
+              fontSize: 20,
+              color: AppColors.c0C3462,
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(false);
+          },
+          child: const Text(
+            'Нет',
+            style: TextStyle(
+              fontSize: 20,
+              color: AppColors.c0C3462,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

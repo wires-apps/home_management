@@ -51,12 +51,8 @@ class SuggestionBloc extends BaseBloc<SuggestionEvent, SuggestionState> {
     SuggestionSendToStore event,
     Emitter<SuggestionState> emit,
   ) async {
-    if (state.image == null) return;
     emit(state.copyWith(isLoading: true));
-    final photos = [state.image!];
-    // return await Future.delayed(Duration(seconds: 3), () {
-    //   return emit(state.copyWith(isLoading: false));
-    // });
+    final photos = [state.image];
     final response = await _repository.sendSuggestion(
       request: SuggestionStoreRequestDto(
         photos: photos,
@@ -93,7 +89,7 @@ class SuggestionBloc extends BaseBloc<SuggestionEvent, SuggestionState> {
   ) {
     emit(
       state.copyWith(
-        isButtonEnabled: textController.text.isNotEmpty && state.image != null,
+        isButtonEnabled: textController.text.isNotEmpty,
       ),
     );
   }

@@ -10,6 +10,7 @@ import 'package:home_management/features/auth/models/sign_in_request_dto.dart';
 import 'package:home_management/features/auth/models/sing_in_response_dto.dart';
 import 'package:home_management/features/auth/repository/auth_local_repository.dart';
 import 'package:home_management/features/auth/repository/auth_remote_repository.dart';
+import 'package:home_management/features/auth/repository/verify_local_repository.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 part 'auth_event.dart';
@@ -19,6 +20,7 @@ part 'auth_state.dart';
 class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   AuthBloc(
     this._repository,
+    this._verifyLocalRepository,
     this._localRepository,
     this._interactor,
   ) : super(
@@ -39,6 +41,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   final TextEditingController phoneController = TextEditingController();
 
   final AuthRemoteRepository _repository;
+  final VerifyLocalRepository _verifyLocalRepository;
   final AuthLocalRepository _localRepository;
   final AuthInteractor _interactor;
 
@@ -125,9 +128,13 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     LoginValidateField event,
     Emitter<AuthState> emit,
   ) async {
-    emit(state.copyWith(status: BaseStatus.loading));
+    emit(
+      state.copyWith(
+        status: BaseStatus.loading,
+      ),
+    );
     if (emailController.text.isEmpty || passwordController.text.isEmpty || phoneController.text.isEmpty) {
-      emit(
+      return emit(
         state.copyWith(
           status: BaseStatus.success,
           needCheckEmail: true,
@@ -135,25 +142,30 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
         ),
       );
     } else {
-      final request = await _repository.logIn(
-        SignInRequestDto(
-          personalAccount: emailController.text,
-          password: passwordController.text,
-          device: state.device ?? '',
-          phoneNumber: phoneController.text,
+      emit(
+        state.copyWith(
+          status: BaseStatus.loading,
+          screen: AuthScreen.unknown,
         ),
       );
+      final signInRequest = SignInRequestDto(
+        personalAccount: emailController.text,
+        password: passwordController.text,
+        device: state.device ?? '',
+        phoneNumber: phoneController.text,
+      );
+      final request = await _repository.logIn(signInRequest);
       request.fold(
-        (failure) {
-          emit(
-            state.copyWith(
-              status: BaseStatus.failure,
-              dialogInfo: SnackBarInfo.getErrorMessage(failure),
-            ),
-          );
-        },
+        (failure) => emit(
+          state.copyWith(
+            screen: AuthScreen.logIn,
+            status: BaseStatus.failure,
+            dialogInfo: SnackBarInfo.getErrorMessage(failure),
+          ),
+        ),
         (r) {
           _localRepository.saveUserId(r.userId);
+          _verifyLocalRepository.saveUser(signInRequest);
           emit(
             state.copyWith(
               status: BaseStatus.success,

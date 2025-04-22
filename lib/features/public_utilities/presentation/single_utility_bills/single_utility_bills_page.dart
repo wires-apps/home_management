@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/features/public_utilities/bloc/single_bloc_debt/single_utility_bill_bloc.dart';
 
@@ -19,19 +20,16 @@ class SingleUtilityBillsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<SingleUtilityBillsBloc>()..add(LoadUtilityBillsById(id: id)),
       child: Scaffold(
-        floatingActionButton: _PayButton(),
+        floatingActionButton: const _PayButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         backgroundColor: AppColors.cE0DEDE,
         appBar: AppBar(
           backgroundColor: AppColors.cE0DEDE,
           surfaceTintColor: AppColors.cE0DEDE,
-          title: const Text(
+          title: Text(
             'Оплата комунальных услуг',
-            style: TextStyle(
-              color: AppColors.c224795,
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-            ),
+            style: AppTextStyle.style.copyWith(fontSize: 22),
+            textAlign: TextAlign.center,
           ),
           centerTitle: true,
           elevation: 0,
@@ -55,26 +53,26 @@ class _Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                AutoWrapTextField(
+                  message: state.debt?.data.dueDate,
+                ),
+                Gap(MediaQuery.of(context).size.height * 0.05),
                 Text(
                   'Услуга: \n${state.debt?.data.name ?? ''}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: AppColors.c05A84F,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
                   ),
-                ),
-                Gap(MediaQuery.of(context).size.height * 0.05),
-                const AutoWrapTextField(
-                  message: 'Детали услуги',
                 ),
                 Gap(MediaQuery.of(context).size.height * 0.04),
                 Text(
                   'К оплате : ${state.debt?.data.amount ?? '0'}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
                     color: AppColors.cCE1628,
                   ),
                 ),
@@ -95,18 +93,17 @@ class _PayButton extends StatelessWidget {
     return TextButton(
       onPressed: () => context.read<SingleUtilityBillsBloc>().add(OpenWindowPayment()),
       style: TextButton.styleFrom(
-        backgroundColor: AppColors.c05A84F,
+        backgroundColor: AppColors.c0084EF,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: const BorderSide(color: AppColors.c224795),
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
-      child: const Padding(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+      child:  Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         child: Text(
           'Оплатить',
-          style: TextStyle(
-            fontSize: 16,
+          style: AppTextStyle.style.copyWith(
+            fontSize: 20,
             color: Colors.white,
           ),
         ),
@@ -124,21 +121,16 @@ class AutoWrapTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.5, // Ограничение по высоте
+        maxHeight: MediaQuery.of(context).size.height * 0.5,
       ),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.c224795),
-        ),
         child: SingleChildScrollView(
           child: AutoSizeText(
             message ?? '',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18),
+            style: AppTextStyle.style,
           ),
         ),
       ),

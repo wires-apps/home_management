@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management/core/bloc/base_bloc.dart';
@@ -9,24 +8,40 @@ import 'package:home_management/core/network/error_handling/snack_bar_info.dart'
 import 'package:home_management/features/auth/interactor/auth_interactor.dart';
 import 'package:home_management/features/auth/models/sms_verification_request_dto.dart';
 import 'package:home_management/features/auth/repository/auth_local_repository.dart';
+import 'package:home_management/features/auth/repository/auth_remote_repository.dart';
+import 'package:home_management/features/auth/repository/verify_local_repository.dart';
 
 part 'verify_state.dart';
 
 class VerifyCubit extends BaseCubit<VerifyState> {
   VerifyCubit(
     this._authInteractor,
+    this._localVerifyRepository,
+    this._authRemoteRepository,
     this._localRepository,
   ) : super(
           const VerifyState(
             canResend: false,
             status: BaseStatus.loading,
           ),
-        );
+        ) {
+    pinController.addListener(_checkButtonAvailability);
+  }
 
   final TextEditingController pinController = TextEditingController();
   final AuthInteractor _authInteractor;
   final AuthLocalRepository _localRepository;
+  final AuthRemoteRepository _authRemoteRepository;
+  final VerifyLocalRepository _localVerifyRepository;
   Timer? _timer;
+
+  void _checkButtonAvailability() {
+    print('pin controller ===========> ${pinController.text.length}');
+    final isEnabled = pinController.text.length == 4;
+    if (state.isButtonEnabled != isEnabled) {
+      emit(state.copyWith(isButtonEnabled: isEnabled));
+    }
+  }
 
   Future addDevice() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -116,14 +131,35 @@ class VerifyCubit extends BaseCubit<VerifyState> {
     });
   }
 
-  void resendSms() {
+  Future resendSms() async {
     startTimer();
-    print("Отправка SMS повторно");
+    await sendSmsAgain();
+  }
+
+  Future sendSmsAgain() async {
+    final signInRequest = _localVerifyRepository.getUser();
+    final request = await _authRemoteRepository.logIn(signInRequest);
+    request.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: BaseStatus.failure,
+          dialogInfo: SnackBarInfo.getErrorMessage(failure),
+        ),
+      ),
+      (r) async {
+        await _localRepository.saveUserId(r.userId);
+        emit(
+          state.copyWith(
+            status: BaseStatus.success,
+          ),
+        );
+      },
+    );
   }
 
   @override
   Future<void> close() {
-    _timer?.cancel(); // Останавливаем таймер перед закрытием
+    _timer?.cancel();
     return super.close();
   }
 }

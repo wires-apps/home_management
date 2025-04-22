@@ -7,15 +7,6 @@ abstract class ComplaintEvent extends BaseEvent {
   List<Object> get props => [];
 }
 
-class PickImageEvent extends ComplaintEvent {
-  final ImageSource source;
-
-  const PickImageEvent(this.source);
-
-  @override
-  List<Object> get props => [source];
-}
-
 class ChangePage extends ComplaintEvent {
   const ChangePage(this.page);
 
@@ -25,5 +16,4 @@ class ChangePage extends ComplaintEvent {
   List<Object> get props => [page];
 }
 
-class DownloadComplaint extends ComplaintEvent {}
-class SendComplaintStore extends ComplaintEvent {}
+class DownloadComplaints extends ComplaintEvent {}

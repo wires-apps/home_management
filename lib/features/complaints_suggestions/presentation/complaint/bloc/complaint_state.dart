@@ -6,12 +6,10 @@ class ComplaintState extends BaseState {
   const ComplaintState({
     required super.status,
     super.dialogInfo,
-    this.image,
     this.page,
     this.complaints,
   });
 
-  final File? image;
   final ComplaintScreenType? page;
   final List<SingleComplaintResponseDto>? complaints;
 
@@ -26,7 +24,6 @@ class ComplaintState extends BaseState {
       ComplaintState(
         status: status ?? this.status,
         dialogInfo: dialogInfo,
-        image: image ?? this.image,
         page: page ?? this.page,
         complaints: complaints ?? this.complaints,
       );
@@ -35,7 +32,6 @@ class ComplaintState extends BaseState {
   List<Object?> get props => [
         ...super.props,
         status,
-        image,
         page,
         complaints,
       ];

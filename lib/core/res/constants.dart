@@ -1,4 +1,4 @@
-const baseUrl = 'http://212.112.105.242:8800';
+const baseUrl = 'https://home-folder.wires.kz';
 
 String apiEndpoint = '/api';
 

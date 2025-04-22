@@ -7,6 +7,7 @@ import 'package:home_management/core/common/models/complaint_screen_type.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/complaint/custom_app_bar.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaint/bloc/complaint_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -20,10 +21,10 @@ class ComplaintsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ComplaintBloc>()..add(DownloadComplaint()),
+      create: (context) => getIt<ComplaintBloc>()..add(DownloadComplaints()),
       child: BlocSnackBarListenerWithChild<ComplaintBloc>(
         child: Scaffold(
-          backgroundColor: AppColors.cE0DEDE,
+          backgroundColor: AppColors.cEDEDEC,
           appBar: CustomAppBar(page: page, context: context),
           body: const _Body(),
         ),
@@ -39,10 +40,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ComplaintBloc, ComplaintState>(
       buildWhen: (prev, curr) =>
-          prev.page != curr.page ||
-          prev.status != curr.status ||
-          prev.image != curr.image ||
-          prev.complaints != curr.complaints,
+          prev.page != curr.page || prev.status != curr.status || prev.complaints != curr.complaints,
       builder: (context, state) {
         if (state.status.isLoading) {
           return const Center(
@@ -119,10 +117,7 @@ class _UtilityBillItem extends StatelessWidget {
               Center(
                 child: Text(
                   message ?? 'Жалоба',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppTextStyle.style.copyWith(fontSize: 20),
                 ),
               ),
               const Gap(26),

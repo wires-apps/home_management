@@ -7,6 +7,8 @@ import 'package:home_management/features/auth/bloc/auth_bloc.dart';
 import 'package:home_management/generated/l10n.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import '../../core/bloc/widgets/snackbar_listener.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -35,12 +37,18 @@ class _AppState extends State<AppView> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
+        BlocSnackBarListener<AuthBloc>(),
         BlocListener<AuthBloc, AuthState>(
             listenWhen: (prev, curr) => prev.screen != curr.screen,
             listener: (context, state) {
               switch (state.screen) {
                 case AuthScreen.logIn:
-                  _appRouter.pushAndPopUntil<void>(const LoginRoute(), predicate: (
+                  _appRouter.replaceAll([
+                    const LoginRoute(),
+                  ]);
+                  break;
+                case AuthScreen.unknown:
+                  _appRouter.pushAndPopUntil<void>(const LoadingRoute(), predicate: (
                     Route<dynamic> route,
                   ) {
                     return false;
@@ -51,9 +59,9 @@ class _AppState extends State<AppView> {
                   break;
 
                 case AuthScreen.sms:
-                  _appRouter.push(
+                  _appRouter.replaceAll([
                     VerificationRoute(model: state.model),
-                  );
+                  ]);
               }
             }),
       ],

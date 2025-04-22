@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:525943915998:android:224dd62a6928d8af67894f",
+        "mobilesdk_app_id": "1:525943915998:android:8395c3dbf4f393c567894f",
         "android_client_info": {
-          "package_name": "com.example.home_management"
+          "package_name": "com.wires.home_management"
         }
       },
       "oauth_client": [],

@@ -77,30 +77,30 @@ class S {
     );
   }
 
-  /// `Телефон`
+  /// `Номер телефона`
   String get login_screen_phone {
     return Intl.message(
-      'Телефон',
+      'Номер телефона',
       name: 'login_screen_phone',
       desc: '',
       args: [],
     );
   }
 
-  /// `password`
+  /// `Пароль`
   String get login_screen_password {
     return Intl.message(
-      'password',
+      'Пароль',
       name: 'login_screen_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `personal account`
+  /// `Лицевой счет`
   String get login_screen_email {
     return Intl.message(
-      'personal account',
+      'Лицевой счет',
       name: 'login_screen_email',
       desc: '',
       args: [],
@@ -207,10 +207,10 @@ class S {
     );
   }
 
-  /// `Жалобы \nПредложения`
+  /// `Жалобы/Предложения`
   String get complaints_suggestions_title {
     return Intl.message(
-      'Жалобы \nПредложения',
+      'Жалобы/Предложения',
       name: 'complaints_suggestions_title',
       desc: '',
       args: [],

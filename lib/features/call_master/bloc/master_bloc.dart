@@ -38,6 +38,7 @@ class CallMasterBloc extends BaseBloc<CallMasterEvent, CallMasterState> {
   void _onSelectCategory(SelectCategory event, Emitter<CallMasterState> emit) {
     if (!isClosed) {
       emit(state.copyWith(selectedCategory: event.category));
+      _addCheckButtonAvailabilityEvent();
     }
   }
 
@@ -80,9 +81,9 @@ class CallMasterBloc extends BaseBloc<CallMasterEvent, CallMasterState> {
     CallMaster event,
     Emitter<CallMasterState> emit,
   ) async {
-    if (state.image == null && state.selectedCategory == null) return;
+    if (state.selectedCategory == null) return;
     emit(state.copyWith(isLoading: true));
-    final photos = [state.image!];
+    final photos = [state.image];
     final response = await _repository.callMaster(
       request: ServiceRequestStoreDto(
         photos: photos,
@@ -94,6 +95,7 @@ class CallMasterBloc extends BaseBloc<CallMasterEvent, CallMasterState> {
     response.fold(
       (failure) => emit(
         state.copyWith(
+          isLoading: false,
           status: BaseStatus.failure,
           dialogInfo: SnackBarInfo.getErrorMessage(failure),
         ),

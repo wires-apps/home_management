@@ -98,10 +98,79 @@ class ItemMenu extends StatelessWidget {
             const Gap(10),
             AutoSizeText(
               titleButton,
-              minFontSize: 16,
-              maxFontSize: 18,
+              minFontSize: 18,
+              maxFontSize: 20,
               style: const TextStyle(
                 color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ItemWidget extends StatelessWidget {
+  const ItemWidget({
+    super.key,
+    required this.onPressed,
+    required this.titleButton,
+    required this.icon,
+    this.needChangeMargin = true,
+    this.needChangePadding = true,
+  });
+
+  final void Function() onPressed;
+  final String titleButton;
+  final IconData icon;
+  final bool needChangeMargin;
+  final bool needChangePadding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: needChangeMargin ? MediaQuery.of(context).size.width * 0.04 : 0,
+        vertical: MediaQuery.of(context).size.width * (needChangeMargin ? 0.01 : 0.04),
+      ),
+      child: TextButton(
+        onPressed: onPressed,
+        style: TextButton.styleFrom(
+          backgroundColor: AppColors.c9EC271,
+          padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * (needChangePadding ? 0.01 : 0.04),
+            horizontal: MediaQuery.of(context).size.width * 0.04,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.026),
+              decoration: BoxDecoration(
+                color: AppColors.cF7F9F7,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                icon,
+                color: AppColors.cA5BE76,
+                size: 26,
+              ),
+            ),
+            const Gap(10),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: AutoSizeText(
+                titleButton,
+                maxLines: 2,
+                minFontSize: 22,
+                maxFontSize: 24,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
           ],

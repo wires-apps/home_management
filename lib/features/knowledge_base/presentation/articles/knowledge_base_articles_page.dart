@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
+import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/bottom_sheet/custom_bottom_sheet.dart';
+import 'package:home_management/core/widgets/buttons/back_button.dart';
 import 'package:home_management/features/knowledge_base/bloc/articles/knowledge_base_articles_bloc.dart';
 
 @RoutePage()
@@ -19,14 +21,18 @@ class KnowledgeBaseArticlesPage extends StatelessWidget {
       create: (context) =>
           getIt<KnowledgeBaseArticlesBloc>()..add(KnowledgeBaseArticlesDataLoaded(categoryId: categoryId)),
       child: Scaffold(
-        backgroundColor: AppColors.cE0DEDE,
+        backgroundColor: AppColors.cEDEDEC,
         appBar: AppBar(
-          backgroundColor: AppColors.cE0DEDE,
-          surfaceTintColor: AppColors.cE0DEDE,
-          title: const Text(
-            'Статьи',
-            style: TextStyle(color: AppColors.c2A569A),
+          backgroundColor: AppColors.cEDEDEC,
+          surfaceTintColor: AppColors.cEDEDEC,
+          leading: BackButtonAppBarWidget(
+            onPressed: () => Navigator.pop(context),
           ),
+          title: Text(
+            'Статьи',
+            style: AppTextStyle.style.copyWith(fontSize: 24),
+          ),
+          centerTitle: true,
         ),
         body: const _Body(),
       ),
@@ -35,7 +41,7 @@ class KnowledgeBaseArticlesPage extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const _Body({super.key});
+  const _Body();
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +56,13 @@ class _Body extends StatelessWidget {
           // mainAxisSize: MainAxisSize.max,
           itemBuilder: (context, index) {
             final article = articles[index];
-            return ItemMenu(
+            return ItemWidget(
               onPressed: () {
-                context.pushRoute(ArticleDetailsRoute(articleId: article.id));
+                context.pushRoute(
+                  ArticleDetailsRoute(
+                    articleId: article.id,
+                  ),
+                );
               },
               titleButton: article.title,
               needChangePadding: false,

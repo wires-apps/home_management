@@ -82,20 +82,25 @@ abstract class BaseApi {
     required HttpMethod method,
     required dynamic request,
     required Map<String, dynamic> Function(dynamic request) toJson,
-    List<File> Function(dynamic request)? extractFiles,
+    List<File?> Function(dynamic request)? extractFiles,
     required String fileFieldName,
     required DATA Function(Map<String, dynamic>) getData,
   }) async {
-    final List<File> files = extractFiles?.call(request) ?? [];
+    final List<File?> files = extractFiles?.call(request) ?? [];
 
-    final List<MultipartFile> multipartFiles = await Future.wait(
-      files.map(
-        (file) async => await MultipartFile.fromFile(
-          file.path,
-          filename: file.path.split('/').last,
-        ),
-      ),
-    );
+    final List<MultipartFile> multipartFiles = (await Future.wait(
+      files.map((file) async {
+        if (file != null) {
+          return await MultipartFile.fromFile(
+            file.path,
+            filename: file.path.split('/').last,
+          );
+        }
+        return null;
+      }),
+    ))
+        .whereType<MultipartFile>()
+        .toList();
 
     final fields = toJson(request);
     if (multipartFiles.isNotEmpty) {
