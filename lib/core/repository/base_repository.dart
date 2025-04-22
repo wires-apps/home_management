@@ -21,7 +21,7 @@ mixin BaseRepository {
         return const Left(DefaultFailure());
       }
     } on DioException catch (e) {
-      final statusCode = e.response?.statusCode.toString() ?? '';
+      final statusCode = e.response?.statusCode.toString() ?? ''; // на случий показа статус кода
       talker.error("BaseRepository -> execute() -> on DioError: "
           "\nerror :${e.error}\nresponse: ${e.response}"
           "\n ${e.stackTrace}");
@@ -35,9 +35,9 @@ mixin BaseRepository {
         return const Left(NoInternetConnectionFailure());
       } else {
         return (data != null && data is Map && data.containsKey('message'))
-            ? Left(ServerFailure('$statusCode  ${data['message']}'))
+            ? Left(ServerFailure('${data['message']}'))
             : (data != null && data is String)
-                ? Left(ServerFailure('$statusCode $data'))
+                ? Left(ServerFailure(data))
                 : const Left(DefaultFailure());
       }
     } catch (e) {
