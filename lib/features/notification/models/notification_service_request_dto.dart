@@ -15,7 +15,7 @@ class NotificationServiceRequestDto extends Equatable {
   });
 
   @JsonKey(name: 'fcm_token', required: true, includeIfNull: false)
-  final String fcmToken;
+  final String? fcmToken;
 
   factory NotificationServiceRequestDto.fromJson(Map<String, dynamic> json) =>
       _$NotificationServiceRequestDtoFromJson(json);

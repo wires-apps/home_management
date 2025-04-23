@@ -26,13 +26,13 @@ UserResponseDto _$UserResponseDtoFromJson(Map<String, dynamic> json) =>
           id: $checkedConvert('id', (v) => v as num),
           name: $checkedConvert('name', (v) => v as String),
           personalAccount:
-              $checkedConvert('personal_account', (v) => v as String),
-          phoneNumber: $checkedConvert('phone_number', (v) => v as String),
+              $checkedConvert('personal_account', (v) => v as String?),
+          phoneNumber: $checkedConvert('phone_number', (v) => v as String?),
           residentialComplexId: $checkedConvert(
               'residential_complex_id', (v) => (v as num?)?.toInt()),
-          blockNumber: $checkedConvert('block_number', (v) => v as String),
+          blockNumber: $checkedConvert('block_number', (v) => v as String?),
           apartmentNumber:
-              $checkedConvert('apartment_number', (v) => v as String),
+              $checkedConvert('apartment_number', (v) => v as String?),
         );
         return val;
       },
@@ -49,10 +49,10 @@ Map<String, dynamic> _$UserResponseDtoToJson(UserResponseDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'personal_account': instance.personalAccount,
-      'phone_number': instance.phoneNumber,
+      if (instance.personalAccount case final value?) 'personal_account': value,
+      if (instance.phoneNumber case final value?) 'phone_number': value,
       if (instance.residentialComplexId case final value?)
         'residential_complex_id': value,
-      'block_number': instance.blockNumber,
-      'apartment_number': instance.apartmentNumber,
+      if (instance.blockNumber case final value?) 'block_number': value,
+      if (instance.apartmentNumber case final value?) 'apartment_number': value,
     };
