@@ -31,7 +31,7 @@ class PollsResponseDto extends Equatable {
   final String description;
 
   @JsonKey(name: 'residential_complex_id', required: true, includeIfNull: false)
-  final int residentialComplexId;
+  final int? residentialComplexId;
 
   @JsonKey(name: 'start_date', required: true, includeIfNull: false)
   final String startDate;

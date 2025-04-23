@@ -47,6 +47,9 @@ class SingleVotePage extends StatelessWidget {
                   context: context,
                   builder: (context) => ChooseDialog(selectedOption: state.selectedOption!),
                 ).then((value) {
+                  if (value == null && context.mounted) {
+                    context.read<SingleVotingBloc>().add(const ChooseVoice(isChoose: false));
+                  }
                   if (value != null && context.mounted) {
                     context.read<SingleVotingBloc>().add(ChooseVoice(isChoose: value));
                   }

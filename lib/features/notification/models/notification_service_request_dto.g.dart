@@ -17,7 +17,7 @@ NotificationServiceRequestDto _$NotificationServiceRequestDtoFromJson(
           requiredKeys: const ['fcm_token'],
         );
         final val = NotificationServiceRequestDto(
-          fcmToken: $checkedConvert('fcm_token', (v) => v as String),
+          fcmToken: $checkedConvert('fcm_token', (v) => v as String?),
         );
         return val;
       },
@@ -27,5 +27,5 @@ NotificationServiceRequestDto _$NotificationServiceRequestDtoFromJson(
 Map<String, dynamic> _$NotificationServiceRequestDtoToJson(
         NotificationServiceRequestDto instance) =>
     <String, dynamic>{
-      'fcm_token': instance.fcmToken,
+      if (instance.fcmToken case final value?) 'fcm_token': value,
     };

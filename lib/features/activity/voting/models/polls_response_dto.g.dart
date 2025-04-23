@@ -29,7 +29,7 @@ PollsResponseDto _$PollsResponseDtoFromJson(Map<String, dynamic> json) =>
           title: $checkedConvert('title', (v) => v as String),
           description: $checkedConvert('description', (v) => v as String),
           residentialComplexId: $checkedConvert(
-              'residential_complex_id', (v) => (v as num).toInt()),
+              'residential_complex_id', (v) => (v as num?)?.toInt()),
           startDate: $checkedConvert('start_date', (v) => v as String),
           endDate: $checkedConvert('end_date', (v) => v as String),
           createdAt: $checkedConvert('created_at', (v) => v as String),
@@ -51,7 +51,8 @@ Map<String, dynamic> _$PollsResponseDtoToJson(PollsResponseDto instance) =>
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'residential_complex_id': instance.residentialComplexId,
+      if (instance.residentialComplexId case final value?)
+        'residential_complex_id': value,
       'start_date': instance.startDate,
       'end_date': instance.endDate,
       'created_at': instance.createdAt,

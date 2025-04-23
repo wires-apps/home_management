@@ -27,19 +27,19 @@ class UserResponseDto extends Equatable {
   final String name;
 
   @JsonKey(name: 'personal_account', required: true, includeIfNull: false)
-  final String personalAccount;
+  final String? personalAccount;
 
   @JsonKey(name: 'phone_number', required: true, includeIfNull: false)
-  final String phoneNumber;
+  final String? phoneNumber;
 
   @JsonKey(name: 'residential_complex_id', required: false, includeIfNull: false)
   final int? residentialComplexId;
 
   @JsonKey(name: 'block_number', required: true, includeIfNull: false)
-  final String blockNumber;
+  final String? blockNumber;
 
   @JsonKey(name: 'apartment_number', required: true, includeIfNull: false)
-  final String apartmentNumber;
+  final String? apartmentNumber;
 
   factory UserResponseDto.fromJson(Map<String, dynamic> json) => _$UserResponseDtoFromJson(json);
 
