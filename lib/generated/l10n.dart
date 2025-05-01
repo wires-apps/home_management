@@ -147,30 +147,30 @@ class S {
     );
   }
 
-  /// `Оплата комунальных услуг`
+  /// `Оплата \nкомунальных \nуслуг`
   String get home_screen_payment_communal_service {
     return Intl.message(
-      'Оплата комунальных услуг',
+      'Оплата \nкомунальных \nуслуг',
       name: 'home_screen_payment_communal_service',
       desc: '',
       args: [],
     );
   }
 
-  /// `Жалобы/Предложения`
-  String get home_screen_complaints_suggestions {
+  /// `Жалобы`
+  String get home_screen_complaints {
     return Intl.message(
-      'Жалобы/Предложения',
-      name: 'home_screen_complaints_suggestions',
+      'Жалобы',
+      name: 'home_screen_complaints',
       desc: '',
       args: [],
     );
   }
 
-  /// `Вызвать мастера`
+  /// `Вызвать \nмастера`
   String get home_screen_call_master {
     return Intl.message(
-      'Вызвать мастера',
+      'Вызвать \nмастера',
       name: 'home_screen_call_master',
       desc: '',
       args: [],
@@ -207,10 +207,10 @@ class S {
     );
   }
 
-  /// `Жалобы/Предложения`
+  /// `Жалобы`
   String get complaints_suggestions_title {
     return Intl.message(
-      'Жалобы/Предложения',
+      'Жалобы',
       name: 'complaints_suggestions_title',
       desc: '',
       args: [],
@@ -237,10 +237,10 @@ class S {
     );
   }
 
-  /// `Оставить предложение`
+  /// `Оставить \nпредложение`
   String get complaints_suggestions_leave_suggestion {
     return Intl.message(
-      'Оставить предложение',
+      'Оставить \nпредложение',
       name: 'complaints_suggestions_leave_suggestion',
       desc: '',
       args: [],

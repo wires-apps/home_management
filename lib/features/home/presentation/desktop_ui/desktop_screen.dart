@@ -159,9 +159,12 @@ class _SidebarMenu extends StatelessWidget {
             _ItemMenu(
               onPressed: () {
                 showComplaintDialog(context: context, hideBottomSheet: context.maybePop);
+                context.pushRoute(
+                  const SuggestionRoute(),
+                );
               },
-              titleButton: S.of(context).home_screen_complaints_suggestions,
-              icon: Icons.feedback,
+              titleButton: S.of(context).complaints_suggestions_leave_suggestion,
+              icon: Icons.lightbulb,
             ),
             _ItemMenu(
               onPressed: () {},

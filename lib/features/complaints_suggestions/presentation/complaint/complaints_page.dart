@@ -99,7 +99,7 @@ class _UtilityBillItem extends StatelessWidget {
           );
         },
         style: TextButton.styleFrom(
-          side: const BorderSide(color: Colors.green),
+          side: const BorderSide(color: AppColors.c2A569A, width: 1.6),
           backgroundColor: AppColors.cF7F9F7,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

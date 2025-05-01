@@ -108,6 +108,7 @@ class BlocSuccessSnackBarListener<B extends BaseBloc> extends BlocListener<B, Ba
               InfoSnackbar(
                 title: dialogInfo.title,
                 message: dialogInfo.message,
+                color: dialogInfo.color,
               ),
             );
           },
@@ -129,11 +130,13 @@ class BlocSuccessSnackBarListenerWithChild<B extends BaseBloc> extends Stateless
         final dialogInfo = state.dialogInfo;
         if (dialogInfo == null) return;
         showTopSnackBar(
-            Overlay.of(context),
-            InfoSnackbar(
-              title: dialogInfo.title,
-              message: dialogInfo.message,
-            ));
+          Overlay.of(context),
+          InfoSnackbar(
+            title: dialogInfo.title,
+            message: dialogInfo.message,
+            color: dialogInfo.color,
+          ),
+        );
       },
       child: child,
     );

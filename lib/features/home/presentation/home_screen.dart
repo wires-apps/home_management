@@ -1,15 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
 import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/bottom_sheet/custom_bottom_sheet.dart';
-import 'package:home_management/core/widgets/buttons/back_button.dart';
-import 'package:home_management/features/activity/presentation/activity_dialog.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaints/complaints_suggestions_page.dart';
 import 'package:home_management/features/home/bloc/home_bloc.dart';
 import 'package:home_management/features/home/presentation/notification_list.dart';
@@ -42,9 +39,7 @@ class MobileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<HomeBloc>()
         ..add(const NotificationsDownload(isFirstFetch: true))
-        ..add(
-          NotificationSendFcmToken(),
-        ),
+        ..add(NotificationSendFcmToken()),
       child: MultiBlocListener(
         listeners: [
           BlocListener<HomeBloc, HomeState>(
@@ -61,26 +56,38 @@ class MobileScreen extends StatelessWidget {
             return Scaffold(
               backgroundColor: AppColors.cEDEDEC,
               key: _scaffoldKey,
-              appBar: AppBar(
-                leading: BackButtonAppBarWidget(
-                  onPressed: () => context.read<HomeBloc>().add(LogoutEvent()),
+              appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(98), // здесь задаёшь нужную высоту
+                child: AppBar(
+                  elevation: 0,
+                  centerTitle: true,
+                  title: null,
+                  flexibleSpace: SafeArea(
+                    child: Image.asset(
+                      'assets/icon/logo_wires_home.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  backgroundColor: AppColors.cEDEDEC,
+                  surfaceTintColor: AppColors.cEDEDEC,
                 ),
-                title: const Text(
-                  'Wires Home',
-                  style: AppTextStyle.style,
-                ),
-                centerTitle: true,
-                backgroundColor: AppColors.cEDEDEC,
-                surfaceTintColor: AppColors.cEDEDEC,
               ),
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10),
+              body: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: SingleChildScrollView(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
+                      Text(
+                        'Уведомления',
+                        style: AppTextStyle.style.copyWith(
+                          color: AppColors.c224795,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SingleDropdownList(),
-                      _MainButton(_scaffoldKey),
+                      const MainMenu(),
                     ],
                   ),
                 ),
@@ -93,100 +100,84 @@ class MobileScreen extends StatelessWidget {
   }
 }
 
-class _MenuButtons extends StatelessWidget {
-  const _MenuButtons({this.controller});
+class MainMenu extends StatelessWidget {
+  const MainMenu({super.key, this.controller});
 
   final PersistentBottomSheetController? controller;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        const Row(
-          children: [
-            BackButtonWidget(),
-            Gap(0),
-          ],
+    return Container(
+      // height: MediaQuery.of(context).size.height * 0.46,
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.all(10),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
         ),
-        ItemMenu(
-          onPressed: () => context.router.push(const UtilityBillsRoute()),
-          titleButton: S.of(context).home_screen_payment_communal_service,
-          icon: Icons.monetization_on,
-        ),
-        ItemMenu(
-          onPressed: () => showComplaintDialog(context: context, hideBottomSheet: () => controller?.close()),
-          titleButton: S.of(context).home_screen_complaints_suggestions,
-          icon: Icons.feedback,
-        ),
-        ItemMenu(
-          onPressed: () => context.router.push(const CallMasterRoute()),
-          titleButton: S.of(context).home_screen_call_master,
-          icon: Icons.construction,
-        ),
-        ItemMenu(
-          onPressed: () => context.router.push(const KnowledgeBaseCategoriesRoute()),
-          titleButton: S.of(context).home_screen_knowledge_base,
-          icon: Icons.library_books,
-        ),
-        ItemMenu(
-          onPressed: () => showActivityDialog(context),
-          titleButton: S.of(context).home_screen_activity,
-          icon: Icons.directions_run,
-        ),
-        const Gap(30),
-      ],
-    );
-  }
-}
-
-class _MainButton extends StatelessWidget {
-  _MainButton(this.scaffoldKey);
-
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  PersistentBottomSheetController? controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        return Container(
-          margin: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.height * 0.03,
-            vertical: MediaQuery.of(context).size.height * 0.024,
-          ),
-          child: TextButton(
-            onPressed: () {
-              controller = scaffoldKey.currentState?.showBottomSheet(
-                backgroundColor: Colors.transparent,
-                enableDrag: true,
-                (buildContext) {
-                  return CustomBottomSheet(
-                    heightFactor: 0.7,
-                    backgroundColor: Colors.white,
-                    mainWidget: SingleChildScrollView(child: _MenuButtons(controller: controller)),
-                  );
-                },
-              );
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: AppColors.c9EC271,
-              padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.024,
-                horizontal: MediaQuery.of(context).size.height * 0.02,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-            child: const Icon(
-              Icons.menu,
-              color: Colors.white,
-              size: 24,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'Меню',
+            style: AppTextStyle.style.copyWith(
+              color: AppColors.c224795,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
             ),
           ),
-        );
-      },
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 24,
+            runSpacing: 16,
+            children: [
+              ...[
+                NewItemMenu(
+                  onPressed: () => context.router.push(const UtilityBillsRoute()),
+                  titleButton: S.of(context).home_screen_payment_communal_service,
+                  icon: Icons.monetization_on,
+                ),
+                NewItemMenu(
+                  onPressed: () => showComplaintDialog(
+                    context: context,
+                    hideBottomSheet: () => controller?.close(),
+                  ),
+                  titleButton: S.of(context).home_screen_complaints,
+                  icon: Icons.feedback,
+                ),
+                NewItemMenu(
+                  onPressed: () => context.router.push(const KnowledgeBaseCategoriesRoute()),
+                  titleButton: S.of(context).home_screen_knowledge_base,
+                  icon: Icons.library_books,
+                ),
+                NewItemMenu(
+                  onPressed: () => context.pushRoute(const VotingRoute()),
+                  titleButton: S.of(context).activity_voting_title,
+                  icon: Icons.poll,
+                ),
+                NewItemMenu(
+                  onPressed: () => context.pushRoute(const AnnouncementsRoute()),
+                  titleButton: S.of(context).activity_advertisement_title,
+                  icon: Icons.campaign,
+                ),
+                NewItemMenu(
+                  onPressed: () => context.router.push(const CallMasterRoute()),
+                  titleButton: S.of(context).home_screen_call_master,
+                  icon: Icons.construction,
+                ),
+                NewItemMenu(
+                  onPressed: () => context.pushRoute(const SuggestionRoute()),
+                  titleButton: S.of(context).complaints_suggestions_leave_suggestion,
+                  icon: Icons.lightbulb,
+                ),
+              ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

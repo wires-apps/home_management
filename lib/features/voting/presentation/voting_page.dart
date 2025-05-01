@@ -7,7 +7,7 @@ import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/buttons/back_button.dart';
-import 'package:home_management/features/activity/voting/voting_bloc/voting_bloc.dart';
+import 'package:home_management/features/voting/voting_bloc/voting_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 @RoutePage()
@@ -113,12 +113,12 @@ class _PollItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.c9EC271, width: 2),
+            border: Border.all(color: AppColors.c0084EF, width: 2),
           ),
           child: Text(
             'Голосование $mainText',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 18, color: Colors.black),
+            style: const TextStyle(fontSize: 18, color: AppColors.c0C3462),
           ),
         ),
       ),

@@ -2,8 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management/core/common/models/complaint_screen_type.dart';
 import 'package:home_management/core/widgets/loading_page.dart';
-import 'package:home_management/features/activity/voting/presentation/single/single_poll_page.dart';
-import 'package:home_management/features/activity/voting/presentation/voting_page.dart';
 import 'package:home_management/features/announcements/presentation/announcement_details_page.dart';
 import 'package:home_management/features/announcements/presentation/announcements_page.dart';
 import 'package:home_management/features/announcements/presentation/new_announcement_page.dart';
@@ -21,6 +19,8 @@ import 'package:home_management/features/knowledge_base/presentation/categories/
 import 'package:home_management/features/notification/presentation/mobile_notification_page.dart';
 import 'package:home_management/features/public_utilities/presentation/single_utility_bills/single_utility_bills_page.dart';
 import 'package:home_management/features/public_utilities/presentation/utility_bills_page.dart';
+import 'package:home_management/features/voting/presentation/single/single_poll_page.dart';
+import 'package:home_management/features/voting/presentation/voting_page.dart';
 
 import '../../features/complaints_suggestions/presentation/complaint/complaints_page.dart';
 
