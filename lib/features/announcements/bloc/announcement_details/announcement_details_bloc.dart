@@ -8,19 +8,21 @@ part 'announcement_details_event.dart';
 part 'announcement_details_state.dart';
 
 class AnnouncementDetailsBloc extends BaseBloc<AnnouncementDetailsEvent, AnnouncementDetailsState> {
-  AnnouncementDetailsBloc({required AnnouncementsRemoteRepository repository})
-      : _repository = repository,
+  AnnouncementDetailsBloc({
+    required AnnouncementsRemoteRepository repository,
+  })  : _repository = repository,
         super(
           const AnnouncementDetailsState(
             status: BaseStatus.loading,
           ),
         ) {
-    on<AnnouncementDetailsDataLoaded>(_onLoadList);
+    on<AnnouncementDetailsDataLoaded>(_onLoadAnnouncement);
+    on<AnnouncementDelete>(_onDeleteAnnouncement);
   }
 
   final AnnouncementsRemoteRepository _repository;
 
-  _onLoadList(
+  _onLoadAnnouncement(
     AnnouncementDetailsDataLoaded event,
     Emitter<AnnouncementDetailsState> emit,
   ) async {
@@ -33,7 +35,32 @@ class AnnouncementDetailsBloc extends BaseBloc<AnnouncementDetailsEvent, Announc
         emit(
           state.copyWith(
             status: BaseStatus.success,
-            announcement: announcement,
+            announcement: announcement.announcement,
+            deletable: announcement.deletable,
+          ),
+        );
+      },
+    );
+  }
+
+  _onDeleteAnnouncement(
+    AnnouncementDelete event,
+    Emitter<AnnouncementDetailsState> emit,
+  ) async {
+    if (state.announcement?.id == null) return;
+    final response = await _repository.deleteAnnouncementById(id: state.announcement!.id);
+
+    handleWithFailure(
+      emit: emit,
+      either: response,
+      onSuccess: (announcement) {
+        emit(
+          state.copyWith(
+            status: BaseStatus.success,
+            dialogInfo: SnackBarInfo(
+              title: announcement.message,
+            ),
+            needToClose: true,
           ),
         );
       },

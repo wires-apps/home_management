@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/bloc/base_bloc.dart';
 import 'package:home_management/core/network/error_handling/snack_bar_info.dart';
-import 'package:home_management/features/activity/voting/models/single_polls_response_dto.dart';
-import 'package:home_management/features/activity/voting/repository/vote_remote_repository.dart';
+import 'package:home_management/features/voting/models/single_polls_response_dto.dart';
+import 'package:home_management/features/voting/repository/vote_remote_repository.dart';
 
 part 'single_voting_event.dart';
 

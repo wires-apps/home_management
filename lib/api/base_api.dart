@@ -202,6 +202,14 @@ abstract class BaseApi {
     return _call(path: path, request: request, options: getOptions, getData: getData);
   }
 
+  Future<Response<DATA>> callDioDelete<REQUEST, DATA>({
+    required String path,
+    REQUEST? request,
+    required DATA Function(Map<String, dynamic>) getData,
+  }) async {
+    return _call(path: path, request: request, options: deleteOptions, getData: getData);
+  }
+
   Future<Response<DATA>> _call<REQUEST, DATA>({
     required String path,
     required REQUEST request,

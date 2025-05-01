@@ -22,10 +22,10 @@ class SingleUtilityBillsPage extends StatelessWidget {
       child: Scaffold(
         floatingActionButton: const _PayButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        backgroundColor: AppColors.cE0DEDE,
+        backgroundColor: AppColors.cEDEDEC,
         appBar: AppBar(
-          backgroundColor: AppColors.cE0DEDE,
-          surfaceTintColor: AppColors.cE0DEDE,
+          backgroundColor: AppColors.cEDEDEC,
+          surfaceTintColor: AppColors.cEDEDEC,
           title: Text(
             'Оплата комунальных услуг',
             style: AppTextStyle.style.copyWith(fontSize: 22),
@@ -48,36 +48,36 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SingleUtilityBillsBloc, SingleUtilityBillsState>(
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                AutoWrapTextField(
-                  message: state.debt?.data.dueDate,
-                ),
-                Gap(MediaQuery.of(context).size.height * 0.05),
-                Text(
-                  'Услуга: \n${state.debt?.data.name ?? ''}',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: AppColors.c05A84F,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Gap(MediaQuery.of(context).size.height * 0.04),
-                Text(
-                  'К оплате : ${state.debt?.data.amount ?? '0'}',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.cCE1628,
-                  ),
-                ),
-              ],
-            ),
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.6,
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.05,
+            vertical: MediaQuery.of(context).size.height * 0.05,
+          ),
+          margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.03),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            children: [
+              _AutoTextUtilityBills(
+                message: state.debt?.data.dueDate ?? '',
+                title: 'Дата выставления счета:',
+                icon: Icons.calendar_today_rounded,
+              ),
+              Gap(MediaQuery.of(context).size.height * 0.04),
+              _NameUtilityBills(
+                message: state.debt?.data.name ?? '',
+              ),
+              Gap(MediaQuery.of(context).size.height * 0.04),
+              _AutoTextUtilityBills(
+                message: state.debt?.data.amount ?? '',
+                title: 'К оплате:',
+                icon: Icons.payment,
+              ),
+            ],
           ),
         );
       },
@@ -98,8 +98,8 @@ class _PayButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      child:  Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 34),
         child: Text(
           'Оплатить',
           style: AppTextStyle.style.copyWith(
@@ -112,28 +112,99 @@ class _PayButton extends StatelessWidget {
   }
 }
 
-class AutoWrapTextField extends StatelessWidget {
-  const AutoWrapTextField({super.key, this.message});
+class _AutoTextUtilityBills extends StatelessWidget {
+  const _AutoTextUtilityBills({
+    required this.message,
+    required this.title,
+    required this.icon,
+  });
 
-  final String? message;
+  final String message;
+  final String title;
+
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.5,
-      ),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(12),
-        child: SingleChildScrollView(
-          child: AutoSizeText(
-            message ?? '',
-            textAlign: TextAlign.center,
-            style: AppTextStyle.style,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: AppTextStyle.style.copyWith(fontSize: 20, fontWeight: FontWeight.w800),
+        ),
+        const Gap(10),
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.cE0DEDE, width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                color: AppColors.c0084EF,
+              ),
+              const Expanded(child: SizedBox()),
+              AutoSizeText(
+                message,
+                style: AppTextStyle.style.copyWith(
+                  fontSize: 22,
+                ),
+              ),
+              const Expanded(child: SizedBox()),
+            ],
           ),
         ),
-      ),
+      ],
+    );
+  }
+}
+
+class _NameUtilityBills extends StatelessWidget {
+  const _NameUtilityBills({
+    required this.message,
+  });
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Название услуги:',
+          style: AppTextStyle.style.copyWith(fontSize: 20, fontWeight: FontWeight.w800),
+        ),
+        const Gap(10),
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.cE0DEDE, width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.all(12),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 10,
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
+                child: AutoSizeText(
+                  message,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyle.style.copyWith(fontSize: 22),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

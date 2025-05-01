@@ -2,8 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:home_management/core/network/error_handling/failures.dart';
 import 'package:home_management/core/repository/base_repository.dart';
 import 'package:home_management/features/announcements/api/announcements_api.dart';
+import 'package:home_management/features/announcements/models/announcement_delete_response_dto.dart';
 import 'package:home_management/features/announcements/models/announcement_dto.dart';
 import 'package:home_management/features/announcements/models/announcement_request_dto.dart';
+import 'package:home_management/features/announcements/models/announcement_single_dto.dart';
 
 import 'announcements_remote_repository.dart';
 
@@ -20,8 +22,13 @@ class AnnouncementsRemoteRepositoryImpl with BaseRepository implements Announcem
   }
 
   @override
-  Future<Either<Failure, AnnouncementDto>> getAnnouncementById({required int id}) {
+  Future<Either<Failure, AnnouncementSingleDto>> getAnnouncementById({required int id}) {
     return execute(getResponse: () => _api.getAnnouncementById(id));
+  }
+
+  @override
+  Future<Either<Failure, AnnouncementDeleteResponseDto>> deleteAnnouncementById({required int id}) {
+    return execute(getResponse: () => _api.deleteAnnouncementById(id));
   }
 
   @override

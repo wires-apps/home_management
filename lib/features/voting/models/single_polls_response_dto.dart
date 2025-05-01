@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:home_management/features/activity/voting/models/polls_response_dto.dart';
-import 'package:home_management/features/activity/voting/models/vote_response_dto.dart';
+import 'package:home_management/features/voting/models/polls_response_dto.dart';
+import 'package:home_management/features/voting/models/vote_response_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'single_polls_response_dto.g.dart';

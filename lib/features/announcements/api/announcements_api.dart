@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:home_management/api/base_api.dart';
+import 'package:home_management/features/announcements/models/announcement_delete_response_dto.dart';
 import 'package:home_management/features/announcements/models/announcement_dto.dart';
 import 'package:home_management/features/announcements/models/announcement_request_dto.dart';
+import 'package:home_management/features/announcements/models/announcement_single_dto.dart';
 
 class AnnouncementsApi extends BaseApi {
   const AnnouncementsApi({required super.dio});
@@ -15,10 +17,17 @@ class AnnouncementsApi extends BaseApi {
     );
   }
 
-  Future<Response<AnnouncementDto>> getAnnouncementById(int id) async {
+  Future<Response<AnnouncementSingleDto>> getAnnouncementById(int id) async {
     return callDioGet(
       path: '/api/announcements/$id',
-      getData: (json) => AnnouncementDto.fromJson(json),
+      getData: (json) => AnnouncementSingleDto.fromJson(json),
+    );
+  }
+
+  Future<Response<AnnouncementDeleteResponseDto>> deleteAnnouncementById(int id) async {
+    return callDioDelete(
+      path: '/api/announcements/$id',
+      getData: (json) => AnnouncementDeleteResponseDto.fromJson(json),
     );
   }
 

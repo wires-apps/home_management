@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
 import 'package:home_management/core/ui/app_text_style.dart';
@@ -21,18 +22,50 @@ class AnnouncementDetailsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           getIt<AnnouncementDetailsBloc>()..add(AnnouncementDetailsDataLoaded(announcementId: announcementId)),
-      child: Scaffold(
-        backgroundColor: AppColors.cE0DEDE,
-        appBar: AppBar(
-          leading: const BackButtonAppBarWidget(),
-          title: Text(
-            'Объявление №$announcementId',
-            style: AppTextStyle.style,
-          ),
-          backgroundColor: AppColors.cE0DEDE,
-          surfaceTintColor: AppColors.cE0DEDE,
+      child: MultiBlocListener(
+        listeners: [
+          BlocSuccessSnackBarListener<AnnouncementDetailsBloc>(),
+          BlocListener<AnnouncementDetailsBloc, AnnouncementDetailsState>(
+            listenWhen: (prev, curr) => prev.needToClose != curr.needToClose,
+            listener: (context, state) {
+              if (state.needToClose) {
+                context.router.maybePop(true);
+              }
+            },
+          )
+        ],
+        child: BlocBuilder<AnnouncementDetailsBloc, AnnouncementDetailsState>(
+          builder: (context, state) {
+            return Scaffold(
+              backgroundColor: AppColors.cE0DEDE,
+              appBar: AppBar(
+                leading: const BackButtonAppBarWidget(),
+                title: Text(
+                  'Объявление №$announcementId',
+                  style: AppTextStyle.style,
+                ),
+                backgroundColor: AppColors.cE0DEDE,
+                surfaceTintColor: AppColors.cE0DEDE,
+                actions: [
+                  state.deletable
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red.shade400,
+                              size: 30,
+                            ),
+                            onPressed: () => context.read<AnnouncementDetailsBloc>().add(AnnouncementDelete()),
+                          ),
+                        )
+                      : const SizedBox(),
+                ],
+              ),
+              body: const _Body(),
+            );
+          },
         ),
-        body: const _Body(),
       ),
     );
   }
@@ -51,13 +84,13 @@ class _Body extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Column(children: [
-              Gap(16),
+              const Gap(16),
               _TitleField(title: announcement?.title),
-              Gap(16),
+              const Gap(16),
               _MessageField(content: announcement?.content),
-              Gap(16),
+              const Gap(16),
               PhotoCarousel(photoUrls: announcement?.photos),
-              Gap(92),
+              const Gap(92),
             ]),
           ),
         );

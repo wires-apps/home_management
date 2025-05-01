@@ -74,7 +74,11 @@ class _AnnouncementItem extends StatelessWidget {
         splashColor: Colors.green.shade100,
         borderRadius: BorderRadius.circular(20),
         onTap: () {
-          context.pushRoute(AnnouncementDetailsRoute(announcementId: announcement.id));
+          context.pushRoute(AnnouncementDetailsRoute(announcementId: announcement.id)).then((value) {
+            if (value is bool && value) {
+              context.read<AnnouncementsBloc>().add(AnnouncementsDataLoaded());
+            }
+          });
         },
         child: Container(
           padding: const EdgeInsets.all(16),
@@ -82,7 +86,7 @@ class _AnnouncementItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.c0084EF),
+            border: Border.all(color: AppColors.c0084EF, width: 1.6),
           ),
           child: Text(
             announcement.title,

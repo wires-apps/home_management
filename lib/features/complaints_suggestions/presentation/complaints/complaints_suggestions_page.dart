@@ -68,22 +68,6 @@ void showComplaintDialog({
                     );
                   },
                 ),
-                const Gap(10),
-                ListTileWidget(
-                  icon: const Icon(
-                    Icons.lightbulb,
-                    color: Colors.yellowAccent,
-                    size: 30,
-                  ),
-                  title: S.of(context).complaints_suggestions_leave_suggestion,
-                  onTap: () {
-                    context.maybePop();
-                    hideBottomSheet();
-                    context.pushRoute(
-                      const SuggestionRoute(),
-                    );
-                  },
-                ),
               ],
             ),
           ),

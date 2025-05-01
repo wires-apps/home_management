@@ -35,7 +35,7 @@ class _SingleDropdownListState extends State<SingleDropdownList> {
         final items = state.items;
 
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.72,
+          height: MediaQuery.of(context).size.height * 0.30,
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
@@ -102,7 +102,7 @@ class _NotificationItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.c0084EF),
+            border: Border.all(color: AppColors.c0084EF, width: 1.6),
           ),
           child: Column(
             children: [

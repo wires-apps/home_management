@@ -6,10 +6,12 @@ class InfoSnackbar extends StatelessWidget {
     super.key,
     this.title,
     this.message,
+    this.color,
   });
 
   final String? title;
   final String? message;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,8 @@ class InfoSnackbar extends StatelessWidget {
     final message = this.message;
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: AppColors.c72A9E1.withOpacity(0.85), borderRadius: BorderRadius.circular(16)),
+      decoration:
+          BoxDecoration(color: color ?? AppColors.c72A9E1.withOpacity(0.85), borderRadius: BorderRadius.circular(16)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

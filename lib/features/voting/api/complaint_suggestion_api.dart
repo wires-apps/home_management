@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:home_management/api/base_api.dart';
-import 'package:home_management/features/activity/voting/models/polls_response_dto.dart';
-import 'package:home_management/features/activity/voting/models/polls_vote_response_dto.dart';
-import 'package:home_management/features/activity/voting/models/single_polls_response_dto.dart';
+import 'package:home_management/features/voting/models/polls_response_dto.dart';
+import 'package:home_management/features/voting/models/polls_vote_response_dto.dart';
+import 'package:home_management/features/voting/models/single_polls_response_dto.dart';
 
 class VoteApi extends BaseApi {
   const VoteApi(Dio dio) : super(dio: dio);

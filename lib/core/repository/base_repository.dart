@@ -16,12 +16,12 @@ mixin BaseRepository {
     try {
       final response = await getResponse.call();
       if (response.data != null) {
-        return Right(response.data!);
+        return Right(response.data as T);
       } else {
         return const Left(DefaultFailure());
       }
     } on DioException catch (e) {
-      final statusCode = e.response?.statusCode.toString() ?? ''; // на случий показа статус кода
+      final statusCode = e.response?.statusCode.toString() ?? '';
       talker.error("BaseRepository -> execute() -> on DioError: "
           "\nerror :${e.error}\nresponse: ${e.response}"
           "\n ${e.stackTrace}");

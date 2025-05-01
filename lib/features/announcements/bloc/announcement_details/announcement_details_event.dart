@@ -13,3 +13,5 @@ class AnnouncementDetailsDataLoaded extends AnnouncementDetailsEvent {
   @override
   List<Object?> get props => [announcementId];
 }
+
+class AnnouncementDelete extends AnnouncementDetailsEvent {}
