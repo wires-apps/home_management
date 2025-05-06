@@ -40,11 +40,7 @@ void showComplaintDialog({
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ListTileWidget(
-                  icon: const Icon(
-                    Icons.report,
-                    color: Colors.red,
-                    size: 30,
-                  ),
+                  icon: Icons.report,
                   title: S.of(context).complaints_suggestions_leave_complaint,
                   onTap: () {
                     context.maybePop();
@@ -56,11 +52,7 @@ void showComplaintDialog({
                 ),
                 const Gap(10),
                 ListTileWidget(
-                  icon: const Icon(
-                    Icons.list_alt,
-                    color: Colors.blue,
-                    size: 30,
-                  ),
+                  icon: Icons.list_alt,
                   title: S.of(context).complaints_suggestions_current_complaints,
                   onTap: () {
                     context.pushRoute(
@@ -85,18 +77,29 @@ class ListTileWidget extends StatelessWidget {
     required this.onTap,
   });
 
-  final Widget icon;
+  final IconData icon;
   final String title;
   final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      tileColor: AppColors.c9EC271,
+      tileColor: AppColors.c0084EF,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      leading: icon,
+      leading: Container(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.028),
+        decoration: BoxDecoration(
+          color: AppColors.cF5F5F5,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Icon(
+          icon,
+          color: AppColors.c2A569A,
+          size: 32,
+        ),
+      ),
       title: Text(
         title,
         style: const TextStyle(
