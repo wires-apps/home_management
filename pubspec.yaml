@@ -1,7 +1,7 @@
 name: home_management
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.3+4
+version: 1.0.5+6
 
 environment:
   sdk: '>=3.6.0 <4.0.0'
@@ -58,12 +58,12 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/icon/
+    - assets/icons/
 
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icon/ic_wires_home.png"
+  image_path: "assets/icons/ic_wires_home.png"
 
 
 flutter_intl:

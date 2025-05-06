@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_management/core/bloc/widgets/snackbar_listener.dart';
 import 'package:home_management/core/di/dependency_injection.dart';
 import 'package:home_management/core/res/app_colors.dart';
+import 'package:home_management/core/res/app_drawables.dart';
 import 'package:home_management/core/routes/router.dart';
 import 'package:home_management/core/ui/app_text_style.dart';
 import 'package:home_management/core/widgets/bottom_sheet/custom_bottom_sheet.dart';
+import 'package:home_management/core/widgets/svg_asset.dart';
 import 'package:home_management/features/complaints_suggestions/presentation/complaints/complaints_suggestions_page.dart';
 import 'package:home_management/features/home/bloc/home_bloc.dart';
 import 'package:home_management/features/home/presentation/notification_list.dart';
@@ -57,15 +59,17 @@ class MobileScreen extends StatelessWidget {
               backgroundColor: AppColors.cEDEDEC,
               key: _scaffoldKey,
               appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(98), // здесь задаёшь нужную высоту
+                preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.16),
                 child: AppBar(
                   elevation: 0,
                   centerTitle: true,
                   title: null,
                   flexibleSpace: SafeArea(
-                    child: Image.asset(
-                      'assets/icon/logo_wires_home.png',
-                      fit: BoxFit.cover,
+                    child: SvgAsset(
+                      drawable: AppDrawables.icWiresHome,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      color: AppColors.c2261C5,
                     ),
                   ),
                   backgroundColor: AppColors.cEDEDEC,
