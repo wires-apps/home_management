@@ -25,11 +25,6 @@ class NotificationsService {
     _isInitialized = true;
 
     // Разрешения на уведомления
-    await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       final notification = message.notification;
       final android = message.notification?.android;
